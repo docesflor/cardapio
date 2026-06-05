@@ -5,12 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doces Flor – Brigadeiros Artesanais | Jaraguá do Sul</title>
 <meta name="description" content="Brigadeiros artesanais tradicionais e gourmet. Encomendas para festas e eventos em Jaraguá do Sul e região. Peça pelo WhatsApp!">
+<link rel="canonical" href="https://docesflor.github.io/cardapio/">
+
+<!-- Open Graph / WhatsApp -->
 <meta property="og:title" content="Doces Flor – Brigadeiros Artesanais">
 <meta property="og:description" content="Brigadeiros tradicionais e gourmet feitos com carinho. Encomendas em Jaraguá do Sul e região!">
 <meta property="og:image" content="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
-<!-- Google tag (gtag.js) -->
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png">
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FoodEstablishment",
+  "name": "Doces Flor",
+  "description": "Brigadeiros artesanais tradicionais e gourmet em Jaraguá do Sul",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Jaraguá do Sul",
+    "addressRegion": "SC",
+    "addressCountry": "BR"
+  },
+  "telephone": "+5547992745896",
+  "servesCuisine": "Confeitaria Artesanal"
+}
+</script>
+
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4RVTWXSM8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -18,779 +44,775 @@
   gtag('js', new Date());
   gtag('config', 'G-Z4RVTWXSM8');
 </script>
-  <title>Doces Flor – Brigadeiros Artesanais | Jaraguá do Sul</title>
-<meta name="description" content="Brigadeiros artesanais tradicionais e gourmet. Encomendas para festas e eventos em Jaraguá do Sul e região. Peça pelo WhatsApp!">
 
-<!-- WhatsApp / redes sociais -->
-<meta property="og:title" content="Doces Flor – Brigadeiros Artesanais">
-<meta property="og:description" content="Brigadeiros tradicionais e gourmet feitos com carinho. Encomendas em Jaraguá do Sul e região!">
-<meta property="og:image" content="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_BR">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --brown-dark:   #2B1206;
-      --brown-mid:    #5C2A0E;
-      --brown-warm:   #8B4513;
-      --amber:        #E8943A;
-      --amber-light:  #F5B563;
-      --cream:        #FDF8F0;
-      --cream-dark:   #F0E6D3;
-      --green:        #4A7C59;
-      --white:        #FFFFFF;
-      --text-body:    #3D2010;
-      --shadow:       rgba(43,18,6,0.15);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background-color: var(--cream);
-      color: var(--text-body);
-      overflow-x: hidden;
-    }
-
-    /* ── HEADER ── */
-    header {
-      position: relative;
-      background: var(--brown-dark);
-      overflow: hidden;
-      padding: 0 0 3rem;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232,148,58,0.18) 0%, transparent 70%),
-        repeating-linear-gradient(
-          -45deg,
-          transparent 0px, transparent 18px,
-          rgba(255,255,255,0.02) 18px, rgba(255,255,255,0.02) 19px
-        );
-      pointer-events: none;
-    }
-
-    /* decorative botanical SVG lines */
-    header::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0; right: 0;
-      height: 60px;
-      background: var(--cream);
-      clip-path: ellipse(55% 100% at 50% 100%);
-    }
-
-    .header-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3.5rem 1.5rem 2rem;
-      gap: 1.25rem;
-    }
-
-    .logo-ring {
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      border: 3px solid var(--amber);
-      padding: 5px;
-      background: var(--brown-dark);
-      box-shadow: 0 0 0 1px rgba(232,148,58,0.3), 0 20px 50px rgba(0,0,0,0.5);
-      animation: floatLogo 4s ease-in-out infinite;
-    }
-
-    .logo-ring img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-    }
-
-    @keyframes floatLogo {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-8px); }
-    }
-
-    .header-title {
-      text-align: center;
-    }
-
-    .header-title h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 7vw, 4.5rem);
-      font-weight: 700;
-      color: var(--cream);
-      letter-spacing: 0.04em;
-      line-height: 1;
-    }
-
-    .header-title h1 span {
-      color: var(--amber);
-    }
-
-    .header-title p {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      color: var(--amber-light);
-      font-size: 1.15rem;
-      letter-spacing: 0.12em;
-      margin-top: 0.3rem;
-    }
-
-    .header-cta {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-
-    .btn-social {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.4rem;
-      border-radius: 50px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      letter-spacing: 0.02em;
-    }
-
-    .btn-social:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
-
-    .btn-whatsapp { background: #25D366; color: #fff; }
-    .btn-instagram {
-      background: linear-gradient(135deg, #f09433, #e6683c 30%, #dc2743 55%, #cc2366 78%, #bc1888);
-      color: #fff;
-    }
-
-    /* ── NAV TABS ── */
-    .nav-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      max-width: 480px;
-      margin: 2.5rem auto 0;
-      background: var(--cream-dark);
-      border-radius: 50px;
-      padding: 5px;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
-    }
-
-    .nav-tab {
-      flex: 1;
-      padding: 0.65rem 1.5rem;
-      border: none;
-      border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s;
-      background: transparent;
-      color: var(--brown-warm);
-    }
-
-    .nav-tab.active {
-      background: var(--brown-dark);
-      color: var(--amber-light);
-      box-shadow: 0 3px 10px var(--shadow);
-    }
-
-    /* ── MAIN ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 3rem 1.25rem 4rem;
-    }
-
-    .section { display: none; }
-    .section.visible { display: block; }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .section-header h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      color: var(--brown-dark);
-    }
-
-    .section-header .price-tag {
-      display: inline-block;
-      margin-top: 0.4rem;
-      background: var(--amber);
-      color: var(--white);
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.25rem 1rem;
-      border-radius: 50px;
-      letter-spacing: 0.05em;
-    }
-
-    .section-header .desc {
-      color: var(--brown-warm);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      font-style: italic;
-    }
-
-    .ornament {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 1rem auto;
-      max-width: 300px;
-    }
-
-    .ornament::before, .ornament::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--amber));
-    }
-    .ornament::after { background: linear-gradient(to left, transparent, var(--amber)); }
-
-    .ornament-icon { color: var(--amber); font-size: 1rem; }
-
-    /* ── GRID ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.75rem;
-    }
-
-    /* ── CARD ── */
-    .card {
-      background: var(--white);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 18px var(--shadow);
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(43,18,6,0.2);
-    }
-
-    .card-img-wrap {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1;
-      background: var(--cream-dark);
-      overflow: hidden;
-    }
-
-    .card-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s;
-      cursor: zoom-in;
-    }
-
-    .card:hover .card-img-wrap img { transform: scale(1.06); }
-
-    .card-img-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 0.4rem;
-      color: #bbb;
-    }
-
-    .card-img-placeholder svg { opacity: 0.4; }
-
-    .card-body {
-      padding: 1rem 1.1rem 1.3rem;
-      text-align: center;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 0.18rem 0.7rem;
-      border-radius: 50px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      margin-bottom: 0.45rem;
-    }
-
-    .badge-trad    { background: var(--brown-dark); color: var(--amber-light); }
-    .badge-gourmet { background: var(--amber);      color: var(--white); }
-
-    .card-body h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: var(--brown-dark);
-      line-height: 1.2;
-    }
-
-    /* ── MODAL ── */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(20,8,2,0.92);
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
-    }
-
-    .modal.active { display: flex; }
-
-    .modal-img {
-      max-width: min(88vw, 600px);
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 12px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      animation: zoomIn 0.25s ease;
-    }
-
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.88); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.5rem;
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 2rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .modal-close:hover { color: var(--amber); transform: rotate(90deg); }
-
-    .modal-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #fff;
-      border-radius: 50%;
-      width: 46px;
-      height: 46px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-nav:hover { background: var(--amber); border-color: var(--amber); }
-    .modal-prev { left: 1.25rem; }
-    .modal-next { right: 1.25rem; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--brown-dark);
-      color: var(--cream);
-      text-align: center;
-      padding: 3rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    footer::before {
-      content: '';
-      position: absolute;
-      top: -1px; left: 0; right: 0;
-      height: 60px;
-      background: var(--cream);
-      clip-path: ellipse(55% 100% at 50% 0%);
-    }
-
-    .footer-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    footer h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: var(--amber-light);
-      margin-bottom: 0.25rem;
-    }
-
-    footer p {
-      font-size: 0.85rem;
-      color: rgba(253,248,240,0.55);
-      margin-bottom: 1.25rem;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    footer small {
-      display: block;
-      margin-top: 2rem;
-      color: rgba(253,248,240,0.3);
-      font-size: 0.75rem;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 500px) {
-      .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-      .card-body h3 { font-size: 1.1rem; }
-      .modal-nav { display: none; }
-    }
-
-    /* ── CARRINHO ── */
-    .btn-adicionar {
-      display: block;
-      width: calc(100% - 2rem);
-      margin: 0 1rem 1rem;
-      padding: 0.5rem;
-      background: var(--amber);
-      color: var(--white);
-      border: none;
-      border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-adicionar:hover { background: var(--brown-warm); transform: scale(1.03); }
-
-    .carrinho-fab {
-      position: fixed;
-      bottom: 1.75rem;
-      right: 1.75rem;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: var(--brown-dark);
-      border: 2px solid var(--amber);
-      color: var(--white);
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-      transition: transform 0.2s;
-      z-index: 1000;
-    }
-    .carrinho-fab:hover { transform: scale(1.1); }
-
-    .carrinho-count {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: var(--amber);
-      color: var(--white);
-      border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .carrinho-drawer {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--white);
-      border-radius: 24px 24px 0 0;
-      box-shadow: 0 -8px 40px rgba(0,0,0,0.2);
-      z-index: 2000;
-      padding: 1.5rem 1.5rem 2rem;
-      transform: translateY(100%);
-      transition: transform 0.35s ease;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    .carrinho-drawer.aberto { transform: translateY(0); }
-
-    .carrinho-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      z-index: 1999;
-      display: none;
-    }
-    .carrinho-overlay.visivel { display: block; }
-
-    .carrinho-titulo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--brown-dark);
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .carrinho-fechar {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--brown-warm);
-      line-height: 1;
-    }
-
-    .carrinho-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--cream-dark);
-      gap: 0.75rem;
-    }
-
-    .carrinho-item-nome {
-      flex: 1;
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--brown-dark);
-    }
-
-    .carrinho-item-tipo {
-      font-size: 0.72rem;
-      color: var(--brown-warm);
-      display: block;
-    }
-
-    .carrinho-item-qtd {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn-qtd {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1.5px solid var(--amber);
-      background: none;
-      color: var(--amber);
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-    }
-    .btn-qtd:hover { background: var(--amber); color: var(--white); }
-
-    .carrinho-item-qtd span {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--brown-dark);
-      min-width: 36px;
-      text-align: center;
-    }
-
-    .btn-remover-item {
-      background: none;
-      border: none;
-      color: #ccc;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: color 0.2s;
-      padding: 0 4px;
-    }
-    .btn-remover-item:hover { color: #e53935; }
-
-    .carrinho-total {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--brown-warm);
-      text-align: right;
-    }
-
-    .carrinho-total strong {
-      color: var(--brown-dark);
-      font-size: 1rem;
-    }
-
-    .btn-enviar-pedido {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      width: 100%;
-      margin-top: 1.25rem;
-      padding: 0.85rem;
-      background: #25D366;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      text-decoration: none;
-    }
-    .btn-enviar-pedido:hover { background: #1da851; transform: scale(1.02); }
-
-    .carrinho-vazio {
-      text-align: center;
-      color: var(--brown-warm);
-      font-size: 0.9rem;
-      padding: 2rem 0;
-      font-style: italic;
-    }
-
-    /* Modal de quantidade */
-    .qtd-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 3000;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-    .qtd-modal.active { display: flex; }
-
-    .qtd-box {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 1.75rem;
-      width: 90%;
-      max-width: 320px;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-
-    .qtd-box h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      color: var(--brown-dark);
-      margin-bottom: 0.25rem;
-    }
-
-    .qtd-box p {
-      font-size: 0.8rem;
-      color: var(--brown-warm);
-      margin-bottom: 1.25rem;
-    }
-
-    .qtd-opcoes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.6rem;
-      margin-bottom: 1rem;
-    }
-
-    .btn-qtd-opcao {
-      padding: 0.6rem;
-      border: 2px solid var(--cream-dark);
-      border-radius: 10px;
-      background: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--brown-dark);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-qtd-opcao:hover,
-    .btn-qtd-opcao.selecionado { border-color: var(--amber); background: var(--amber); color: var(--white); }
-
-    .qtd-personalizada {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .qtd-personalizada input {
-      flex: 1;
-      padding: 0.5rem 0.75rem;
-      border: 2px solid var(--cream-dark);
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--brown-dark);
-      text-align: center;
-    }
-    .qtd-personalizada input:focus {
-      outline: none;
-      border-color: var(--amber);
-    }
-
-    .qtd-personalizada label {
-      font-size: 0.78rem;
-      color: var(--brown-warm);
-      white-space: nowrap;
-    }
-
-    .btn-confirmar-qtd {
-      width: 100%;
-      padding: 0.7rem;
-      background: var(--brown-dark);
-      color: var(--amber-light);
-      border: none;
-      border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-confirmar-qtd:hover { background: var(--brown-mid); }
-
-    .btn-cancelar-qtd {
-      width: 100%;
-      padding: 0.5rem;
-      background: none;
-      border: none;
-      color: var(--brown-warm);
-      font-size: 0.82rem;
-      cursor: pointer;
-      margin-top: 0.5rem;
-    }
-
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --brown-dark:   #2B1206;
+    --brown-mid:    #5C2A0E;
+    --brown-warm:   #8B4513;
+    --amber:        #E8943A;
+    --amber-light:  #F5B563;
+    --cream:        #FDF8F0;
+    --cream-dark:   #F0E6D3;
+    --green:        #4A7C59;
+    --white:        #FFFFFF;
+    --text-body:    #3D2010;
+    --shadow:       rgba(43,18,6,0.15);
+    --red:          #e53935;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--text-body);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    background: var(--brown-dark);
+    overflow: hidden;
+    padding: 0 0 3rem;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232,148,58,0.18) 0%, transparent 70%),
+      repeating-linear-gradient(-45deg, transparent 0px, transparent 18px, rgba(255,255,255,0.02) 18px, rgba(255,255,255,0.02) 19px);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0; right: 0;
+    height: 60px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .header-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3.5rem 1.5rem 2rem;
+    gap: 1.25rem;
+  }
+  .logo-ring {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 3px solid var(--amber);
+    padding: 5px;
+    background: var(--brown-dark);
+    box-shadow: 0 0 0 1px rgba(232,148,58,0.3), 0 20px 50px rgba(0,0,0,0.5);
+    animation: floatLogo 4s ease-in-out infinite;
+  }
+  .logo-ring img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+  .header-title { text-align: center; }
+  .header-title h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .header-title h1 span { color: var(--amber); }
+  .header-title p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--amber-light);
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+    margin-top: 0.3rem;
+  }
+  .header-cta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .btn-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn-social:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
+  .btn-whatsapp { background: #25D366; color: #fff; }
+  .btn-instagram {
+    background: linear-gradient(135deg, #f09433, #e6683c 30%, #dc2743 55%, #cc2366 78%, #bc1888);
+    color: #fff;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 480px;
+    margin: 2.5rem auto 0;
+    background: var(--cream-dark);
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .nav-tab {
+    flex: 1;
+    padding: 0.65rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: transparent;
+    color: var(--brown-warm);
+  }
+  .nav-tab.active {
+    background: var(--brown-dark);
+    color: var(--amber-light);
+    box-shadow: 0 3px 10px var(--shadow);
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 4rem;
+  }
+  .section { display: none; }
+  .section.visible { display: block; }
+  .section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--brown-dark);
+  }
+  .section-header .price-tag {
+    display: inline-block;
+    margin-top: 0.4rem;
+    background: var(--amber);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+  }
+  .section-header .desc {
+    color: var(--brown-warm);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem auto;
+    max-width: 300px;
+  }
+  .ornament::before, .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--amber));
+  }
+  .ornament::after { background: linear-gradient(to left, transparent, var(--amber)); }
+  .ornament-icon { color: var(--amber); font-size: 1rem; }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.75rem;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(43,18,6,0.2);
+  }
+  .card-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--cream-dark);
+    overflow: hidden;
+  }
+  .card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+    cursor: zoom-in;
+  }
+  .card:hover .card-img-wrap img { transform: scale(1.06); }
+  .card-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: #bbb;
+  }
+  .card-img-placeholder svg { opacity: 0.4; }
+  .card-body {
+    padding: 1rem 1.1rem 1.3rem;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.18rem 0.7rem;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .badge-trad    { background: var(--brown-dark); color: var(--amber-light); }
+  .badge-gourmet { background: var(--amber);      color: var(--white); }
+  .card-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--brown-dark);
+    line-height: 1.2;
+  }
+
+  /* ── MODAL ── */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(20,8,2,0.92);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal.active { display: flex; }
+  .modal-img {
+    max-width: min(88vw, 600px);
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    animation: zoomIn 0.25s ease;
+  }
+  @keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .modal-close:hover { color: var(--amber); transform: rotate(90deg); }
+  .modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-nav:hover { background: var(--amber); border-color: var(--amber); }
+  .modal-prev { left: 1.25rem; }
+  .modal-next { right: 1.25rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--brown-dark);
+    color: var(--cream);
+    text-align: center;
+    padding: 3rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 0; right: 0;
+    height: 60px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 0%);
+  }
+  .footer-inner { position: relative; z-index: 1; }
+  footer h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--amber-light);
+    margin-bottom: 0.25rem;
+  }
+  footer p {
+    font-size: 0.85rem;
+    color: rgba(253,248,240,0.55);
+    margin-bottom: 1.25rem;
+  }
+  .footer-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  footer small {
+    display: block;
+    margin-top: 2rem;
+    color: rgba(253,248,240,0.3);
+    font-size: 0.75rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .card-body h3 { font-size: 1.1rem; }
+    .modal-nav { display: none; }
+  }
+
+  /* ── CARRINHO ── */
+  .btn-adicionar {
+    display: block;
+    width: calc(100% - 2rem);
+    margin: 0 1rem 1rem;
+    padding: 0.5rem;
+    background: var(--amber);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-adicionar:hover { background: var(--brown-warm); transform: scale(1.03); }
+
+  .carrinho-fab {
+    position: fixed;
+    bottom: 1.75rem;
+    right: 1.75rem;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--brown-dark);
+    border: 2px solid var(--amber);
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    transition: transform 0.2s;
+    z-index: 1000;
+  }
+  .carrinho-fab:hover { transform: scale(1.1); }
+  .carrinho-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--amber);
+    color: var(--white);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carrinho-drawer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.2);
+    z-index: 2000;
+    padding: 1.5rem 1.5rem 2rem;
+    transform: translateY(100%);
+    transition: transform 0.35s ease;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .carrinho-drawer.aberto { transform: translateY(0); }
+  .carrinho-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1999;
+    display: none;
+  }
+  .carrinho-overlay.visivel { display: block; }
+  .carrinho-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .carrinho-fechar {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--brown-warm);
+    line-height: 1;
+  }
+  .carrinho-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--cream-dark);
+    gap: 0.75rem;
+  }
+  .carrinho-item-nome {
+    flex: 1;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--brown-dark);
+  }
+  .carrinho-item-tipo {
+    font-size: 0.72rem;
+    color: var(--brown-warm);
+    display: block;
+  }
+  .carrinho-item-qtd {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-qtd {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--amber);
+    background: none;
+    color: var(--amber);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .btn-qtd:hover { background: var(--amber); color: var(--white); }
+  .carrinho-item-qtd span {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    min-width: 36px;
+    text-align: center;
+  }
+  .btn-remover-item {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 4px;
+  }
+  .btn-remover-item:hover { color: var(--red); }
+
+  /* Resumo do carrinho */
+  .carrinho-resumo {
+    margin-top: 1rem;
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--cream-dark);
+  }
+  .carrinho-resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--brown-warm);
+    padding: 0.2rem 0;
+  }
+  .carrinho-resumo-linha.total {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    border-top: 1px solid var(--cream-dark);
+    margin-top: 0.5rem;
+    padding-top: 0.6rem;
+  }
+  .carrinho-resumo-linha.economia {
+    color: var(--green);
+    font-weight: 600;
+  }
+  .carrinho-resumo-nota {
+    font-size: 0.72rem;
+    color: var(--brown-warm);
+    font-style: italic;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  .btn-limpar-carrinho {
+    background: none;
+    border: 1px solid #ddd;
+    color: #aaa;
+    font-size: 0.78rem;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    border-radius: 50px;
+    padding: 0.3rem 0.9rem;
+    margin-top: 0.75rem;
+    transition: all 0.2s;
+    display: block;
+    margin-left: auto;
+  }
+  .btn-limpar-carrinho:hover { border-color: var(--red); color: var(--red); }
+
+  .btn-enviar-pedido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.85rem;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .btn-enviar-pedido:hover { background: #1da851; transform: scale(1.02); }
+  .carrinho-vazio {
+    text-align: center;
+    color: var(--brown-warm);
+    font-size: 0.9rem;
+    padding: 2rem 0;
+    font-style: italic;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--brown-dark);
+    color: var(--amber-light);
+    padding: 0.65rem 1.4rem;
+    border-radius: 50px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    z-index: 5000;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast.erro {
+    background: var(--red);
+    color: white;
+  }
+
+  /* Modal de quantidade */
+  .qtd-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .qtd-modal.active { display: flex; }
+  .qtd-box {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 1.75rem;
+    width: 90%;
+    max-width: 320px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .qtd-box h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--brown-dark);
+    margin-bottom: 0.25rem;
+  }
+  .qtd-box p {
+    font-size: 0.8rem;
+    color: var(--brown-warm);
+    margin-bottom: 1.25rem;
+  }
+  .qtd-opcoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .btn-qtd-opcao {
+    padding: 0.6rem;
+    border: 2px solid var(--cream-dark);
+    border-radius: 10px;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--brown-dark);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-qtd-opcao:hover,
+  .btn-qtd-opcao.selecionado { border-color: var(--amber); background: var(--amber); color: var(--white); }
+  .qtd-personalizada {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .qtd-personalizada input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid var(--cream-dark);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--brown-dark);
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .qtd-personalizada input:focus { outline: none; border-color: var(--amber); }
+  .qtd-personalizada input.input-erro { border-color: var(--red); }
+  .qtd-personalizada label {
+    font-size: 0.78rem;
+    color: var(--brown-warm);
+    white-space: nowrap;
+  }
+  .msg-erro-qtd {
+    font-size: 0.78rem;
+    color: var(--red);
+    margin: -0.75rem 0 0.75rem;
+    min-height: 1.1rem;
+    text-align: left;
+  }
+  .btn-confirmar-qtd {
+    width: 100%;
+    padding: 0.7rem;
+    background: var(--brown-dark);
+    color: var(--amber-light);
+    border: none;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-confirmar-qtd:hover { background: var(--brown-mid); }
+  .btn-cancelar-qtd {
+    width: 100%;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--brown-warm);
+    font-size: 0.82rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+
+  /* Combo badge */
+  .combo-badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: 50px;
+    letter-spacing: 0.05em;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+  }
+</style>
 </head>
 <body>
 
@@ -799,7 +821,9 @@
   <div class="header-inner">
     <div class="logo-ring">
       <img src="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png"
-           alt="Logo Doces Flor"
+           alt="Logo Doces Flor — Brigadeiros Artesanais em Jaraguá do Sul"
+           width="230" height="230"
+           fetchpriority="high"
            onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:var(--amber);font-family:Cormorant Garamond,serif;font-size:3rem;font-weight:700;color:var(--brown-dark)\'>DF</div>'">
     </div>
     <div class="header-title">
@@ -807,18 +831,19 @@
       <p>Doces Artesanais</p>
     </div>
     <div class="header-cta">
-      <a href="https://wa.me/5547992745896?text=Olá! Gostaria de fazer um pedido de doces." target="_blank" class="btn-social btn-whatsapp">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <a href="https://wa.me/5547992745896?text=Olá! Gostaria de fazer um pedido de doces." target="_blank" class="btn-social btn-whatsapp"
+         onclick="gtag('event','click_whatsapp',{local:'header'})">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp
       </a>
-      <a href="https://www.instagram.com/docesflorjgs/" target="_blank" class="btn-social btn-instagram">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      <a href="https://www.instagram.com/docesflorjgs/" target="_blank" class="btn-social btn-instagram"
+         onclick="gtag('event','click_instagram',{local:'header'})">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         Instagram
       </a>
     </div>
   </div>
 
-  <!-- NAV TABS -->
   <div class="nav-tabs">
     <button class="nav-tab active" data-section="tradicionais">Tradicionais</button>
     <button class="nav-tab" data-section="gourmet">Gourmet</button>
@@ -834,7 +859,7 @@
     <div class="section-header">
       <h2>Tradicionais</h2>
       <div class="ornament"><span class="ornament-icon">✦</span></div>
-      <span class="price-tag">Caixa com 100 unidades · R$ 125,00</span>
+      <span class="price-tag">Cento (100 un) · R$ 110,00 · Caixa 50 un · R$ 60,00</span>
       <p class="desc">Sabores clássicos feitos com carinho</p>
     </div>
     <div class="grid" id="grid-trad"></div>
@@ -845,95 +870,104 @@
     <div class="section-header">
       <h2>Gourmet</h2>
       <div class="ornament"><span class="ornament-icon">✦</span></div>
-      <span class="price-tag">Caixa com 100 unidades · R$ 150,00</span>
+      <span class="price-tag">Cento (100 un) · R$ 140,00 · Caixa 50 un · R$ 80,00</span>
       <p class="desc">Combinações sofisticadas e irresistíveis</p>
     </div>
     <div class="grid" id="grid-gourmet"></div>
   </section>
 
   <!-- COMO PEDIR -->
-<section id="como-pedir" class="section">
-  <div class="section-header">
-    <h2>Como Pedir</h2>
-    <div class="ornament"><span class="ornament-icon">✦</span></div>
-    <p class="desc">Simples, rápido e com muito carinho</p>
-  </div>
-
-  <!-- PASSO A PASSO -->
-  <div style="max-width:560px;margin:0 auto 3rem;">
-
-    <div style="display:flex;flex-direction:column;gap:1.25rem;">
-
-      <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
-        <div style="min-width:42px;height:42px;border-radius:50%;background:var(--amber);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">1</div>
-        <div>
-          <p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Escolha os sabores</p>
-          <p style="font-size:0.85rem;color:var(--brown-warm);">Navegue pelo cardápio, adicione os sabores e quantidades desejadas no carrinho.</p>
-        </div>
-      </div>
-
-      <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
-        <div style="min-width:42px;height:42px;border-radius:50%;background:var(--amber);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">2</div>
-        <div>
-          <p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Envie pelo WhatsApp</p>
-          <p style="font-size:0.85rem;color:var(--brown-warm);">Clique em "Enviar pedido no WhatsApp" — a mensagem já vem pronta com tudo que escolheu.</p>
-        </div>
-      </div>
-
-      <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
-        <div style="min-width:42px;height:42px;border-radius:50%;background:var(--amber);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">3</div>
-        <div>
-          <p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Confirme e aguarde</p>
-          <p style="font-size:0.85rem;color:var(--brown-warm);">Combinamos data, entrega ou retirada e forma de pagamento. Prazo mínimo de 48h.</p>
-        </div>
-      </div>
-
-      <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
-        <div style="min-width:42px;height:42px;border-radius:50%;background:var(--green);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">🍫</div>
-        <div>
-          <p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Aproveite!</p>
-          <p style="font-size:0.85rem;color:var(--brown-warm);">Seus brigadeiros chegam fresquinhos e feitos com muito amor. ♥</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- TABELA DE PREÇOS -->
-  <div style="max-width:560px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:1.5rem;">
-      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--brown-dark);">Tabela de Preços</h3>
+  <section id="como-pedir" class="section">
+    <div class="section-header">
+      <h2>Como Pedir</h2>
       <div class="ornament"><span class="ornament-icon">✦</span></div>
-      <p style="font-size:0.85rem;color:var(--brown-warm);font-style:italic;">Preços em atualização — consulte pelo WhatsApp</p>
+      <p class="desc">Simples, rápido e com muito carinho</p>
     </div>
 
-    <div style="background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);">
+    <div style="max-width:560px;margin:0 auto 3rem;">
+      <div style="display:flex;flex-direction:column;gap:1.25rem;">
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
+          <div style="min-width:42px;height:42px;border-radius:50%;background:var(--amber);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">1</div>
+          <div><p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Escolha os sabores</p><p style="font-size:0.85rem;color:var(--brown-warm);">Navegue pelo cardápio, adicione os sabores e quantidades desejadas no carrinho.</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
+          <div style="min-width:42px;height:42px;border-radius:50%;background:var(--amber);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">2</div>
+          <div><p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Envie pelo WhatsApp</p><p style="font-size:0.85rem;color:var(--brown-warm);">Clique em "Enviar pedido no WhatsApp" — a mensagem já vem pronta com tudo que escolheu.</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
+          <div style="min-width:42px;height:42px;border-radius:50%;background:var(--amber);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">3</div>
+          <div><p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Confirme e aguarde</p><p style="font-size:0.85rem;color:var(--brown-warm);">Combinamos data, entrega ou retirada e forma de pagamento. Prazo mínimo de 48h.</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border-radius:16px;padding:1.25rem;box-shadow:0 4px 18px var(--shadow);">
+          <div style="min-width:42px;height:42px;border-radius:50%;background:var(--green);color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;">🍫</div>
+          <div><p style="font-weight:600;color:var(--brown-dark);margin-bottom:0.2rem;">Aproveite!</p><p style="font-size:0.85rem;color:var(--brown-warm);">Seus brigadeiros chegam fresquinhos e feitos com muito amor. ♥</p></div>
+        </div>
+      </div>
+    </div>
 
-      <!-- Cabeçalho -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--brown-dark);padding:0.75rem 1.25rem;text-align:center;">
-        <span style="font-size:0.78rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">QUANTIDADE</span>
-        <span style="font-size:0.78rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">TRADICIONAL</span>
-        <span style="font-size:0.78rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">GOURMET</span>
+    <!-- TABELA DE PREÇOS -->
+    <div style="max-width:620px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--brown-dark);">Tabela de Preços</h3>
+        <div class="ornament"><span class="ornament-icon">✦</span></div>
       </div>
 
-      <!-- Linhas -->
-      <div id="tabelaPrecos"></div>
+      <!-- Preços base -->
+      <div style="background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);margin-bottom:1.25rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;background:var(--brown-dark);padding:0.75rem 1.25rem;text-align:center;">
+          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">QUANTIDADE</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">TRADICIONAL</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">GOURMET</span>
+          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">UN. AVULSA</span>
+        </div>
+        <div id="tabelaPrecos"></div>
+      </div>
 
+      <!-- Combos mistos -->
+      <div style="background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);margin-bottom:1.25rem;">
+        <div style="background:var(--green);padding:0.75rem 1.25rem;text-align:center;">
+          <span style="font-size:0.78rem;font-weight:700;color:white;letter-spacing:0.08em;">🎁 COMBOS MISTOS — ECONOMIA GARANTIDA</span>
+        </div>
+        <div style="padding:0.5rem 0;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;background:var(--cream);text-align:center;">
+            <span style="font-size:0.72rem;font-weight:600;color:var(--brown-warm);letter-spacing:0.04em;">COMBO</span>
+            <span style="font-size:0.72rem;font-weight:600;color:var(--brown-warm);letter-spacing:0.04em;">VALOR</span>
+            <span style="font-size:0.72rem;font-weight:600;color:var(--green);letter-spacing:0.04em;">ECONOMIA</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;border-bottom:1px solid var(--cream-dark);">
+            <div style="text-align:left;">
+              <span style="font-size:0.88rem;font-weight:600;color:var(--brown-dark);">Caixa Mista 50 un</span>
+              <span style="display:block;font-size:0.72rem;color:var(--brown-warm);">25 Trad + 25 Gourmet</span>
+            </div>
+            <span style="font-size:0.95rem;font-weight:700;color:var(--brown-dark);display:flex;align-items:center;justify-content:center;">R$ 70,00</span>
+            <span style="font-size:0.88rem;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;">- R$ 10,00</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;">
+            <div style="text-align:left;">
+              <span style="font-size:0.88rem;font-weight:600;color:var(--brown-dark);">Cento Misto 100 un</span>
+              <span style="display:block;font-size:0.72rem;color:var(--brown-warm);">50 Trad + 50 Gourmet</span>
+            </div>
+            <span style="font-size:0.95rem;font-weight:700;color:var(--brown-dark);display:flex;align-items:center;justify-content:center;">R$ 125,00</span>
+            <span style="font-size:0.88rem;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;">- R$ 15,00</span>
+          </div>
+        </div>
+        <div style="padding:0 1.25rem 0.75rem;font-size:0.75rem;color:var(--brown-warm);font-style:italic;text-align:center;">
+          * Cento Misto pode ser dividido em até 4 sabores (2 de cada categoria)
+        </div>
+      </div>
+
+      <p style="text-align:center;font-size:0.78rem;color:var(--brown-warm);margin-top:0.5rem;margin-bottom:1.5rem;font-style:italic;">
+        * Quantidade mínima: 25 unidades por sabor
+      </p>
+
+      <a href="https://wa.me/5547992745896?text=Olá! Gostaria de fazer um pedido de brigadeiros."
+         target="_blank" class="btn-enviar-pedido"
+         onclick="gtag('event','click_whatsapp',{local:'tabela_precos'})">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Fazer pedido pelo WhatsApp
+      </a>
     </div>
-
-    <p style="text-align:center;font-size:0.78rem;color:var(--brown-warm);margin-top:1rem;font-style:italic;">
-      * Quantidade mínima: 25 unidades por sabor
-    </p>
-
-    <!-- CTA -->
-    <a href="https://wa.me/5547992745896?text=Olá! Gostaria de fazer um pedido de brigadeiros." 
-       target="_blank" class="btn-enviar-pedido" style="margin-top:1.5rem;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Fazer pedido pelo WhatsApp
-    </a>
-  </div>
-</section>
-
+  </section>
 </main>
 
 <!-- FOOTER -->
@@ -942,12 +976,14 @@
     <h3>Faça seu pedido</h3>
     <p>Encomendas com antecedência · Entrega em Jaraguá do Sul e região</p>
     <div class="footer-links">
-      <a href="https://wa.me/5547992745896?text=Olá! Gostaria de fazer um pedido de doces." target="_blank" class="btn-social btn-whatsapp">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <a href="https://wa.me/5547992745896?text=Olá! Gostaria de fazer um pedido de doces." target="_blank" class="btn-social btn-whatsapp"
+         onclick="gtag('event','click_whatsapp',{local:'footer'})">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         (47) 9 9274-5896
       </a>
-      <a href="https://www.instagram.com/docesflorjgs/" target="_blank" class="btn-social btn-instagram">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      <a href="https://www.instagram.com/docesflorjgs/" target="_blank" class="btn-social btn-instagram"
+         onclick="gtag('event','click_instagram',{local:'footer'})">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         @docesflorjgs
       </a>
     </div>
@@ -955,79 +991,174 @@
   </div>
 </footer>
 
-<!-- MODAL -->
-<div id="imageModal" class="modal" role="dialog" aria-modal="true">
+<!-- MODAL IMAGEM -->
+<div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-label="Visualizar imagem">
   <button class="modal-close" onclick="closeModal()" aria-label="Fechar">×</button>
-  <button class="modal-nav modal-prev" onclick="prevImage()" aria-label="Anterior">&#8249;</button>
-  <img class="modal-img" id="modalImage" src="" alt="Foto do doce">
-  <button class="modal-nav modal-next" onclick="nextImage()" aria-label="Próxima">&#8250;</button>
+  <button class="modal-nav modal-prev" onclick="prevImage()" aria-label="Imagem anterior">&#8249;</button>
+  <img class="modal-img" id="modalImage" src="" alt="Foto do brigadeiro">
+  <button class="modal-nav modal-next" onclick="nextImage()" aria-label="Próxima imagem">&#8250;</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<!-- CARRINHO FAB -->
+<button class="carrinho-fab" id="carrinhoFab" onclick="abrirCarrinho()" style="display:none;" aria-label="Ver carrinho">
+  🛒
+  <span class="carrinho-count" id="carrinhoCount">0</span>
+</button>
+
+<!-- OVERLAY -->
+<div class="carrinho-overlay" id="carrinhoOverlay" onclick="fecharCarrinho()"></div>
+
+<!-- DRAWER -->
+<div class="carrinho-drawer" id="carrinhoDrawer" role="dialog" aria-modal="true" aria-label="Seu pedido">
+  <div class="carrinho-titulo">
+    🛒 Seu pedido
+    <button class="carrinho-fechar" onclick="fecharCarrinho()" aria-label="Fechar carrinho">×</button>
+  </div>
+  <div id="carrinhoItens"></div>
+  <div id="carrinhoResumo"></div>
+  <button class="btn-enviar-pedido" id="btnEnviarPedido" onclick="enviarPedidoWhatsApp()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Enviar pedido no WhatsApp
+  </button>
+</div>
+
+<!-- MODAL QUANTIDADE -->
+<div class="qtd-modal" id="qtdModal" role="dialog" aria-modal="true" aria-labelledby="qtdModalNome">
+  <div class="qtd-box">
+    <h4 id="qtdModalNome"></h4>
+    <p>Quantidade mínima: 25 unidades por sabor</p>
+    <div class="qtd-opcoes">
+      <button class="btn-qtd-opcao" onclick="selecionarQtd(25)">25</button>
+      <button class="btn-qtd-opcao" onclick="selecionarQtd(50)">50</button>
+      <button class="btn-qtd-opcao" onclick="selecionarQtd(75)">75</button>
+      <button class="btn-qtd-opcao" onclick="selecionarQtd(100)">100</button>
+      <button class="btn-qtd-opcao" onclick="selecionarQtd(150)">150</button>
+      <button class="btn-qtd-opcao" onclick="selecionarQtd(200)">200</button>
+    </div>
+    <div class="qtd-personalizada">
+      <label for="qtdCustom">Outra:</label>
+      <input type="number" id="qtdCustom" min="25" step="25" placeholder="ex: 125"
+             oninput="limparErroQtd()" aria-label="Quantidade personalizada">
+    </div>
+    <div class="msg-erro-qtd" id="msgErroQtd"></div>
+    <button class="btn-confirmar-qtd" onclick="confirmarQtd()">Adicionar ao pedido</button>
+    <button class="btn-cancelar-qtd" onclick="fecharQtdModal()">Cancelar</button>
+  </div>
 </div>
 
 <script>
-  /* ── DATA ── */
-  const BASE = 'https://raw.githubusercontent.com/docesflor/cardapio/main/';
+/* ── DADOS ── */
+const BASE = 'https://raw.githubusercontent.com/docesflor/cardapio/main/';
 
-  const trads = [
-    { nome: 'Amendoim',    foto: BASE + 'amendoim.png' },
-    { nome: 'Beijinho',    foto: BASE + 'beijinho.png' },
-    { nome: 'Brigadeiro',  foto: BASE + 'brigadeiro.png' },
-    { nome: 'Café',        foto: BASE + 'cafe.png' },    
-    { nome: 'Dois Amores', foto: BASE + 'dois-amores.png' },
-    { nome: 'Leite Ninho', foto: BASE + 'leite-ninho.png' },
-    { nome: 'Limão',       foto: BASE + 'limao.png' },
-    { nome: 'Moranguinho', foto: BASE + 'moranguinho.png' },
-    { nome: 'Sensação',    foto: BASE + 'sensacao.png' },
-  ];
+const trads = [
+  { nome: 'Amendoim',    foto: BASE + 'amendoim.png' },
+  { nome: 'Beijinho',    foto: BASE + 'beijinho.png' },
+  { nome: 'Brigadeiro',  foto: BASE + 'brigadeiro.png' },
+  { nome: 'Café',        foto: BASE + 'cafe.png' },
+  { nome: 'Dois Amores', foto: BASE + 'dois-amores.png' },
+  { nome: 'Leite Ninho', foto: BASE + 'leite-ninho.png' },
+  { nome: 'Limão',       foto: BASE + 'limao.png' },
+  { nome: 'Moranguinho', foto: BASE + 'moranguinho.png' },
+  { nome: 'Sensação',    foto: BASE + 'sensacao.png' },
+];
 
-  const gourmets = [
-    { nome: 'Chocolate Gourmet',       foto: BASE + 'chocolate-gourmet.png' },
-    { nome: 'Confete',                 foto: BASE + 'confete.png' },
-    { nome: 'Churros',                 foto: BASE + 'churros.png' },    
-    { nome: 'Delícia de Uva',          foto: BASE + 'uva.png' },
-    { nome: 'Ferrero Rocher',          foto: BASE + 'ferrero.png' },    
-    { nome: 'Leite Ninho com Nutella', foto: BASE + 'leite-ninho-nutella.png' },
-    { nome: 'Negresco',                foto: BASE + 'negresco.png' },    
-    { nome: 'Ovomaltine',              foto: BASE + 'ovomaltine.png' },
-    { nome: 'Prestígio',               foto: BASE + 'prestigio.png' },
-    
-  ];
+const gourmets = [
+  { nome: 'Chocolate Gourmet',       foto: BASE + 'chocolate-gourmet.png' },
+  { nome: 'Confete',                 foto: BASE + 'confete.png' },
+  { nome: 'Churros',                 foto: BASE + 'churros.png' },
+  { nome: 'Delícia de Uva',          foto: BASE + 'uva.png' },
+  { nome: 'Ferrero Rocher',          foto: BASE + 'ferrero.png' },
+  { nome: 'Leite Ninho com Nutella', foto: BASE + 'leite-ninho-nutella.png' },
+  { nome: 'Negresco',                foto: BASE + 'negresco.png' },
+  { nome: 'Ovomaltine',              foto: BASE + 'ovomaltine.png' },
+  { nome: 'Prestígio',               foto: BASE + 'prestigio.png' },
+];
 
-  /* ── TABELA DE PREÇOS ── */
-const precos = [
-  { qtd: 25,  trad: 'Consultar', gourmet: 'Consultar' },
-  { qtd: 50,  trad: 'Consultar', gourmet: 'Consultar' },
-  { qtd: 75,  trad: 'Consultar', gourmet: 'Consultar' },
-  { qtd: 100, trad: 'Consultar', gourmet: 'Consultar' },
-  { qtd: 150, trad: 'Consultar', gourmet: 'Consultar' },
-  { qtd: 200, trad: 'Consultar', gourmet: 'Consultar' },
+/* ── TABELA DE PREÇOS ── */
+const PRECOS = {
+  trad:   { 25: 35, 50: 60, 75: 82.50, 100: 110 },
+  gourmet:{ 25: 45, 50: 80, 75: 105,   100: 140 },
+  avulsa: { trad: 1.50, gourmet: 2.00 }
+};
+
+const linhasTabela = [
+  { label: 'Unidade Avulsa', trad: 'R$ 1,50',   gourmet: 'R$ 2,00',   avulsa: '—' },
+  { label: 'Caixa 25 un.',   trad: 'R$ 35,00',  gourmet: 'R$ 45,00',  avulsa: 'R$ 1,40 / R$ 1,80' },
+  { label: 'Caixa 50 un.',   trad: 'R$ 60,00',  gourmet: 'R$ 80,00',  avulsa: 'R$ 1,20 / R$ 1,60' },
+  { label: 'Cento (100 un)', trad: 'R$ 110,00', gourmet: 'R$ 140,00', avulsa: 'R$ 1,10 / R$ 1,40' },
 ];
 
 const tabelaEl = document.getElementById('tabelaPrecos');
-precos.forEach((linha, idx) => {
+linhasTabela.forEach((linha, idx) => {
   const div = document.createElement('div');
-  div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
+  div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
   div.innerHTML = `
-    <span style="font-weight:600;color:var(--brown-dark);font-size:0.9rem;">${linha.qtd} un</span>
-    <span style="color:var(--brown-warm);font-size:0.9rem;">${linha.trad}</span>
-    <span style="color:var(--brown-warm);font-size:0.9rem;">${linha.gourmet}</span>
+    <span style="font-weight:600;color:var(--brown-dark);font-size:0.88rem;text-align:left;">${linha.label}</span>
+    <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.trad}</span>
+    <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.gourmet}</span>
+    <span style="color:#aaa;font-size:0.78rem;">${linha.avulsa}</span>
   `;
   tabelaEl.appendChild(div);
 });
 
-  /* ── BUILD CARDS ── */
-  function buildCards(list, containerId, type) {
-    const container = document.getElementById(containerId);
-    list.forEach((item, i) => {
-      const fotos = Array.isArray(item.fotos) ? item.fotos : [item.foto];
-      const card = document.createElement('div');
-      card.className = 'card';
+/* ── CÁLCULO DE PREÇO ── */
+function calcularPrecoItem(tipo, qtd) {
+  const tabela = tipo === 'Tradicional' ? PRECOS.trad : PRECOS.gourmet;
+  // encontra a faixa de preço por unidade de acordo com a quantidade
+  let precoUn;
+  if      (qtd >= 100) precoUn = tabela[100] / 100;
+  else if (qtd >= 50)  precoUn = tabela[50]  / 50;
+  else if (qtd >= 25)  precoUn = tabela[25]  / 25;
+  else                 precoUn = PRECOS.avulsa[tipo === 'Tradicional' ? 'trad' : 'gourmet'];
+  return precoUn * qtd;
+}
+
+function calcularTotalCarrinho() {
+  const totalTrad    = carrinho.filter(i => i.tipo === 'Tradicional').reduce((s, i) => s + i.qtd, 0);
+  const totalGourmet = carrinho.filter(i => i.tipo === 'Gourmet').reduce((s, i) => s + i.qtd, 0);
+
+  // verifica combo misto
+  let economiaCombo = 0;
+  let labelCombo    = '';
+
+  if (totalTrad >= 50 && totalGourmet >= 50 && totalTrad % 50 === 0 && totalGourmet % 50 === 0) {
+    const pares = Math.min(Math.floor(totalTrad / 50), Math.floor(totalGourmet / 50));
+    economiaCombo = pares * 15;
+    labelCombo = `Cento Misto (${pares}x)`;
+  } else if (totalTrad >= 25 && totalGourmet >= 25 && totalTrad % 25 === 0 && totalGourmet % 25 === 0) {
+    const pares = Math.min(Math.floor(totalTrad / 25), Math.floor(totalGourmet / 25));
+    economiaCombo = pares * 10;
+    labelCombo = `Caixa Mista (${pares}x)`;
+  }
+
+  const subtotal = carrinho.reduce((s, i) => s + calcularPrecoItem(i.tipo, i.qtd), 0);
+  const total    = subtotal - economiaCombo;
+
+  return { subtotal, economiaCombo, total, labelCombo };
+}
+
+function fmtBRL(v) {
+  return 'R$ ' + v.toFixed(2).replace('.', ',');
+}
+
+/* ── BUILD CARDS ── */
+function buildCards(list, containerId, type) {
+  const container = document.getElementById(containerId);
+  list.forEach((item, i) => {
+    const fotos = Array.isArray(item.fotos) ? item.fotos : [item.foto];
+    const card  = document.createElement('div');
+    card.className = 'card';
 
     card.innerHTML = `
       <div class="card-img-wrap">
-        ${fotos[0] ? `<img src="${fotos[0]}" alt="${item.nome}" loading="lazy"
+        ${fotos[0] ? `<img src="${fotos[0]}" alt="Brigadeiro sabor ${item.nome} — Doces Flor"
+          width="300" height="300" loading="lazy"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
         <div class="card-img-placeholder" ${fotos[0] ? 'style="display:none"' : ''}>
-          <svg width="36" height="36" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24">
+          <svg width="36" height="36" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="3"/>
             <circle cx="8.5" cy="8.5" r="1.5"/>
             <path d="M21 15l-5-5L5 21"/>
@@ -1041,138 +1172,150 @@ precos.forEach((linha, idx) => {
       </div>
     `;
 
-    // Botão adicionar ao carrinho
     const btnAdd = document.createElement('button');
     btnAdd.className = 'btn-adicionar';
     btnAdd.textContent = '+ Adicionar ao pedido';
-    btnAdd.addEventListener('click', () => abrirQtdModal(item.nome, type));
+    btnAdd.addEventListener('click', () => {
+      gtag('event', 'add_to_cart', { item_name: item.nome, category: type });
+      abrirQtdModal(item.nome, type);
+    });
     card.querySelector('.card-body').appendChild(btnAdd);
 
     const imgEl = card.querySelector('.card-img-wrap img');
-    if (imgEl) {
-      imgEl.addEventListener('click', () => openModal(fotos[0], fotos));
-    }
+    if (imgEl) imgEl.addEventListener('click', () => openModal(fotos[0], fotos));
 
-      // animate in with delay
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, i * 60);
+
+    container.appendChild(card);
+  });
+}
+
+buildCards(trads,    'grid-trad',    'trad');
+buildCards(gourmets, 'grid-gourmet', 'gourmet');
+
+/* ── TABS ── */
+document.querySelectorAll('.nav-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.section;
+    gtag('event', 'nav_click', { section: target });
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.section').forEach(s => {
+      s.classList.toggle('visible', s.id === target);
+    });
+    document.querySelectorAll(`#${target} .card`).forEach((card, i) => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(20px)';
       setTimeout(() => {
-        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
-      }, i * 60);
-
-      container.appendChild(card);
-    });
-  }
-
-  buildCards(trads,   'grid-trad',    'trad');
-  buildCards(gourmets,'grid-gourmet', 'gourmet');
-
-  /* ── TABS ── */
-  document.querySelectorAll('.nav-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.section;
-      gtag('event', 'nav_click', { section: target });
-      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.section').forEach(s => {
-        s.classList.toggle('visible', s.id === target);
-      });
-      // re-trigger animations
-      document.querySelectorAll(`#${target} .card`).forEach((card, i) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, i * 50);
-      });
+      }, i * 50);
     });
   });
+});
 
-  /* ── MODAL ── */
-  let modalImages = [];
-  let modalIndex  = 0;
+/* ── MODAL IMAGEM ── */
+let modalImages = [], modalIndex = 0;
 
-  function openModal(src, fotos) {
-    modalImages = Array.isArray(fotos) ? fotos : [src];
-    modalIndex  = modalImages.indexOf(src);
-    if (modalIndex < 0) modalIndex = 0;
-    document.getElementById('modalImage').src = modalImages[modalIndex];
-    document.getElementById('imageModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+function openModal(src, fotos) {
+  modalImages = Array.isArray(fotos) ? fotos : [src];
+  modalIndex  = Math.max(0, modalImages.indexOf(src));
+  document.getElementById('modalImage').src = modalImages[modalIndex];
+  document.getElementById('imageModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('imageModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function prevImage() {
+  if (modalImages.length < 2) return;
+  modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
+  document.getElementById('modalImage').src = modalImages[modalIndex];
+}
+function nextImage() {
+  if (modalImages.length < 2) return;
+  modalIndex = (modalIndex + 1) % modalImages.length;
+  document.getElementById('modalImage').src = modalImages[modalIndex];
+}
+document.getElementById('imageModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape')     closeModal();
+  if (e.key === 'ArrowLeft')  prevImage();
+  if (e.key === 'ArrowRight') nextImage();
+});
 
-  function closeModal() {
-    document.getElementById('imageModal').classList.remove('active');
-    document.body.style.overflow = '';
-  }
+/* ── TOAST ── */
+let toastTimer;
+function showToast(msg, erro = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (erro ? ' erro' : '');
+  requestAnimationFrame(() => t.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
 
-  function prevImage() {
-    if (modalImages.length < 2) return;
-    modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
-    document.getElementById('modalImage').src = modalImages[modalIndex];
-  }
-
-  function nextImage() {
-    if (modalImages.length < 2) return;
-    modalIndex = (modalIndex + 1) % modalImages.length;
-    document.getElementById('modalImage').src = modalImages[modalIndex];
-  }
-
-  document.getElementById('imageModal').addEventListener('click', e => {
-    if (e.target === e.currentTarget) closeModal();
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape')     closeModal();
-    if (e.key === 'ArrowLeft')  prevImage();
-    if (e.key === 'ArrowRight') nextImage();
-  });
-
-  /* ── CARRINHO ── */
+/* ── CARRINHO ── */
 let carrinho = [];
-let itemPendente = null;
-let qtdSelecionada = 0;
+let itemPendente = null, qtdSelecionada = 0;
 
 function abrirQtdModal(nome, tipo) {
-  itemPendente = { nome, tipo: tipo === 'trad' ? 'Tradicional' : 'Gourmet' };
+  itemPendente  = { nome, tipo: tipo === 'trad' ? 'Tradicional' : 'Gourmet' };
   qtdSelecionada = 0;
   document.getElementById('qtdModalNome').textContent = nome;
   document.getElementById('qtdCustom').value = '';
+  document.getElementById('qtdCustom').classList.remove('input-erro');
+  document.getElementById('msgErroQtd').textContent = '';
   document.querySelectorAll('.btn-qtd-opcao').forEach(b => b.classList.remove('selecionado'));
   document.getElementById('qtdModal').classList.add('active');
 }
-
 function fecharQtdModal() {
   document.getElementById('qtdModal').classList.remove('active');
   itemPendente = null;
   qtdSelecionada = 0;
 }
-
 function selecionarQtd(qtd) {
   qtdSelecionada = qtd;
   document.getElementById('qtdCustom').value = '';
+  document.getElementById('qtdCustom').classList.remove('input-erro');
+  document.getElementById('msgErroQtd').textContent = '';
   document.querySelectorAll('.btn-qtd-opcao').forEach(b => {
     b.classList.toggle('selecionado', parseInt(b.textContent) === qtd);
   });
 }
+function limparErroQtd() {
+  document.getElementById('qtdCustom').classList.remove('input-erro');
+  document.getElementById('msgErroQtd').textContent = '';
+}
+function mostrarErroQtd(msg) {
+  document.getElementById('qtdCustom').classList.add('input-erro');
+  document.getElementById('msgErroQtd').textContent = msg;
+}
 
 function confirmarQtd() {
   const custom = parseInt(document.getElementById('qtdCustom').value);
-  const qtd = custom > 0 ? custom : qtdSelecionada;
+  const qtd    = custom > 0 ? custom : qtdSelecionada;
 
-  if (!qtd || qtd < 25) {
-    alert('Quantidade mínima é 25 unidades.');
+  if (!qtd || qtd <= 0) {
+    mostrarErroQtd('Selecione uma quantidade.');
+    return;
+  }
+  if (qtd < 25) {
+    mostrarErroQtd('Mínimo de 25 unidades por sabor.');
     return;
   }
   if (qtd % 25 !== 0) {
-    alert('A quantidade deve ser múltipla de 25 (ex: 25, 50, 75...).');
+    mostrarErroQtd('Use múltiplos de 25 (ex: 25, 50, 75...).');
     return;
   }
 
-  // Se já existe o sabor no carrinho, atualiza a quantidade
   const existente = carrinho.find(i => i.nome === itemPendente.nome);
   if (existente) {
     existente.qtd += qtd;
@@ -1180,39 +1323,25 @@ function confirmarQtd() {
     carrinho.push({ nome: itemPendente.nome, tipo: itemPendente.tipo, qtd });
   }
 
+  const nomeAdicionado = itemPendente.nome;
   fecharQtdModal();
   atualizarCarrinho();
-
-  // Feedback visual no botão do card
-  const btns = document.querySelectorAll('.btn-adicionar');
-  btns.forEach(btn => {
-    if (btn.closest('.card').querySelector('h3').textContent === itemPendente.nome) {
-      const original = btn.textContent;
-      btn.textContent = '✓ Adicionado!';
-      btn.style.background = 'var(--green)';
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.style.background = '';
-      }, 1800);
-    }
-  });
+  showToast(`✓ ${qtd}x ${nomeAdicionado} adicionado!`);
 }
 
 function atualizarCarrinho() {
-  const total = carrinho.reduce((s, i) => s + i.qtd, 0);
   const fab   = document.getElementById('carrinhoFab');
   const count = document.getElementById('carrinhoCount');
 
-  fab.style.display   = carrinho.length > 0 ? 'flex' : 'none';
-  count.textContent   = carrinho.length;
+  fab.style.display = carrinho.length > 0 ? 'flex' : 'none';
+  count.textContent = carrinho.length;
 
   const container = document.getElementById('carrinhoItens');
-  const totalDiv  = document.getElementById('carrinhoTotal');
-  const totalNum  = document.getElementById('carrinhoTotalNum');
+  const resumoEl  = document.getElementById('carrinhoResumo');
 
   if (carrinho.length === 0) {
     container.innerHTML = '<div class="carrinho-vazio">Nenhum item adicionado ainda.</div>';
-    totalDiv.style.display = 'none';
+    resumoEl.innerHTML  = '';
     return;
   }
 
@@ -1226,39 +1355,59 @@ function atualizarCarrinho() {
         <span class="carrinho-item-tipo">${item.tipo}</span>
       </div>
       <div class="carrinho-item-qtd">
-        <button class="btn-qtd" onclick="ajustarQtd(${idx}, -25)">−</button>
+        <button class="btn-qtd" onclick="ajustarQtd(${idx}, -25)" aria-label="Diminuir quantidade">−</button>
         <span>${item.qtd} un</span>
-        <button class="btn-qtd" onclick="ajustarQtd(${idx}, 25)">+</button>
+        <button class="btn-qtd" onclick="ajustarQtd(${idx}, 25)" aria-label="Aumentar quantidade">+</button>
       </div>
-      <button class="btn-remover-item" onclick="removerItem(${idx})" title="Remover">×</button>
+      <button class="btn-remover-item" onclick="removerItem(${idx})" aria-label="Remover ${item.nome}">×</button>
     `;
     container.appendChild(div);
   });
 
-  totalNum.textContent = total + ' unidades';
-  totalDiv.style.display = 'block';
+  // botão limpar
+  const btnLimpar = document.createElement('button');
+  btnLimpar.className = 'btn-limpar-carrinho';
+  btnLimpar.textContent = 'Limpar carrinho';
+  btnLimpar.onclick = () => {
+    if (confirm('Remover todos os itens do pedido?')) {
+      carrinho = [];
+      atualizarCarrinho();
+    }
+  };
+  container.appendChild(btnLimpar);
+
+  // resumo de preços
+  const { subtotal, economiaCombo, total, labelCombo } = calcularTotalCarrinho();
+  const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
+
+  let resumoHTML = `<div class="carrinho-resumo">`;
+  resumoHTML += `<div class="carrinho-resumo-linha"><span>Total de unidades</span><span>${totalQtd} un</span></div>`;
+  resumoHTML += `<div class="carrinho-resumo-linha"><span>Subtotal estimado</span><span>${fmtBRL(subtotal)}</span></div>`;
+  if (economiaCombo > 0) {
+    resumoHTML += `<div class="carrinho-resumo-linha economia"><span>🎁 ${labelCombo}</span><span>- ${fmtBRL(economiaCombo)}</span></div>`;
+  }
+  resumoHTML += `<div class="carrinho-resumo-linha total"><span>Total estimado</span><span>${fmtBRL(total)}</span></div>`;
+  resumoHTML += `<p class="carrinho-resumo-nota">* Valor estimado conforme tabela. Prazo mín. 48h. Preço final confirmado pelo WhatsApp.</p>`;
+  resumoHTML += `</div>`;
+  resumoEl.innerHTML = resumoHTML;
 }
 
 function ajustarQtd(idx, delta) {
   carrinho[idx].qtd += delta;
-  if (carrinho[idx].qtd < 25) {
-    carrinho.splice(idx, 1);
-  }
+  if (carrinho[idx].qtd < 25) carrinho.splice(idx, 1);
   atualizarCarrinho();
 }
-
 function removerItem(idx) {
   carrinho.splice(idx, 1);
   atualizarCarrinho();
 }
-
 function abrirCarrinho() {
+  gtag('event', 'open_cart', {});
   atualizarCarrinho();
   document.getElementById('carrinhoDrawer').classList.add('aberto');
   document.getElementById('carrinhoOverlay').classList.add('visivel');
   document.body.style.overflow = 'hidden';
 }
-
 function fecharCarrinho() {
   document.getElementById('carrinhoDrawer').classList.remove('aberto');
   document.getElementById('carrinhoOverlay').classList.remove('visivel');
@@ -1267,73 +1416,23 @@ function fecharCarrinho() {
 
 function enviarPedidoWhatsApp() {
   if (carrinho.length === 0) return;
+  gtag('event', 'send_order_whatsapp', { items: carrinho.length });
 
-  const total = carrinho.reduce((s, i) => s + i.qtd, 0);
+  const { total, economiaCombo, labelCombo } = calcularTotalCarrinho();
+  const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
   let msg = 'Olá! Gostaria de fazer um pedido:\n\n';
+  carrinho.forEach(item => { msg += `• ${item.qtd}x ${item.nome} (${item.tipo})\n`; });
+  msg += `\nTotal: ${totalQtd} unidades`;
+  if (economiaCombo > 0) msg += `\n🎁 Combo misto aplicado: -${fmtBRL(economiaCombo)}`;
+  msg += `\nValor estimado: ${fmtBRL(total)}`;
+  msg += '\n\nPoderia confirmar disponibilidade e valor final?';
 
-  carrinho.forEach(item => {
-    msg += `• ${item.qtd}x ${item.nome} (${item.tipo})\n`;
-  });
-
-  msg += `\nTotal: ${total} unidades`;
-  msg += '\n\nPoderia me informar disponibilidade e valor?';
-
-  const url = 'https://wa.me/5547992745896?text=' + encodeURIComponent(msg);
-  window.open(url, '_blank');
+  window.open('https://wa.me/5547992745896?text=' + encodeURIComponent(msg), '_blank');
 }
 
-// Fechar modal de qtd clicando fora
 document.getElementById('qtdModal').addEventListener('click', function(e) {
   if (e.target === this) fecharQtdModal();
 });
-
 </script>
-
-<!-- CARRINHO FAB -->
-<button class="carrinho-fab" id="carrinhoFab" onclick="abrirCarrinho()" style="display:none;" aria-label="Ver carrinho">
-  🛒
-  <span class="carrinho-count" id="carrinhoCount">0</span>
-</button>
-
-<!-- OVERLAY -->
-<div class="carrinho-overlay" id="carrinhoOverlay" onclick="fecharCarrinho()"></div>
-
-<!-- DRAWER -->
-<div class="carrinho-drawer" id="carrinhoDrawer">
-  <div class="carrinho-titulo">
-    🛒 Seu pedido
-    <button class="carrinho-fechar" onclick="fecharCarrinho()">×</button>
-  </div>
-  <div id="carrinhoItens"></div>
-  <div class="carrinho-total" id="carrinhoTotal" style="display:none;">
-    Total: <strong id="carrinhoTotalNum">0 unidades</strong>
-  </div>
-  <button class="btn-enviar-pedido" id="btnEnviarPedido" onclick="enviarPedidoWhatsApp()">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    Enviar pedido no WhatsApp
-  </button>
-</div>
-
-<!-- MODAL DE QUANTIDADE -->
-<div class="qtd-modal" id="qtdModal">
-  <div class="qtd-box">
-    <h4 id="qtdModalNome"></h4>
-    <p>Quantidade mínima: 25 unidades por sabor</p>
-    <div class="qtd-opcoes">
-      <button class="btn-qtd-opcao" onclick="selecionarQtd(25)">25</button>
-      <button class="btn-qtd-opcao" onclick="selecionarQtd(50)">50</button>
-      <button class="btn-qtd-opcao" onclick="selecionarQtd(75)">75</button>
-      <button class="btn-qtd-opcao" onclick="selecionarQtd(100)">100</button>
-      <button class="btn-qtd-opcao" onclick="selecionarQtd(150)">150</button>
-      <button class="btn-qtd-opcao" onclick="selecionarQtd(200)">200</button>
-    </div>
-    <div class="qtd-personalizada">
-      <label>Outra quantidade:</label>
-      <input type="number" id="qtdCustom" min="25" step="25" placeholder="ex: 125">
-    </div>
-    <button class="btn-confirmar-qtd" onclick="confirmarQtd()">Adicionar ao pedido</button>
-    <button class="btn-cancelar-qtd" onclick="fecharQtdModal()">Cancelar</button>
-  </div>
-</div>
 </body>
 </html>
