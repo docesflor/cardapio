@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doces Flor – Doces Artesanais</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown-dark:   #2B1206;
+      --brown-mid:    #5C2A0E;
+      --brown-warm:   #8B4513;
+      --amber:        #E8943A;
+      --amber-light:  #F5B563;
+      --cream:        #FDF8F0;
+      --cream-dark:   #F0E6D3;
+      --green:        #4A7C59;
+      --white:        #FFFFFF;
+      --text-body:    #3D2010;
+      --shadow:       rgba(43,18,6,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--text-body);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      background: var(--brown-dark);
+      overflow: hidden;
+      padding: 0 0 3rem;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(232,148,58,0.18) 0%, transparent 70%),
+        repeating-linear-gradient(
+          -45deg,
+          transparent 0px, transparent 18px,
+          rgba(255,255,255,0.02) 18px, rgba(255,255,255,0.02) 19px
+        );
+      pointer-events: none;
+    }
+
+    /* decorative botanical SVG lines */
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 60px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3.5rem 1.5rem 2rem;
+      gap: 1.25rem;
+    }
+
+    .logo-ring {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 3px solid var(--amber);
+      padding: 5px;
+      background: var(--brown-dark);
+      box-shadow: 0 0 0 1px rgba(232,148,58,0.3), 0 20px 50px rgba(0,0,0,0.5);
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    .logo-ring img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .header-title {
+      text-align: center;
+    }
+
+    .header-title h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .header-title h1 span {
+      color: var(--amber);
+    }
+
+    .header-title p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: var(--amber-light);
+      font-size: 1.15rem;
+      letter-spacing: 0.12em;
+      margin-top: 0.3rem;
+    }
+
+    .header-cta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .btn-social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-social:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
+
+    .btn-whatsapp { background: #25D366; color: #fff; }
+    .btn-instagram {
+      background: linear-gradient(135deg, #f09433, #e6683c 30%, #dc2743 55%, #cc2366 78%, #bc1888);
+      color: #fff;
+    }
+
+    /* ── NAV TABS ── */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 480px;
+      margin: 2.5rem auto 0;
+      background: var(--cream-dark);
+      border-radius: 50px;
+      padding: 5px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .nav-tab {
+      flex: 1;
+      padding: 0.65rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: transparent;
+      color: var(--brown-warm);
+    }
+
+    .nav-tab.active {
+      background: var(--brown-dark);
+      color: var(--amber-light);
+      box-shadow: 0 3px 10px var(--shadow);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+    }
+
+    .section { display: none; }
+    .section.visible { display: block; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--brown-dark);
+    }
+
+    .section-header .price-tag {
+      display: inline-block;
+      margin-top: 0.4rem;
+      background: var(--amber);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.25rem 1rem;
+      border-radius: 50px;
+      letter-spacing: 0.05em;
+    }
+
+    .section-header .desc {
+      color: var(--brown-warm);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem auto;
+      max-width: 300px;
+    }
+
+    .ornament::before, .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--amber));
+    }
+    .ornament::after { background: linear-gradient(to left, transparent, var(--amber)); }
+
+    .ornament-icon { color: var(--amber); font-size: 1rem; }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.75rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(43,18,6,0.2);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--cream-dark);
+      overflow: hidden;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .card:hover .card-img-wrap img { transform: scale(1.06); }
+
+    .card-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: #bbb;
+    }
+
+    .card-img-placeholder svg { opacity: 0.4; }
+
+    .zoom-hint {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(43,18,6,0.6);
+      color: #fff;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover .zoom-hint { opacity: 1; }
+
+    .card-body {
+      padding: 1rem 1.1rem 1.3rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.18rem 0.7rem;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    .badge-trad    { background: var(--brown-dark); color: var(--amber-light); }
+    .badge-gourmet { background: var(--amber);      color: var(--white); }
+
+    .card-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--brown-dark);
+      line-height: 1.2;
+    }
+
+    /* ── MODAL ── */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(20,8,2,0.92);
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-img {
+      max-width: min(88vw, 600px);
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      animation: zoomIn 0.25s ease;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.88); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .modal-close:hover { color: var(--amber); transform: rotate(90deg); }
+
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: 50%;
+      width: 46px;
+      height: 46px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-nav:hover { background: var(--amber); border-color: var(--amber); }
+    .modal-prev { left: 1.25rem; }
+    .modal-next { right: 1.25rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown-dark);
+      color: var(--cream);
+      text-align: center;
+      padding: 3rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 0; right: 0;
+      height: 60px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 0%);
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    footer h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--amber-light);
+      margin-bottom: 0.25rem;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: rgba(253,248,240,0.55);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    footer small {
+      display: block;
+      margin-top: 2rem;
+      color: rgba(253,248,240,0.3);
+      font-size: 0.75rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 500px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .card-body h3 { font-size: 1.1rem; }
+      .modal-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-ring">
+      <img src="https://raw.githubusercontent.com/lourivalms/doces.flor/main/icon-512.png"
+           alt="Logo Doces Flor"
+           onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:var(--amber);font-family:Cormorant Garamond,serif;font-size:3rem;font-weight:700;color:var(--brown-dark)\'>DF</div>'">
+    </div>
+    <div class="header-title">
+      <h1>Doces <span>Flor</span></h1>
+      <p>Doces Artesanais</p>
+    </div>
+    <div class="header-cta">
+      <a href="https://wa.me/5547992745896" target="_blank" class="btn-social btn-whatsapp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://www.instagram.com/docesflorjgs/" target="_blank" class="btn-social btn-instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+    </div>
+  </div>
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-section="tradicionais">Tradicionais</button>
+    <button class="nav-tab" data-section="gourmet">Gourmet</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- TRADICIONAIS -->
+  <section id="tradicionais" class="section visible">
+    <div class="section-header">
+      <h2>Tradicionais</h2>
+      <div class="ornament"><span class="ornament-icon">✦</span></div>
+      <span class="price-tag">Caixa com 100 unidades · R$ 125,00</span>
+      <p class="desc">Sabores clássicos feitos com carinho</p>
+    </div>
+    <div class="grid" id="grid-trad"></div>
+  </section>
+
+  <!-- GOURMET -->
+  <section id="gourmet" class="section">
+    <div class="section-header">
+      <h2>Gourmet</h2>
+      <div class="ornament"><span class="ornament-icon">✦</span></div>
+      <span class="price-tag">Caixa com 100 unidades · R$ 150,00</span>
+      <p class="desc">Combinações sofisticadas e irresistíveis</p>
+    </div>
+    <div class="grid" id="grid-gourmet"></div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <h3>Faça seu pedido</h3>
+    <p>Encomendas com antecedência · Entrega em Jaraguá do Sul e região</p>
+    <div class="footer-links">
+      <a href="https://wa.me/5547992745896" target="_blank" class="btn-social btn-whatsapp">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        (47) 9 9274-5896
+      </a>
+      <a href="https://www.instagram.com/docesflorjgs/" target="_blank" class="btn-social btn-instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        @docesflorjgs
+      </a>
+    </div>
+    <small>© 2025 Doces Flor · Jaraguá do Sul – SC</small>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div id="imageModal" class="modal" role="dialog" aria-modal="true">
+  <button class="modal-close" onclick="closeModal()" aria-label="Fechar">×</button>
+  <button class="modal-nav modal-prev" onclick="prevImage()" aria-label="Anterior">&#8249;</button>
+  <img class="modal-img" id="modalImage" src="" alt="Foto do doce">
+  <button class="modal-nav modal-next" onclick="nextImage()" aria-label="Próxima">&#8250;</button>
+</div>
+
+<script>
+  /* ── DATA ── */
+  const BASE = 'https://raw.githubusercontent.com/lourivalms/doces.flor/main/';
+
+  const trads = [
+    { nome: 'Amendoim',    foto: BASE + 'amendoim.png' },
+    { nome: 'Beijinho',    foto: BASE + 'beijinho.png' },
+    { nome: 'Brigadeiro',  foto: BASE + 'brigadeiro.png' },
+    { nome: 'Café',        foto: BASE + 'cafe.png' },    
+    { nome: 'Dois Amores', foto: BASE + 'dois-amores.png' },
+    { nome: 'Leite Ninho', foto: BASE + 'leite-ninho.png' },
+    { nome: 'Limão',       foto: BASE + 'limao.png' },
+    { nome: 'Moranguinho', foto: BASE + 'moranguinho.png' },
+    { nome: 'Sensação',    foto: BASE + 'sensacao.png' },
+  ];
+
+  const gourmets = [
+    { nome: 'Chocolate Gourmet',       foto: BASE + 'chocolate-gourmet.png' },
+    { nome: 'Confete',                 foto: BASE + 'confete.png' },
+    { nome: 'Churros',                 foto: BASE + 'churros.png' },    
+    { nome: 'Delícia de Uva',          foto: BASE + 'uva.png' },
+    { nome: 'Ferrero Rocher',          foto: BASE + 'ferrero.png' },    
+    { nome: 'Leite Ninho com Nutella', foto: BASE + 'leite-ninho-nutella.png' },
+    { nome: 'Negresco',                foto: BASE + 'negresco.png' },    
+    { nome: 'Ovomaltine',              foto: BASE + 'ovomaltine.png' },
+    { nome: 'Prestígio',               foto: BASE + 'prestigio.png' },
+    
+  ];
+
+  /* ── BUILD CARDS ── */
+  function buildCards(list, containerId, type) {
+    const container = document.getElementById(containerId);
+    list.forEach((item, i) => {
+      const fotos = Array.isArray(item.fotos) ? item.fotos : [item.foto];
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const imgHtml = fotos[0]
+        ? `<img src="${fotos[0]}" alt="${item.nome}" loading="lazy"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`
+        : '';
+
+      card.innerHTML = `
+        <div class="card-img-wrap" onclick="openModal('${fotos[0]}', ${JSON.stringify(fotos)})">
+          ${imgHtml}
+          <div class="card-img-placeholder" ${fotos[0] ? 'style="display:none"' : ''}>
+            <svg width="36" height="36" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+            <span style="font-size:.75rem;color:#bbb">Em breve</span>
+          </div>
+          <span class="zoom-hint">ver foto</span>
+        </div>
+        <div class="card-body">
+          <span class="badge badge-${type}">${type === 'trad' ? 'Tradicional' : 'Gourmet'}</span>
+          <h3>${item.nome}</h3>
+        </div>
+      `;
+
+      // animate in with delay
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, i * 60);
+
+      container.appendChild(card);
+    });
+  }
+
+  buildCards(trads,   'grid-trad',    'trad');
+  buildCards(gourmets,'grid-gourmet', 'gourmet');
+
+  /* ── TABS ── */
+  document.querySelectorAll('.nav-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.section;
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => {
+        s.classList.toggle('visible', s.id === target);
+      });
+      // re-trigger animations
+      document.querySelectorAll(`#${target} .card`).forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, i * 50);
+      });
+    });
+  });
+
+  /* ── MODAL ── */
+  let modalImages = [];
+  let modalIndex  = 0;
+
+  function openModal(src, fotos) {
+    modalImages = Array.isArray(fotos) ? fotos : [src];
+    modalIndex  = modalImages.indexOf(src);
+    if (modalIndex < 0) modalIndex = 0;
+    document.getElementById('modalImage').src = modalImages[modalIndex];
+    document.getElementById('imageModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('imageModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function prevImage() {
+    if (modalImages.length < 2) return;
+    modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
+    document.getElementById('modalImage').src = modalImages[modalIndex];
+  }
+
+  function nextImage() {
+    if (modalImages.length < 2) return;
+    modalIndex = (modalIndex + 1) % modalImages.length;
+    document.getElementById('modalImage').src = modalImages[modalIndex];
+  }
+
+  document.getElementById('imageModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape')     closeModal();
+    if (e.key === 'ArrowLeft')  prevImage();
+    if (e.key === 'ArrowRight') nextImage();
+  });
+</script>
+</body>
+</html>
