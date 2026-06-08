@@ -859,7 +859,7 @@
     <div class="section-header">
       <h2>Tradicionais</h2>
       <div class="ornament"><span class="ornament-icon">✦</span></div>
-      <span class="price-tag">Cento (100 un) · R$ 110,00 · Caixa 50 un · R$ 60,00</span>
+      <span class="price-tag">Cento (100 un) · R$ 110,00 · Caixa 50 un · R$ 60,00 · Caixa 25 un · R$ 35,00</span>
       <p class="desc">Sabores clássicos feitos com carinho</p>
     </div>
     <div class="grid" id="grid-trad"></div>
@@ -870,7 +870,7 @@
     <div class="section-header">
       <h2>Gourmet</h2>
       <div class="ornament"><span class="ornament-icon">✦</span></div>
-      <span class="price-tag">Cento (100 un) · R$ 140,00 · Caixa 50 un · R$ 80,00</span>
+      <span class="price-tag">Cento (100 un) · R$ 140,00 · Caixa 50 un · R$ 80,00 · Caixa 25 un · R$ 45,00</span>
       <p class="desc">Combinações sofisticadas e irresistíveis</p>
     </div>
     <div class="grid" id="grid-gourmet"></div>
@@ -914,11 +914,10 @@
 
       <!-- Preços base -->
       <div style="background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);margin-bottom:1.25rem;">
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;background:var(--brown-dark);padding:0.75rem 1.25rem;text-align:center;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--brown-dark);padding:0.75rem 1.25rem;text-align:center;">
           <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">QUANTIDADE</span>
           <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">TRADICIONAL</span>
           <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">GOURMET</span>
-          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">UN. AVULSA</span>
         </div>
         <div id="tabelaPrecos"></div>
       </div>
@@ -1085,59 +1084,47 @@ const PRECOS = {
 };
 
 const linhasTabela = [
-  { label: 'Unidade Avulsa', trad: 'R$ 1,50',   gourmet: 'R$ 2,00',   avulsa: '—' },
-  { label: 'Caixa 25 un.',   trad: 'R$ 35,00',  gourmet: 'R$ 45,00',  avulsa: 'R$ 1,40 / R$ 1,80' },
-  { label: 'Caixa 50 un.',   trad: 'R$ 60,00',  gourmet: 'R$ 80,00',  avulsa: 'R$ 1,20 / R$ 1,60' },
-  { label: 'Cento (100 un)', trad: 'R$ 110,00', gourmet: 'R$ 140,00', avulsa: 'R$ 1,10 / R$ 1,40' },
+  { label: 'Caixa 25 un.',   trad: 'R$ 35,00',  gourmet: 'R$ 45,00'  },
+  { label: 'Caixa 50 un.',   trad: 'R$ 60,00',  gourmet: 'R$ 80,00'  },
+  { label: 'Caixa 75 un.',   trad: 'R$ 90,00',  gourmet: 'R$ 120,00' },
+  { label: 'Cento (100 un)', trad: 'R$ 110,00', gourmet: 'R$ 140,00' },
 ];
 
 const tabelaEl = document.getElementById('tabelaPrecos');
 linhasTabela.forEach((linha, idx) => {
   const div = document.createElement('div');
-  div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
+div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
   div.innerHTML = `
     <span style="font-weight:600;color:var(--brown-dark);font-size:0.88rem;text-align:left;">${linha.label}</span>
     <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.trad}</span>
     <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.gourmet}</span>
-    <span style="color:#aaa;font-size:0.78rem;">${linha.avulsa}</span>
   `;
   tabelaEl.appendChild(div);
 });
 
 /* ── CÁLCULO DE PREÇO ── */
-function calcularPrecoItem(tipo, qtd) {
+function calcularPrecoItem(tipo, qtd, totalTipo) {
   const tabela = tipo === 'Tradicional' ? PRECOS.trad : PRECOS.gourmet;
-  // encontra a faixa de preço por unidade de acordo com a quantidade
   let precoUn;
-  if      (qtd >= 100) precoUn = tabela[100] / 100;
-  else if (qtd >= 50)  precoUn = tabela[50]  / 50;
-  else if (qtd >= 25)  precoUn = tabela[25]  / 25;
-  else                 precoUn = PRECOS.avulsa[tipo === 'Tradicional' ? 'trad' : 'gourmet'];
+  if      (totalTipo >= 100) precoUn = tabela[100] / 100;
+  else if (totalTipo >= 50)  precoUn = tabela[50]  / 50;
+  else if (totalTipo >= 25)  precoUn = tabela[25]  / 25;
+  else                       precoUn = PRECOS.avulsa[tipo === 'Tradicional' ? 'trad' : 'gourmet'];
   return precoUn * qtd;
 }
 
 function calcularTotalCarrinho() {
   const totalTrad    = carrinho.filter(i => i.tipo === 'Tradicional').reduce((s, i) => s + i.qtd, 0);
   const totalGourmet = carrinho.filter(i => i.tipo === 'Gourmet').reduce((s, i) => s + i.qtd, 0);
+  const totalGeral   = totalTrad + totalGourmet;
 
-  // verifica combo misto
-  let economiaCombo = 0;
-  let labelCombo    = '';
+  // exceção: exatamente 100 un mistas (50+50, 25+75, 75+25)
+  const isMisto100 = totalGeral === 100 && totalTrad > 0 && totalGourmet > 0
+    && [25, 50, 75].includes(totalTrad) && [25, 50, 75].includes(totalGourmet);
 
-  if (totalTrad >= 50 && totalGourmet >= 50 && totalTrad % 50 === 0 && totalGourmet % 50 === 0) {
-    const pares = Math.min(Math.floor(totalTrad / 50), Math.floor(totalGourmet / 50));
-    economiaCombo = pares * 15;
-    labelCombo = `Cento Misto (${pares}x)`;
-  } else if (totalTrad >= 25 && totalGourmet >= 25 && totalTrad % 25 === 0 && totalGourmet % 25 === 0) {
-    const pares = Math.min(Math.floor(totalTrad / 25), Math.floor(totalGourmet / 25));
-    economiaCombo = pares * 10;
-    labelCombo = `Caixa Mista (${pares}x)`;
-  }
+  const total = isMisto100 ? 125 : carrinho.reduce((s, i) => s + calcularPrecoItem(i.tipo, i.qtd, i.tipo === 'Tradicional' ? totalTrad : totalGourmet), 0);
 
-  const subtotal = carrinho.reduce((s, i) => s + calcularPrecoItem(i.tipo, i.qtd), 0);
-  const total    = subtotal - economiaCombo;
-
-  return { subtotal, economiaCombo, total, labelCombo };
+  return { total };
 }
 
 function fmtBRL(v) {
@@ -1377,15 +1364,11 @@ function atualizarCarrinho() {
   container.appendChild(btnLimpar);
 
   // resumo de preços
-  const { subtotal, economiaCombo, total, labelCombo } = calcularTotalCarrinho();
+const { total } = calcularTotalCarrinho();
   const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
 
   let resumoHTML = `<div class="carrinho-resumo">`;
   resumoHTML += `<div class="carrinho-resumo-linha"><span>Total de unidades</span><span>${totalQtd} un</span></div>`;
-  resumoHTML += `<div class="carrinho-resumo-linha"><span>Subtotal estimado</span><span>${fmtBRL(subtotal)}</span></div>`;
-  if (economiaCombo > 0) {
-    resumoHTML += `<div class="carrinho-resumo-linha economia"><span>🎁 ${labelCombo}</span><span>- ${fmtBRL(economiaCombo)}</span></div>`;
-  }
   resumoHTML += `<div class="carrinho-resumo-linha total"><span>Total estimado</span><span>${fmtBRL(total)}</span></div>`;
   resumoHTML += `<p class="carrinho-resumo-nota">* Valor estimado conforme tabela. Prazo mín. 48h. Preço final confirmado pelo WhatsApp.</p>`;
   resumoHTML += `</div>`;
@@ -1418,12 +1401,11 @@ function enviarPedidoWhatsApp() {
   if (carrinho.length === 0) return;
   gtag('event', 'send_order_whatsapp', { items: carrinho.length });
 
-  const { total, economiaCombo, labelCombo } = calcularTotalCarrinho();
+const { total } = calcularTotalCarrinho();
   const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
   let msg = 'Olá! Gostaria de fazer um pedido:\n\n';
   carrinho.forEach(item => { msg += `• ${item.qtd}x ${item.nome} (${item.tipo})\n`; });
   msg += `\nTotal: ${totalQtd} unidades`;
-  if (economiaCombo > 0) msg += `\n🎁 Combo misto aplicado: -${fmtBRL(economiaCombo)}`;
   msg += `\nValor estimado: ${fmtBRL(total)}`;
   msg += '\n\nPoderia confirmar disponibilidade e valor final?';
 
