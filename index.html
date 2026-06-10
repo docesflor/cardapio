@@ -17,6 +17,16 @@
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png">
 <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png">
+<link rel="manifest" href="manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(r => console.log('SW registrado:', r.scope))
+        .catch(e => console.warn('SW erro:', e));
+    });
+  }
+</script>
 
 <!-- Schema.org structured data -->
 <script type="application/ld+json">
@@ -176,25 +186,31 @@
     display: flex;
     justify-content: center;
     gap: 0;
-    max-width: 480px;
+    max-width: 680px;
+    width: calc(100% - 2rem);
     margin: 2.5rem auto 0;
     background: var(--cream-dark);
     border-radius: 50px;
     padding: 5px;
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+    overflow-x: auto;
+    scrollbar-width: none;
   }
+  .nav-tabs::-webkit-scrollbar { display: none; }
   .nav-tab {
     flex: 1;
-    padding: 0.65rem 1.5rem;
+    padding: 0.65rem 1rem;
     border: none;
     border-radius: 50px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
     background: transparent;
     color: var(--brown-warm);
+    white-space: nowrap;
+    min-width: fit-content;
   }
   .nav-tab.active {
     background: var(--brown-dark);
@@ -317,6 +333,7 @@
   }
   .badge-trad    { background: var(--brown-dark); color: var(--amber-light); }
   .badge-gourmet { background: var(--amber);      color: var(--white); }
+  .badge-frutas  { background: var(--green);       color: var(--white); }
   .card-body h3 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.35rem;
@@ -721,8 +738,21 @@
   .qtd-box p {
     font-size: 0.8rem;
     color: var(--brown-warm);
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.75rem;
   }
+  .qtd-preco-info {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--brown-dark);
+    background: var(--cream);
+    border: 1px solid var(--cream-dark);
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 1.25rem;
+    min-height: 2.2rem;
+    transition: all 0.2s;
+  }
+  .qtd-preco-info span { color: var(--amber); }
   .qtd-opcoes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -812,6 +842,80 @@
     margin-left: 0.3rem;
     vertical-align: middle;
   }
+
+  /* ── DEPOIMENTOS ── */
+  .depoimentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .depoimento-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 18px var(--shadow);
+    border-left: 3px solid var(--amber);
+  }
+  .depoimento-estrelas { color: var(--amber); font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .depoimento-texto {
+    font-size: 0.88rem;
+    color: var(--text-body);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .depoimento-autor {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--brown-warm);
+  }
+
+/* ── BANNER SAZONAL ── */
+  .banner-sazonal {
+    display: none;
+    background: linear-gradient(135deg, var(--brown-dark), var(--brown-mid));
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin: 0 auto 2rem;
+    max-width: 680px;
+    text-align: center;
+    border: 1px solid rgba(232,148,58,0.3);
+    box-shadow: 0 4px 18px var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .banner-sazonal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(-45deg, transparent 0px, transparent 18px, rgba(255,255,255,0.015) 18px, rgba(255,255,255,0.015) 19px);
+  }
+  .banner-sazonal-inner { position: relative; z-index: 1; }
+  .banner-sazonal-emoji { font-size: 2rem; margin-bottom: 0.25rem; }
+  .banner-sazonal h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--amber-light);
+    margin-bottom: 0.25rem;
+  }
+  .banner-sazonal p {
+    font-size: 0.82rem;
+    color: rgba(253,248,240,0.7);
+    margin-bottom: 0.75rem;
+  }
+  .banner-sazonal-badge {
+    display: inline-block;
+    background: var(--amber);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    letter-spacing: 0.04em;
+  }
+
 </style>
 </head>
 <body>
@@ -847,12 +951,23 @@
   <div class="nav-tabs">
     <button class="nav-tab active" data-section="tradicionais">Tradicionais</button>
     <button class="nav-tab" data-section="gourmet">Gourmet</button>
+    <button class="nav-tab" data-section="frutas">Frutas</button>
+    <button class="nav-tab" data-section="depoimentos">Avaliações</button>
     <button class="nav-tab" data-section="como-pedir">Como Pedir</button>
   </div>
 </header>
 
 <!-- MAIN -->
 <main>
+
+  <div class="banner-sazonal" id="bannerSazonal">
+    <div class="banner-sazonal-inner">
+      <div class="banner-sazonal-emoji" id="bannerEmoji"></div>
+      <h4 id="bannerTitulo"></h4>
+      <p id="bannerTexto"></p>
+      <span class="banner-sazonal-badge" id="bannerBadge"></span>
+    </div>
+  </div>
 
   <!-- TRADICIONAIS -->
   <section id="tradicionais" class="section visible">
@@ -865,6 +980,17 @@
     <div class="grid" id="grid-trad"></div>
   </section>
 
+  <!-- FRUTAS -->
+  <section id="frutas" class="section">
+    <div class="section-header">
+      <h2>Frutas</h2>
+      <div class="ornament"><span class="ornament-icon">✦</span></div>
+      <span class="price-tag">Cento (100 un) · R$ 125,00 · Caixa 50 un · R$ 70,00 · Caixa 25 un · R$ 40,00</span>
+      <p class="desc">Sabores frescos e frutados feitos com carinho</p>
+    </div>
+    <div class="grid" id="grid-frutas"></div>
+  </section>
+
   <!-- GOURMET -->
   <section id="gourmet" class="section">
     <div class="section-header">
@@ -874,6 +1000,37 @@
       <p class="desc">Combinações sofisticadas e irresistíveis</p>
     </div>
     <div class="grid" id="grid-gourmet"></div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section id="depoimentos" class="section">
+    <div class="section-header">
+      <h2>O que dizem nossos clientes</h2>
+      <div class="ornament"><span class="ornament-icon">✦</span></div>
+      <p class="desc">Amor em cada mordida, carinho em cada entrega ♥</p>
+    </div>
+    <div class="depoimentos-grid">
+      <div class="depoimento-card">
+        <div class="depoimento-estrelas">★★★★★</div>
+        <p class="depoimento-texto">"Os brigadeiros são simplesmente perfeitos! Pedi para o aniversário da minha filha e todos adoraram. Já virei cliente fiel!"</p>
+        <span class="depoimento-autor">— Ana Paula M.</span>
+      </div>
+      <div class="depoimento-card">
+        <div class="depoimento-estrelas">★★★★★</div>
+        <p class="depoimento-texto">"Melhor brigadeiro que já comi! O de Ferrero Rocher é incrível. Entrega pontual e embalagem linda."</p>
+        <span class="depoimento-autor">— Carlos R.</span>
+      </div>
+      <div class="depoimento-card">
+        <div class="depoimento-estrelas">★★★★★</div>
+        <p class="depoimento-texto">"Pedi para meu casamento e foi um sucesso! Todo mundo perguntou onde comprei. Recomendo demais!"</p>
+        <span class="depoimento-autor">— Juliana S.</span>
+      </div>
+      <div class="depoimento-card">
+        <div class="depoimento-estrelas">★★★★★</div>
+        <p class="depoimento-texto">"Atendimento super atencioso e os doces são maravilhosos. O brigadeiro tradicional me lembrou o da minha avó."</p>
+        <span class="depoimento-autor">— Marcos T.</span>
+      </div>
+    </div>
   </section>
 
   <!-- COMO PEDIR -->
@@ -914,11 +1071,12 @@
 
       <!-- Preços base -->
       <div style="background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);margin-bottom:1.25rem;">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--brown-dark);padding:0.75rem 1.25rem;text-align:center;">
-          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">QUANTIDADE</span>
-          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">TRADICIONAL</span>
-          <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">GOURMET</span>
-        </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;background:var(--brown-dark);padding:0.75rem 1.25rem;text-align:center;">
+        <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">QUANTIDADE</span>
+        <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">TRADICIONAL</span>
+        <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">FRUTAS</span>
+        <span style="font-size:0.75rem;font-weight:600;color:var(--amber-light);letter-spacing:0.05em;">GOURMET</span>
+    </div>
         <div id="tabelaPrecos"></div>
       </div>
 
@@ -1029,6 +1187,7 @@
   <div class="qtd-box">
     <h4 id="qtdModalNome"></h4>
     <p>Quantidade mínima: 25 unidades por sabor</p>
+    <div class="qtd-preco-info" id="qtdPrecoInfo">Selecione uma quantidade</div>
     <div class="qtd-opcoes">
       <button class="btn-qtd-opcao" onclick="selecionarQtd(25)">25</button>
       <button class="btn-qtd-opcao" onclick="selecionarQtd(50)">50</button>
@@ -1059,44 +1218,54 @@ const trads = [
   { nome: 'Café',        foto: BASE + 'cafe.png' },
   { nome: 'Dois Amores', foto: BASE + 'dois-amores.png' },
   { nome: 'Leite Ninho', foto: BASE + 'leite-ninho.png' },
-  { nome: 'Limão',       foto: BASE + 'limao.png' },
-  { nome: 'Moranguinho', foto: BASE + 'moranguinho.png' },
+  { nome: 'Moranguinho (Nesquik)', foto: BASE + 'moranguinho.png' },
+  { nome: 'Prestígio',             foto: BASE + 'prestigio.png' },
   { nome: 'Sensação',    foto: BASE + 'sensacao.png' },
+];
+
+const frutas = [
+  { nome: 'Amora',           foto: BASE + 'amora.png' },
+  { nome: 'Banana',          foto: BASE + 'banana.png' },
+  { nome: 'Cereja',          foto: BASE + 'cereja.png' },
+  { nome: 'Frutas Vermelhas', foto: BASE + 'frutas-vermelhas.png' },
+  { nome: 'Limão',           foto: BASE + 'limao.png' },
+  { nome: 'Maracujá',        foto: BASE + 'maracuja.png' },
+  { nome: 'Uva',             foto: BASE + 'uva.png' },
 ];
 
 const gourmets = [
   { nome: 'Chocolate Gourmet',       foto: BASE + 'chocolate-gourmet.png' },
   { nome: 'Confete',                 foto: BASE + 'confete.png' },
   { nome: 'Churros',                 foto: BASE + 'churros.png' },
-  { nome: 'Delícia de Uva',          foto: BASE + 'uva.png' },
   { nome: 'Ferrero Rocher',          foto: BASE + 'ferrero.png' },
   { nome: 'Leite Ninho com Nutella', foto: BASE + 'leite-ninho-nutella.png' },
   { nome: 'Negresco',                foto: BASE + 'negresco.png' },
   { nome: 'Ovomaltine',              foto: BASE + 'ovomaltine.png' },
-  { nome: 'Prestígio',               foto: BASE + 'prestigio.png' },
 ];
 
 /* ── TABELA DE PREÇOS ── */
 const PRECOS = {
-  trad:   { 25: 35, 50: 60, 75: 82.50, 100: 110 },
-  gourmet:{ 25: 45, 50: 80, 75: 105,   100: 140 },
-  avulsa: { trad: 1.50, gourmet: 2.00 }
+  trad:   { 25: 35,  50: 60,  75: 82.50, 100: 110 },
+  frutas: { 25: 40,  50: 70,  75: 105,   100: 125 },
+  gourmet:{ 25: 45,  50: 80,  75: 120,   100: 140 },
+  avulsa: { trad: 1.50, frutas: 1.75, gourmet: 2.00 }
 };
 
 const linhasTabela = [
-  { label: 'Caixa 25 un.',   trad: 'R$ 35,00',  gourmet: 'R$ 45,00'  },
-  { label: 'Caixa 50 un.',   trad: 'R$ 60,00',  gourmet: 'R$ 80,00'  },
-  { label: 'Caixa 75 un.',   trad: 'R$ 90,00',  gourmet: 'R$ 120,00' },
-  { label: 'Cento (100 un)', trad: 'R$ 110,00', gourmet: 'R$ 140,00' },
+  { label: 'Caixa 25 un.',   trad: 'R$ 35,00',  frutas: 'R$ 40,00',  gourmet: 'R$ 45,00'  },
+  { label: 'Caixa 50 un.',   trad: 'R$ 60,00',  frutas: 'R$ 70,00',  gourmet: 'R$ 80,00'  },
+  { label: 'Caixa 75 un.',   trad: 'R$ 90,00',  frutas: 'R$ 105,00', gourmet: 'R$ 120,00' },
+  { label: 'Cento (100 un)', trad: 'R$ 110,00', frutas: 'R$ 125,00', gourmet: 'R$ 140,00' },
 ];
 
 const tabelaEl = document.getElementById('tabelaPrecos');
 linhasTabela.forEach((linha, idx) => {
   const div = document.createElement('div');
-div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
+div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
   div.innerHTML = `
     <span style="font-weight:600;color:var(--brown-dark);font-size:0.88rem;text-align:left;">${linha.label}</span>
     <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.trad}</span>
+    <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.frutas}</span>
     <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.gourmet}</span>
   `;
   tabelaEl.appendChild(div);
@@ -1104,27 +1273,27 @@ div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75
 
 /* ── CÁLCULO DE PREÇO ── */
 function calcularPrecoItem(tipo, qtd, totalTipo) {
-  const tabela = tipo === 'Tradicional' ? PRECOS.trad : PRECOS.gourmet;
+  const tabela = tipo === 'Tradicional' ? PRECOS.trad : tipo === 'Frutas' ? PRECOS.frutas : PRECOS.gourmet;
   let precoUn;
   if      (totalTipo >= 100) precoUn = tabela[100] / 100;
   else if (totalTipo >= 50)  precoUn = tabela[50]  / 50;
   else if (totalTipo >= 25)  precoUn = tabela[25]  / 25;
-  else                       precoUn = PRECOS.avulsa[tipo === 'Tradicional' ? 'trad' : 'gourmet'];
+  else                       precoUn = PRECOS.avulsa[tipo === 'Tradicional' ? 'trad' : tipo === 'Frutas' ? 'frutas' : 'gourmet'];
   return precoUn * qtd;
 }
 
 function calcularTotalCarrinho() {
   const totalTrad    = carrinho.filter(i => i.tipo === 'Tradicional').reduce((s, i) => s + i.qtd, 0);
+  const totalFrutas  = carrinho.filter(i => i.tipo === 'Frutas').reduce((s, i) => s + i.qtd, 0);
   const totalGourmet = carrinho.filter(i => i.tipo === 'Gourmet').reduce((s, i) => s + i.qtd, 0);
-  const totalGeral   = totalTrad + totalGourmet;
+  const totalGeral   = totalTrad + totalFrutas + totalGourmet;
 
-  // exceção: exatamente 100 un mistas (50+50, 25+75, 75+25)
-  const isMisto100 = totalGeral === 100 && totalTrad > 0 && totalGourmet > 0
+  const isMisto100 = totalGeral === 100 && totalFrutas === 0 && totalTrad > 0 && totalGourmet > 0
     && [25, 50, 75].includes(totalTrad) && [25, 50, 75].includes(totalGourmet);
 
-  const total = isMisto100 ? 125 : carrinho.reduce((s, i) => s + calcularPrecoItem(i.tipo, i.qtd, i.tipo === 'Tradicional' ? totalTrad : totalGourmet), 0);
+  const total = isMisto100 ? 125 : carrinho.reduce((s, i) => s + calcularPrecoItem(i.tipo, i.qtd, i.tipo === 'Tradicional' ? totalTrad : i.tipo === 'Frutas' ? totalFrutas : totalGourmet), 0);
 
-  return { total };
+  return { total, totalTrad, totalFrutas, totalGourmet, totalGeral };
 }
 
 function fmtBRL(v) {
@@ -1154,7 +1323,7 @@ function buildCards(list, containerId, type) {
         </div>
       </div>
       <div class="card-body">
-        <span class="badge badge-${type}">${type === 'trad' ? 'Tradicional' : 'Gourmet'}</span>
+<span class="badge badge-${type}">${type === 'trad' ? 'Tradicional' : type === 'frutas' ? 'Frutas' : 'Gourmet'}</span>
         <h3>${item.nome}</h3>
       </div>
     `;
@@ -1184,6 +1353,7 @@ function buildCards(list, containerId, type) {
 }
 
 buildCards(trads,    'grid-trad',    'trad');
+buildCards(frutas,   'grid-frutas',  'frutas');
 buildCards(gourmets, 'grid-gourmet', 'gourmet');
 
 /* ── TABS ── */
@@ -1254,13 +1424,15 @@ let carrinho = [];
 let itemPendente = null, qtdSelecionada = 0;
 
 function abrirQtdModal(nome, tipo) {
-  itemPendente  = { nome, tipo: tipo === 'trad' ? 'Tradicional' : 'Gourmet' };
+  itemPendente  = { nome, tipo: tipo === 'trad' ? 'Tradicional' : tipo === 'frutas' ? 'Frutas' : 'Gourmet' };
   qtdSelecionada = 0;
   document.getElementById('qtdModalNome').textContent = nome;
   document.getElementById('qtdCustom').value = '';
   document.getElementById('qtdCustom').classList.remove('input-erro');
   document.getElementById('msgErroQtd').textContent = '';
   document.querySelectorAll('.btn-qtd-opcao').forEach(b => b.classList.remove('selecionado'));
+  const infoEl = document.getElementById('qtdPrecoInfo');
+  if (infoEl) infoEl.textContent = 'Selecione uma quantidade';
   document.getElementById('qtdModal').classList.add('active');
 }
 function fecharQtdModal() {
@@ -1276,10 +1448,28 @@ function selecionarQtd(qtd) {
   document.querySelectorAll('.btn-qtd-opcao').forEach(b => {
     b.classList.toggle('selecionado', parseInt(b.textContent) === qtd);
   });
+  atualizarPrecoModal(qtd);
+}
+
+function atualizarPrecoModal(qtd) {
+  if (!itemPendente || !qtd) return;
+  const tipo = itemPendente.tipo;
+  const chave = tipo === 'Tradicional' ? 'trad' : tipo === 'Frutas' ? 'frutas' : 'gourmet';
+  const tabela = PRECOS[chave];
+  let precoUn;
+  if      (qtd >= 100) precoUn = tabela[100] / 100;
+  else if (qtd >= 50)  precoUn = tabela[50]  / 50;
+  else if (qtd >= 25)  precoUn = tabela[25]  / 25;
+  else                 precoUn = PRECOS.avulsa[chave];
+  const total = precoUn * qtd;
+  const el = document.getElementById('qtdPrecoInfo');
+  if (el) el.innerHTML = `${qtd} un × <span>R$ ${precoUn.toFixed(2).replace('.',',')} /un</span> = <span>R$ ${total.toFixed(2).replace('.',',')}</span>`;
 }
 function limparErroQtd() {
   document.getElementById('qtdCustom').classList.remove('input-erro');
   document.getElementById('msgErroQtd').textContent = '';
+  const qtdCustomVal = parseInt(document.getElementById('qtdCustom').value);
+  if (qtdCustomVal >= 25) atualizarPrecoModal(qtdCustomVal);
 }
 function mostrarErroQtd(msg) {
   document.getElementById('qtdCustom').classList.add('input-erro');
@@ -1364,12 +1554,44 @@ function atualizarCarrinho() {
   container.appendChild(btnLimpar);
 
   // resumo de preços
-const { total } = calcularTotalCarrinho();
+const { total, totalTrad, totalFrutas, totalGourmet } = calcularTotalCarrinho();
   const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
 
   let resumoHTML = `<div class="carrinho-resumo">`;
   resumoHTML += `<div class="carrinho-resumo-linha"><span>Total de unidades</span><span>${totalQtd} un</span></div>`;
+  // calcula economia vs preço avulso
+  const economiaTotal = carrinho.reduce((s, i) => {
+    const chave = i.tipo === 'Tradicional' ? 'trad' : i.tipo === 'Frutas' ? 'frutas' : 'gourmet';
+    const precoAvulso = PRECOS.avulsa[chave];
+    const totalTipoAtual = carrinho.filter(x => x.tipo === i.tipo).reduce((a, x) => a + x.qtd, 0);
+    let precoReal;
+    const tab = PRECOS[chave];
+    if      (totalTipoAtual >= 100) precoReal = tab[100] / 100;
+    else if (totalTipoAtual >= 50)  precoReal = tab[50]  / 50;
+    else if (totalTipoAtual >= 25)  precoReal = tab[25]  / 25;
+    else                            precoReal = precoAvulso;
+    return s + (precoAvulso - precoReal) * i.qtd;
+  }, 0);
+
   resumoHTML += `<div class="carrinho-resumo-linha total"><span>Total estimado</span><span>${fmtBRL(total)}</span></div>`;
+  if (economiaTotal > 0) {
+    resumoHTML += `<div class="carrinho-resumo-linha economia">🎉 Você economizou ${fmtBRL(economiaTotal)} vs preço avulso!</div>`;
+  }
+
+  // dica de próxima faixa
+  ['Tradicional','Frutas','Gourmet'].forEach(tipo => {
+    const chave = tipo === 'Tradicional' ? 'trad' : tipo === 'Frutas' ? 'frutas' : 'gourmet';
+    const qtdTipo = carrinho.filter(i => i.tipo === tipo).reduce((s, i) => s + i.qtd, 0);
+    if (qtdTipo === 0) return;
+    const faixas = [25, 50, 100];
+    const proxima = faixas.find(f => f > qtdTipo);
+    if (proxima) {
+      const faltam = proxima - qtdTipo;
+      const tab = PRECOS[chave];
+      const precoProx = tab[proxima] / proxima;
+      resumoHTML += `<div style="font-size:0.72rem;color:var(--brown-warm);margin-top:4px;">💡 Adicione mais ${faltam} un de ${tipo} e pague R$ ${precoProx.toFixed(2).replace('.',',')} /un</div>`;
+    }
+  });
   resumoHTML += `<p class="carrinho-resumo-nota">* Valor estimado conforme tabela. Prazo mín. 48h. Preço final confirmado pelo WhatsApp.</p>`;
   resumoHTML += `</div>`;
   resumoEl.innerHTML = resumoHTML;
@@ -1415,6 +1637,35 @@ const { total } = calcularTotalCarrinho();
 document.getElementById('qtdModal').addEventListener('click', function(e) {
   if (e.target === this) fecharQtdModal();
 });
+
+/* ── BANNER SAZONAL ── */
+(function() {
+  const agora = new Date();
+  const mes   = agora.getMonth(); // 0=Jan
+  const dia   = agora.getDate();
+
+  const eventos = [
+    { mes: 1,  diaIni: 1,  diaFim: 13, emoji: '🥚', titulo: 'Páscoa chegando!',                  texto: 'Brigadeiros especiais para adoçar sua Páscoa. Faça já sua encomenda!',        badge: '🐣 Edição Especial de Páscoa' },
+    { mes: 1,  diaIni: 25, diaFim: 28, emoji: '🎭', titulo: 'Carnaval chegando!',                 texto: 'Adoce sua folia com brigadeiros artesanais. Encomende com antecedência!',      badge: '🎉 Edição Carnaval' },
+    { mes: 4,  diaIni: 1,  diaFim: 10, emoji: '💐', titulo: 'Dia das Mães se aproxima!',          texto: 'Presenteie quem você ama com brigadeiros feitos com carinho.',                badge: '💐 Encomendas abertas' },
+    { mes: 5,  diaIni: 1,  diaFim: 12, emoji: '💘', titulo: 'Dia dos Namorados chegando!',        texto: 'Surpreenda com uma caixa especial de brigadeiros. Encomende com antecedência!', badge: '💘 Pedidos até 10/06' },
+    { mes: 5,  diaIni: 15, diaFim: 30, emoji: '💛', titulo: 'Festa Junina chegando!',             texto: 'Brigadeiros temáticos para sua festa! Faça seu pedido com antecedência.',     badge: '🎪 Tema Junino disponível' },
+    { mes: 7,  diaIni: 1,  diaFim: 10, emoji: '👔', titulo: 'Dia dos Pais se aproxima!',          texto: 'Surpreenda papai com uma caixa especial de brigadeiros artesanais.',           badge: '👔 Encomendas abertas' },
+    { mes: 9,  diaIni: 1,  diaFim: 11, emoji: '👶', titulo: 'Dia das Crianças chegando!',         texto: 'Brigadeiros coloridos para a festa das crianças! Faça seu pedido.',           badge: '🎈 Edição Infantil' },
+    { mes: 10, diaIni: 10, diaFim: 24, emoji: '🎄', titulo: 'Natal chegando!',                    texto: 'Brigadeiros especiais para adoçar as festas de fim de ano.',                  badge: '🎁 Encomendas de Natal abertas' },
+    { mes: 11, diaIni: 20, diaFim: 31, emoji: '🥂', titulo: 'Feliz Ano Novo!',                    texto: 'Celebre com brigadeiros artesanais. Encomendas para a virada abertas!',       badge: '🎆 Réveillon' },
+  ];
+
+  const ativo = eventos.find(e => e.mes === mes && dia >= e.diaIni && dia <= e.diaFim);
+  if (ativo) {
+    document.getElementById('bannerEmoji').textContent  = ativo.emoji;
+    document.getElementById('bannerTitulo').textContent = ativo.titulo;
+    document.getElementById('bannerTexto').textContent  = ativo.texto;
+    document.getElementById('bannerBadge').textContent  = ativo.badge;
+    document.getElementById('bannerSazonal').style.display = 'block';
+  }
+})();
+
 </script>
 </body>
 </html>
