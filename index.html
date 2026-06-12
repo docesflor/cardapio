@@ -1207,68 +1207,41 @@
 </div>
 
 <script>
-/* ── DADOS ── */
+  
+/* ── DADOS (lidos do repo docesflor/admin) ── */
 const BASE = 'https://raw.githubusercontent.com/docesflor/cardapio/main/';
+const ADMIN_RAW = 'https://raw.githubusercontent.com/docesflor/admin/main/';
 
-const trads = [
-  { nome: 'Amendoim',    foto: BASE + 'amendoim.png' },
-  { nome: 'Beijinho',    foto: BASE + 'beijinho.png' },
-  { nome: 'Brigadeiro',  foto: BASE + 'brigadeiro.png' },
-  { nome: 'Café',        foto: BASE + 'cafe.png' },
-  { nome: 'Dois Amores', foto: BASE + 'dois-amores.png' },
-  { nome: 'Leite Ninho', foto: BASE + 'leite-ninho.png' },
-  { nome: 'Moranguinho (Nesquik)', foto: BASE + 'moranguinho.png' },
-  { nome: 'Prestígio',             foto: BASE + 'prestigio.png' },
-  { nome: 'Sensação',    foto: BASE + 'sensacao.png' },
-];
+let trads    = [];
+let frutas   = [];
+let gourmets = [];
+let PRECOS   = {};
 
-const frutas = [
-  { nome: 'Amora',           foto: BASE + 'amora.png' },
-  { nome: 'Banana',          foto: BASE + 'banana.png' },
-  { nome: 'Cereja',          foto: BASE + 'cereja.png' },
-  { nome: 'Frutas Vermelhas', foto: BASE + 'frutas-vermelhas.png' },
-  { nome: 'Limão',           foto: BASE + 'limao.png' },
-  { nome: 'Maracujá',        foto: BASE + 'maracuja.png' },
-  { nome: 'Uva',             foto: BASE + 'uva.png' },
-];
+async function carregarDados() {
+  try {
+    const r = await fetch(ADMIN_RAW + 'dados-cardapio.json?t=' + Date.now());
+    const d = await r.json();
+    trads    = (d.trads    || []).map(i => ({ ...i, fotos: (i.fotos || []).map(f => BASE + f) }));
+    frutas   = (d.frutas   || []).map(i => ({ ...i, fotos: (i.fotos || []).map(f => BASE + f) }));
+    gourmets = (d.gourmets || []).map(i => ({ ...i, fotos: (i.fotos || []).map(f => BASE + f) }));
+    PRECOS   = d.precos || {};
+    ['trad','frutas','gourmet'].forEach(k => {
+      if (PRECOS[k]) {
+        const obj = {};
+        Object.keys(PRECOS[k]).forEach(q => { obj[parseInt(q)] = PRECOS[k][q]; });
+        PRECOS[k] = obj;
+      }
+    });
+  } catch(e) {
+    console.error('Erro ao carregar dados-cardapio.json', e);
+  }
+}
 
-const gourmets = [
-  { nome: 'Chocolate Gourmet',       foto: BASE + 'chocolate-gourmet.png' },
-  { nome: 'Confete',                 foto: BASE + 'confete.png' },
-  { nome: 'Churros',                 foto: BASE + 'churros.png' },
-  { nome: 'Ferrero Rocher',          foto: BASE + 'ferrero.png' },
-  { nome: 'Leite Ninho com Nutella', foto: BASE + 'leite-ninho-nutella.png' },
-  { nome: 'Negresco',                foto: BASE + 'negresco.png' },
-  { nome: 'Ovomaltine',              foto: BASE + 'ovomaltine.png' },
-];
-
-/* ── TABELA DE PREÇOS ── */
-const PRECOS = {
-  trad:   { 25: 35,  50: 60,  75: 82.50, 100: 110 },
-  frutas: { 25: 40,  50: 70,  75: 105,   100: 125 },
-  gourmet:{ 25: 45,  50: 80,  75: 120,   100: 140 },
-  avulsa: { trad: 1.50, frutas: 1.75, gourmet: 2.00 }
-};
-
-const linhasTabela = [
-  { label: 'Caixa 25 un.',   trad: 'R$ 35,00',  frutas: 'R$ 40,00',  gourmet: 'R$ 45,00'  },
-  { label: 'Caixa 50 un.',   trad: 'R$ 60,00',  frutas: 'R$ 70,00',  gourmet: 'R$ 80,00'  },
-  { label: 'Caixa 75 un.',   trad: 'R$ 90,00',  frutas: 'R$ 105,00', gourmet: 'R$ 120,00' },
-  { label: 'Cento (100 un)', trad: 'R$ 110,00', frutas: 'R$ 125,00', gourmet: 'R$ 140,00' },
-];
-
-const tabelaEl = document.getElementById('tabelaPrecos');
-linhasTabela.forEach((linha, idx) => {
-  const div = document.createElement('div');
-div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
-  div.innerHTML = `
-    <span style="font-weight:600;color:var(--brown-dark);font-size:0.88rem;text-align:left;">${linha.label}</span>
-    <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.trad}</span>
-    <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.frutas}</span>
-    <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.gourmet}</span>
-  `;
-  tabelaEl.appendChild(div);
-});
+function fmtPreco(cat, qtd) {
+  const v = PRECOS?.[cat]?.[qtd];
+  if (!v) return '—';
+  return 'R$ ' + parseFloat(v).toFixed(2).replace('.', ',');
+}
 
 /* ── CÁLCULO DE PREÇO ── */
 function calcularPrecoItem(tipo, qtd, totalTipo) {
@@ -1312,7 +1285,7 @@ function buildCards(list, containerId, type) {
         ${fotos[0] ? `<img src="${fotos[0]}" alt="Brigadeiro sabor ${item.nome} — Doces Flor"
           width="300" height="300" loading="lazy"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
-        <div class="card-img-placeholder" ${fotos[0] ? 'style="display:none"' : ''}>
+        ${fotos.length > 1 ? `<div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.55);color:white;font-size:0.7rem;padding:3px 8px;border-radius:50px;pointer-events:none;">📷 ${fotos.length}</div>` : ''}
           <svg width="36" height="36" fill="none" stroke="#ccc" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="3"/>
             <circle cx="8.5" cy="8.5" r="1.5"/>
@@ -1351,9 +1324,32 @@ function buildCards(list, containerId, type) {
   });
 }
 
-buildCards(trads,    'grid-trad',    'trad');
-buildCards(frutas,   'grid-frutas',  'frutas');
-buildCards(gourmets, 'grid-gourmet', 'gourmet');
+(async () => {
+  await carregarDados();
+
+  const linhasTabela = [
+    { label: 'Caixa 25 un.',   trad: fmtPreco('trad',25),   frutas: fmtPreco('frutas',25),   gourmet: fmtPreco('gourmet',25)  },
+    { label: 'Caixa 50 un.',   trad: fmtPreco('trad',50),   frutas: fmtPreco('frutas',50),   gourmet: fmtPreco('gourmet',50)  },
+    { label: 'Caixa 75 un.',   trad: fmtPreco('trad',75),   frutas: fmtPreco('frutas',75),   gourmet: fmtPreco('gourmet',75)  },
+    { label: 'Cento (100 un)', trad: fmtPreco('trad',100),  frutas: fmtPreco('frutas',100),  gourmet: fmtPreco('gourmet',100) },
+  ];
+  const tabelaEl = document.getElementById('tabelaPrecos');
+  linhasTabela.forEach((linha, idx) => {
+    const div = document.createElement('div');
+    div.style.cssText = `display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;background:${idx % 2 === 0 ? 'var(--cream)' : 'var(--white)'};border-bottom:1px solid var(--cream-dark);`;
+    div.innerHTML = `
+      <span style="font-weight:600;color:var(--brown-dark);font-size:0.88rem;text-align:left;">${linha.label}</span>
+      <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.trad}</span>
+      <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.frutas}</span>
+      <span style="color:var(--brown-warm);font-size:0.88rem;">${linha.gourmet}</span>
+    `;
+    tabelaEl.appendChild(div);
+  });
+
+  buildCards(trads,    'grid-trad',    'trad');
+  buildCards(frutas,   'grid-frutas',  'frutas');
+  buildCards(gourmets, 'grid-gourmet', 'gourmet');
+})();
 
 /* ── TABS ── */
 document.querySelectorAll('.nav-tab').forEach(btn => {
