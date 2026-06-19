@@ -1224,6 +1224,12 @@ async function carregarDados() {
     trads    = (d.trads    || []).map(i => ({ ...i, fotos: (i.fotos || []).map(f => BASE + f) }));
     frutas   = (d.frutas   || []).map(i => ({ ...i, fotos: (i.fotos || []).map(f => BASE + f) }));
     gourmets = (d.gourmets || []).map(i => ({ ...i, fotos: (i.fotos || []).map(f => BASE + f) }));
+    
+    // Ordena sabores alfabeticamente
+    trads = trads.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    frutas = frutas.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    gourmets = gourmets.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    
     PRECOS   = d.precos || {};
     ['trad','frutas','gourmet'].forEach(k => {
       if (PRECOS[k]) {
