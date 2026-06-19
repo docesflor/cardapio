@@ -1254,16 +1254,45 @@ function calcularPrecoItem(tipo, qtd, totalTipo) {
   return precoUn * qtd;
 }
 
+const COMBOS_MISTOS = {
+  100: { '100-0': 110, '75-25': 120, '50-50': 125, '25-75': 130, '0-100': 140 },
+  50:  { '100-0':  60, '75-25':  65, '50-50':  70, '25-75':  75, '0-100':  80 }
+};
+
 function calcularTotalCarrinho() {
   const totalTrad    = carrinho.filter(i => i.tipo === 'Tradicional').reduce((s, i) => s + i.qtd, 0);
   const totalFrutas  = carrinho.filter(i => i.tipo === 'Frutas').reduce((s, i) => s + i.qtd, 0);
   const totalGourmet = carrinho.filter(i => i.tipo === 'Gourmet').reduce((s, i) => s + i.qtd, 0);
   const totalGeral   = totalTrad + totalFrutas + totalGourmet;
 
-  const isMisto100 = totalGeral === 100 && totalFrutas === 0 && totalTrad > 0 && totalGourmet > 0
-    && [25, 50, 75].includes(totalTrad) && [25, 50, 75].includes(totalGourmet);
+  // Identifica se exatamente 2 categorias estão presentes (combo misto)
+  const categoriasAtivas = [
+    { nome: 'Tradicional', qtd: totalTrad },
+    { nome: 'Frutas',      qtd: totalFrutas },
+    { nome: 'Gourmet',     qtd: totalGourmet }
+  ].filter(c => c.qtd > 0);
 
-  const total = isMisto100 ? 125 : carrinho.reduce((s, i) => s + calcularPrecoItem(i.tipo, i.qtd, i.tipo === 'Tradicional' ? totalTrad : i.tipo === 'Frutas' ? totalFrutas : totalGourmet), 0);
+  let precoCombo = null;
+
+  if (categoriasAtivas.length === 2 && (totalGeral === 50 || totalGeral === 100)) {
+    const [a, b] = categoriasAtivas;
+    const tabela = COMBOS_MISTOS[totalGeral];
+    // normaliza para proporção em base 100 (ex: 50un com 25+25 = 50%-50%)
+    const fator = 100 / totalGeral;
+    const maiorPct = Math.max(a.qtd, b.qtd) * fator;
+    const menorPct = Math.min(a.qtd, b.qtd) * fator;
+    const chave = `${maiorPct}-${menorPct}`;
+    if (tabela[chave] !== undefined) {
+      precoCombo = tabela[chave];
+    }
+  }
+
+  const total = precoCombo !== null
+    ? precoCombo
+    : carrinho.reduce((s, i) => s + calcularPrecoItem(
+        i.tipo, i.qtd,
+        i.tipo === 'Tradicional' ? totalTrad : i.tipo === 'Frutas' ? totalFrutas : totalGourmet
+      ), 0);
 
   return { total, totalTrad, totalFrutas, totalGourmet, totalGeral };
 }
