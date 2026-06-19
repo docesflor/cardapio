@@ -1,0 +1,16 @@
+{
+  "name": "Doces Flor",
+  "short_name": "Doces Flor",
+  "description": "Brigadeiros artesanais em Jaraguá do Sul",
+  "start_url": "/cardapio/",
+  "display": "standalone",
+  "background_color": "#FDF8F0",
+  "theme_color": "#2B1206",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
