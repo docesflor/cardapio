@@ -613,25 +613,6 @@ async function exportarImagem() {
   const sb = document.getElementById('statusBar');
   sb.textContent = '⏳ Gerando imagem...'; sb.className = 'status-bar';
 
-  // Esconde SVGs dos contatos (causam erro no html2canvas)
-  const svgs = document.querySelectorAll('.contact-pill svg');
-  svgs.forEach(svg => svg.style.display = 'none');
-
-  // Esconde o fallback "DF" se estiver visível
-  const logoFb = document.getElementById('logoFb');
-  const logoImg = document.getElementById('logoImg');
-  logoFb.style.display = 'none';
-
-  // Garante que a logo carregou antes de exportar
-  await new Promise((resolve) => {
-    if (logoImg.complete && logoImg.naturalWidth > 0) {
-      resolve();
-    } else {
-      logoImg.onload  = resolve;
-      logoImg.onerror = resolve; // continua mesmo se falhar
-    }
-  });
-
   try {
     const canvas = await html2canvas(document.getElementById('cardapio'), {
       scale: 2,
@@ -641,12 +622,32 @@ async function exportarImagem() {
       logging: false,
       imageTimeout: 15000,
       onclone: (doc) => {
-        // Remove SVGs no clone também
+        // Remove SVGs inline (causam erro de canvas 0x0)
         doc.querySelectorAll('.contact-pill svg').forEach(s => s.remove());
-        // Garante tamanho mínimo em elementos que possam estar com 0
+        doc.querySelectorAll('.card-logo-wrap svg').forEach(s => s.remove());
+
+        // Remove repeating-linear-gradient do header (causa o erro createPattern)
+        const header = doc.querySelector('.card-header');
+        if (header) {
+          header.style.background = '#2B1206';
+        }
+
+        // Remove ::before/::after com gradiente — aplica via elemento extra
+        const before = doc.querySelector('.card-header');
+        if (before) {
+          before.style.setProperty('background-image', 'none', 'important');
+        }
+
+        // Garante tamanho mínimo em qualquer canvas filho
         doc.querySelectorAll('canvas').forEach(c => {
-          if (c.width === 0)  c.width  = 1;
+          if (c.width  === 0) c.width  = 1;
           if (c.height === 0) c.height = 1;
+        });
+
+        // Remove pseudo-elementos problemáticos substituindo por div
+        doc.querySelectorAll('*').forEach(el => {
+          el.style.backgroundImage = el.style.backgroundImage
+            .replace(/repeating-linear-gradient\([^)]+\)/g, 'none');
         });
       }
     });
@@ -660,9 +661,6 @@ async function exportarImagem() {
   } catch(e) {
     sb.textContent = '❌ Erro: ' + e.message; sb.className = 'status-bar erro';
     console.error(e);
-  } finally {
-    // Restaura tudo
-    svgs.forEach(svg => svg.style.display = '');
   }
 }
 
