@@ -86,8 +86,8 @@
   header {
     position: relative;
     background: var(--brown-dark);
-    overflow: hidden;
-    padding: 0 0 3rem;
+    overflow: visible;
+    padding: 0 0 0.5rem;
   }
   header::before {
     content: '';
@@ -103,7 +103,7 @@
     position: absolute;
     bottom: -1px;
     left: 0; right: 0;
-    height: 60px;
+    height: 28px;
     background: var(--cream);
     clip-path: ellipse(55% 100% at 50% 100%);
   }
@@ -113,12 +113,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3.5rem 1.5rem 2rem;
-    gap: 1.25rem;
+    padding: 1rem 1.5rem 0.5rem;
+    gap: 0.5rem;
   }
   .logo-ring {
-    width: 240px;
-    height: 240px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     border: 3px solid var(--amber);
     padding: 5px;
@@ -137,10 +137,11 @@
     0%, 100% { transform: translateY(0); }
     50%       { transform: translateY(-8px); }
   }
-  .header-title { text-align: center; }
+  .header-title { text-align: center; } 
   .header-title h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+
     font-weight: 700;
     color: var(--cream);
     letter-spacing: 0.04em;
@@ -151,7 +152,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     color: var(--amber-light);
-    font-size: 1.15rem;
+    font-size: 0.95rem;
     letter-spacing: 0.12em;
     margin-top: 0.3rem;
   }
@@ -160,15 +161,15 @@
     gap: 0.75rem;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
   .btn-social {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 1.4rem;
+    padding: 0.45rem 1.1rem;
     border-radius: 50px;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -189,11 +190,13 @@
   gap: 6px;
   max-width: 680px;
   width: calc(100% - 2rem);
-  margin: 2.5rem auto 0;
+  margin: 8px auto 0;
   background: var(--cream-dark);
   border-radius: 20px;
   padding: 6px;
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 2;
 }
 
 .nav-tab {
@@ -925,7 +928,7 @@
     <div class="logo-ring">
       <img src="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png"
            alt="Logo Doces Flor — Brigadeiros Artesanais em Jaraguá do Sul"
-           width="230" height="230"
+           width="160" height="160"
            fetchpriority="high"
            onerror="this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:var(--amber);font-family:Cormorant Garamond,serif;font-size:3rem;font-weight:700;color:var(--brown-dark)\'>DF</div>'">
     </div>
@@ -946,15 +949,15 @@
       </a>
     </div>
   </div>
-
-  <div class="nav-tabs">
-    <button class="nav-tab active" data-section="tradicionais">Tradicionais</button>
-    <button class="nav-tab" data-section="gourmet">Gourmet</button>
-    <button class="nav-tab" data-section="frutas">Frutas</button>
-    <button class="nav-tab" data-section="depoimentos">Avaliações</button>
-    <button class="nav-tab" data-section="como-pedir">Como Pedir</button>
-  </div>
 </header>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" data-section="tradicionais">Tradicionais</button>
+  <button class="nav-tab" data-section="gourmet">Gourmet</button>
+  <button class="nav-tab" data-section="frutas">Frutas</button>
+  <button class="nav-tab" data-section="depoimentos">Avaliações</button>
+  <button class="nav-tab" data-section="como-pedir">Como Pedir</button>
+</div>
 
 <!-- MAIN -->
 <main>
@@ -1216,11 +1219,14 @@ const DADOS_CARDAPIO = {
     { "nome": "Beijinho",              "fotos": ["beijinho.png"] },
     { "nome": "Brigadeiro",            "fotos": ["brigadeiro.png"] },
     { "nome": "Café",                  "fotos": ["cafe.png"] },
+    { "nome": "Chocotone",             "fotos": ["chocotone.png"] },
     { "nome": "Dois Amores",           "fotos": ["dois-amores.png"] },
     { "nome": "Leite Ninho",           "fotos": ["leite-ninho.png"] },
     { "nome": "Moranguinho (Nesquik)", "fotos": ["moranguinho.png"] },
     { "nome": "Prestígio",             "fotos": ["prestigio.png"] },
-    { "nome": "Sensação",              "fotos": ["sensacao.png"] }
+    { "nome": "Quebra Queixo",         "fotos": ["quebra-queixo.png"] },
+    { "nome": "Sensação",              "fotos": ["sensacao.png"] },
+    { "nome": "Tapioca",               "fotos": ["tapioca.png"] }
   ],
   "frutas": [
     { "nome": "Amora",            "fotos": ["amora.png"] },
@@ -1229,15 +1235,23 @@ const DADOS_CARDAPIO = {
     { "nome": "Frutas Vermelhas", "fotos": ["frutas-vermelhas.png"] },
     { "nome": "Limão",            "fotos": ["limao.png"] },
     { "nome": "Maracujá",         "fotos": ["maracuja.png"] },
+    { "nome": "Milho",            "fotos": ["milho.png"] },
     { "nome": "Uva",              "fotos": ["uva.png"] }
   ],
   "gourmets": [
+    { "nome": "Banoffee",                "fotos": ["banoffee.png"] },
+    { "nome": "Black Cacau",             "fotos": ["black-cacau.png"] },
+    { "nome": "Canjica",                 "fotos": ["canjica.png"] },
     { "nome": "Chocolate Gourmet",       "fotos": ["chocolate-gourmet.png"] },
-    { "nome": "Confete",                 "fotos": ["confete.png"] },
     { "nome": "Churros",                 "fotos": ["churros.png"] },
+    { "nome": "Confete",                 "fotos": ["confete.png"] },
+    { "nome": "Doritos",                 "fotos": ["doritos.png"] },
     { "nome": "Ferrero Rocher",          "fotos": ["ferrero.png"] },
+    { "nome": "Floresta Negra",          "fotos": ["floresta-negra.png"] },
     { "nome": "Leite Ninho com Nutella", "fotos": ["leite-ninho-nutella.png"] },
+    { "nome": "Menta",                   "fotos": ["menta.png"] },
     { "nome": "Negresco",                "fotos": ["negresco.png"] },
+    { "nome": "Nutella",                 "fotos": ["nutella.png"] },
     { "nome": "Ovomaltine",              "fotos": ["ovomaltine.png"] }
   ],
   "precos": {
