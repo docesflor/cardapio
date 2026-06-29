@@ -1301,11 +1301,13 @@ function fmtPreco(cat, qtd) {
 /* ── CÁLCULO DE PREÇO ── */
 function calcularPrecoItem(tipo, qtd, totalTipo) {
   const tabela = tipo === 'Tradicional' ? PRECOS.trad : tipo === 'Frutas' ? PRECOS.frutas : PRECOS.gourmet;
+  const chave  = tipo === 'Tradicional' ? 'trad' : tipo === 'Frutas' ? 'frutas' : 'gourmet';
   let precoUn;
   if      (totalTipo >= 100) precoUn = tabela[100] / 100;
+  else if (totalTipo >= 75)  precoUn = tabela[75]  / 75;
   else if (totalTipo >= 50)  precoUn = tabela[50]  / 50;
   else if (totalTipo >= 25)  precoUn = tabela[25]  / 25;
-  else                       precoUn = PRECOS.avulsa[tipo === 'Tradicional' ? 'trad' : tipo === 'Frutas' ? 'frutas' : 'gourmet'];
+  else                       precoUn = PRECOS.avulsa[chave];
   return precoUn * qtd;
 }
 
@@ -1537,6 +1539,7 @@ function atualizarPrecoModal(qtd) {
   const tabela = PRECOS[chave];
   let precoUn;
   if      (qtd >= 100) precoUn = tabela[100] / 100;
+  else if (qtd >= 75)  precoUn = tabela[75]  / 75;
   else if (qtd >= 50)  precoUn = tabela[50]  / 50;
   else if (qtd >= 25)  precoUn = tabela[25]  / 25;
   else                 precoUn = PRECOS.avulsa[chave];
@@ -1646,6 +1649,7 @@ const { total, totalTrad, totalFrutas, totalGourmet } = calcularTotalCarrinho();
     let precoReal;
     const tab = PRECOS[chave];
     if      (totalTipoAtual >= 100) precoReal = tab[100] / 100;
+    else if (totalTipoAtual >= 75)  precoReal = tab[75]  / 75;
     else if (totalTipoAtual >= 50)  precoReal = tab[50]  / 50;
     else if (totalTipoAtual >= 25)  precoReal = tab[25]  / 25;
     else                            precoReal = precoAvulso;
@@ -1662,7 +1666,7 @@ const { total, totalTrad, totalFrutas, totalGourmet } = calcularTotalCarrinho();
     const chave = tipo === 'Tradicional' ? 'trad' : tipo === 'Frutas' ? 'frutas' : 'gourmet';
     const qtdTipo = carrinho.filter(i => i.tipo === tipo).reduce((s, i) => s + i.qtd, 0);
     if (qtdTipo === 0) return;
-    const faixas = [25, 50, 100];
+    const faixas = [25, 50, 75, 100];
     const proxima = faixas.find(f => f > qtdTipo);
     if (proxima) {
       const faltam = proxima - qtdTipo;
