@@ -443,9 +443,10 @@
     <!-- HEADER -->
     <div class="card-header">
       <div class="card-logo-wrap">
-        <img id="logoImg"
+      <img id="logoImg"
           src="icone.png"
           alt="Doces Flor"
+          crossorigin="anonymous"
           onerror="this.style.display='none';document.getElementById('logoFb').style.display='flex';">
         <div class="card-logo-fallback" id="logoFb" style="display:none;">DF</div>
       </div>
@@ -611,17 +612,57 @@
 async function exportarImagem() {
   const sb = document.getElementById('statusBar');
   sb.textContent = '⏳ Gerando imagem...'; sb.className = 'status-bar';
+
+  // Esconde SVGs dos contatos (causam erro no html2canvas)
+  const svgs = document.querySelectorAll('.contact-pill svg');
+  svgs.forEach(svg => svg.style.display = 'none');
+
+  // Esconde o fallback "DF" se estiver visível
+  const logoFb = document.getElementById('logoFb');
+  const logoImg = document.getElementById('logoImg');
+  logoFb.style.display = 'none';
+
+  // Garante que a logo carregou antes de exportar
+  await new Promise((resolve) => {
+    if (logoImg.complete && logoImg.naturalWidth > 0) {
+      resolve();
+    } else {
+      logoImg.onload  = resolve;
+      logoImg.onerror = resolve; // continua mesmo se falhar
+    }
+  });
+
   try {
     const canvas = await html2canvas(document.getElementById('cardapio'), {
-      scale: 2, useCORS: true, backgroundColor: '#FDF8F0', logging: false
+      scale: 2,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: '#FDF8F0',
+      logging: false,
+      imageTimeout: 15000,
+      onclone: (doc) => {
+        // Remove SVGs no clone também
+        doc.querySelectorAll('.contact-pill svg').forEach(s => s.remove());
+        // Garante tamanho mínimo em elementos que possam estar com 0
+        doc.querySelectorAll('canvas').forEach(c => {
+          if (c.width === 0)  c.width  = 1;
+          if (c.height === 0) c.height = 1;
+        });
+      }
     });
+
     const link = document.createElement('a');
     link.download = 'cardapio-doces-flor.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
     sb.textContent = '✅ Imagem exportada!'; sb.className = 'status-bar ok';
+
   } catch(e) {
     sb.textContent = '❌ Erro: ' + e.message; sb.className = 'status-bar erro';
+    console.error(e);
+  } finally {
+    // Restaura tudo
+    svgs.forEach(svg => svg.style.display = '');
   }
 }
 
