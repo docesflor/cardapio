@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editor de Cardápio — Doces Flor</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image-more/2.9.0/dom-to-image-more.min.js"></script>
 <style>
   :root {
     --brown-dark: #2B1206;
@@ -613,47 +613,22 @@ async function exportarImagem() {
   const sb = document.getElementById('statusBar');
   sb.textContent = '⏳ Gerando imagem...'; sb.className = 'status-bar';
 
-  try {
-    const canvas = await html2canvas(document.getElementById('cardapio'), {
-      scale: 2,
-      useCORS: true,
-      allowTaint: false,
-      backgroundColor: '#FDF8F0',
-      logging: false,
-      imageTimeout: 15000,
-      onclone: (doc) => {
-        // Remove SVGs inline (causam erro de canvas 0x0)
-        doc.querySelectorAll('.contact-pill svg').forEach(s => s.remove());
+  const el = document.getElementById('cardapio');
 
-        // Injeta CSS no clone para neutralizar tudo que o html2canvas não suporta:
-        // clip-path, repeating-linear-gradient e pseudo-elementos ::after/::before
-        const style = doc.createElement('style');
-        style.textContent = `
-          .card-header::after,
-          .card-header::before {
-            display: none !important;
-            content: none !important;
-          }
-          .card-header {
-            background: #2B1206 !important;
-            background-image: none !important;
-          }
-          .ornament::before,
-          .ornament::after {
-            display: none !important;
-          }
-          * {
-            clip-path: none !important;
-            -webkit-clip-path: none !important;
-          }
-        `;
-        doc.head.appendChild(style);
+  try {
+    const dataUrl = await domtoimage.toPng(el, {
+      scale: 2,
+      bgcolor: '#FDF8F0',
+      filter: (node) => {
+        // Remove SVGs dos ícones de contato
+        if (node.tagName === 'svg') return false;
+        return true;
       }
     });
 
     const link = document.createElement('a');
     link.download = 'cardapio-doces-flor.png';
-    link.href = canvas.toDataURL('image/png');
+    link.href = dataUrl;
     link.click();
     sb.textContent = '✅ Imagem exportada!'; sb.className = 'status-bar ok';
 
