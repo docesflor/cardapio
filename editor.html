@@ -624,31 +624,30 @@ async function exportarImagem() {
       onclone: (doc) => {
         // Remove SVGs inline (causam erro de canvas 0x0)
         doc.querySelectorAll('.contact-pill svg').forEach(s => s.remove());
-        doc.querySelectorAll('.card-logo-wrap svg').forEach(s => s.remove());
 
-        // Remove repeating-linear-gradient do header (causa o erro createPattern)
-        const header = doc.querySelector('.card-header');
-        if (header) {
-          header.style.background = '#2B1206';
-        }
-
-        // Remove ::before/::after com gradiente — aplica via elemento extra
-        const before = doc.querySelector('.card-header');
-        if (before) {
-          before.style.setProperty('background-image', 'none', 'important');
-        }
-
-        // Garante tamanho mínimo em qualquer canvas filho
-        doc.querySelectorAll('canvas').forEach(c => {
-          if (c.width  === 0) c.width  = 1;
-          if (c.height === 0) c.height = 1;
-        });
-
-        // Remove pseudo-elementos problemáticos substituindo por div
-        doc.querySelectorAll('*').forEach(el => {
-          el.style.backgroundImage = el.style.backgroundImage
-            .replace(/repeating-linear-gradient\([^)]+\)/g, 'none');
-        });
+        // Injeta CSS no clone para neutralizar tudo que o html2canvas não suporta:
+        // clip-path, repeating-linear-gradient e pseudo-elementos ::after/::before
+        const style = doc.createElement('style');
+        style.textContent = `
+          .card-header::after,
+          .card-header::before {
+            display: none !important;
+            content: none !important;
+          }
+          .card-header {
+            background: #2B1206 !important;
+            background-image: none !important;
+          }
+          .ornament::before,
+          .ornament::after {
+            display: none !important;
+          }
+          * {
+            clip-path: none !important;
+            -webkit-clip-path: none !important;
+          }
+        `;
+        doc.head.appendChild(style);
       }
     });
 
