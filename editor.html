@@ -444,7 +444,7 @@
     <div class="card-header">
       <div class="card-logo-wrap">
         <img id="logoImg"
-          src="https://raw.githubusercontent.com/docesflor/cardapio/main/icon-512.png"
+          src="icon-512.png"
           alt="Doces Flor"
           onerror="this.style.display='none';document.getElementById('logoFb').style.display='flex';">
         <div class="card-logo-fallback" id="logoFb" style="display:none;">DF</div>
@@ -608,43 +608,22 @@
       </div>`;
   }
 
-  async function exportarImagem() {
-    const sb = document.getElementById('statusBar');
-    sb.textContent = '⏳ Gerando imagem...'; sb.className = 'status-bar';
-    
-    const logoImg = document.getElementById('logoImg');
-    const logoFb = document.getElementById('logoFb');
-    const svgs = document.querySelectorAll('.contact-pill svg');
-    const originalSvgDisplay = [];
-    
-    try {
-      // Esconde logo externa e SVGs dos contatos
-      logoImg.style.display = 'none';
-      logoFb.style.display = 'flex';
-      svgs.forEach((svg, idx) => {
-        originalSvgDisplay[idx] = svg.style.display;
-        svg.style.display = 'none';
-      });
-      
-      const canvas = await html2canvas(document.getElementById('cardapio'), {
-        scale: 2, useCORS: true, backgroundColor: '#FDF8F0', logging: false, allowTaint: true
-      });
-      const link = document.createElement('a');
-      link.download = 'cardapio-doces-flor.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-      sb.textContent = '✅ Imagem exportada!'; sb.className = 'status-bar ok';
-    } catch(e) {
-      sb.textContent = '❌ Erro: ' + e.message; sb.className = 'status-bar erro';
-    } finally {
-      // Restaura tudo
-      logoImg.style.display = 'block';
-      logoFb.style.display = 'none';
-      svgs.forEach((svg, idx) => {
-        svg.style.display = originalSvgDisplay[idx] || '';
-      });
-    }
+async function exportarImagem() {
+  const sb = document.getElementById('statusBar');
+  sb.textContent = '⏳ Gerando imagem...'; sb.className = 'status-bar';
+  try {
+    const canvas = await html2canvas(document.getElementById('cardapio'), {
+      scale: 2, useCORS: true, backgroundColor: '#FDF8F0', logging: false
+    });
+    const link = document.createElement('a');
+    link.download = 'cardapio-doces-flor.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    sb.textContent = '✅ Imagem exportada!'; sb.className = 'status-bar ok';
+  } catch(e) {
+    sb.textContent = '❌ Erro: ' + e.message; sb.className = 'status-bar erro';
   }
+}
 
   // Init
   renderLists();
