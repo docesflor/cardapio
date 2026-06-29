@@ -5,7 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Editor de Cardápio — Doces Flor</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@2.9.0/dist/dom-to-image-more.min.js"></script>
+<script src="dom-to-image.min.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    if (typeof domtoimage === 'undefined') {
+      document.getElementById('statusBar').textContent = '⚠️ Biblioteca não carregou!';
+      document.getElementById('statusBar').className = 'status-bar erro';
+    } else {
+      document.getElementById('statusBar').textContent = '✅ Pronto para exportar.';
+      document.getElementById('statusBar').className = 'status-bar ok';
+    }
+  });
+</script>
 <style>
   :root {
     --brown-dark: #2B1206;
@@ -611,17 +622,30 @@
 
 async function exportarImagem() {
   const sb = document.getElementById('statusBar');
-  sb.textContent = '⏳ Gerando imagem...'; sb.className = 'status-bar';
+
+  // Verifica se a biblioteca carregou
+  if (typeof domtoimage === 'undefined') {
+    sb.textContent = '❌ Biblioteca de exportação não carregou. Recarregue a página.';
+    sb.className = 'status-bar erro';
+    return;
+  }
+
+  sb.textContent = '⏳ Gerando imagem...';
+  sb.className = 'status-bar';
 
   const el = document.getElementById('cardapio');
 
   try {
     const dataUrl = await domtoimage.toPng(el, {
-      scale: 2,
+      width: el.offsetWidth * 2,
+      height: el.offsetHeight * 2,
+      style: {
+        transform: 'scale(2)',
+        transformOrigin: 'top left'
+      },
       bgcolor: '#FDF8F0',
       filter: (node) => {
-        // Remove SVGs dos ícones de contato
-        if (node.tagName === 'svg') return false;
+        if (node.tagName === 'SVG' || node.tagName === 'svg') return false;
         return true;
       }
     });
@@ -630,10 +654,12 @@ async function exportarImagem() {
     link.download = 'cardapio-doces-flor.png';
     link.href = dataUrl;
     link.click();
-    sb.textContent = '✅ Imagem exportada!'; sb.className = 'status-bar ok';
+    sb.textContent = '✅ Imagem exportada!';
+    sb.className = 'status-bar ok';
 
   } catch(e) {
-    sb.textContent = '❌ Erro: ' + e.message; sb.className = 'status-bar erro';
+    sb.textContent = '❌ Erro: ' + e.message;
+    sb.className = 'status-bar erro';
     console.error(e);
   }
 }
