@@ -201,7 +201,7 @@
 
 .nav-tab {
   flex: 0 0 auto;
-  padding: 0.65rem 1.1rem;
+  padding: 0.55rem 0.75rem;
   border: none;
   border-radius: 50px;
   font-family: 'DM Sans', sans-serif;
@@ -463,6 +463,10 @@
     .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .card-body h3 { font-size: 1.1rem; }
     .modal-nav { display: none; }
+  }
+  @media (max-width: 320px) {
+    .grid { grid-template-columns: 1fr; }
+    .nav-tab { font-size: 0.72rem; padding: 0.45rem 0.55rem; }
   }
 
   /* ── CARRINHO ── */
@@ -940,6 +944,15 @@
     letter-spacing: 0.04em;
   }
 
+@media (max-width: 480px) {
+    #tabelaPrecos > div,
+    #tabelaPrecos > div[style*="grid-template-columns"] {
+      grid-template-columns: 1fr 1fr 1fr 1fr !important;
+      font-size: 0.75rem !important;
+      padding: 0.6rem 0.5rem !important;
+    }
+  }
+  
 </style>
 </head>
 <body>
