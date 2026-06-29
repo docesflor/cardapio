@@ -182,17 +182,12 @@
   /* Header */
   .card-header {
     background: var(--brown-dark);
-    padding: 2.5rem 2rem 3.5rem;
+    padding: 2.5rem 2rem 2rem;
     text-align: center;
     position: relative;
   }
   .card-header::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 0; right: 0;
-    height: 55px;
-    background: var(--cream);
-    clip-path: ellipse(55% 100% at 50% 100%);
+    display: none;
   }
   .card-logo-wrap {
     width: 120px; height: 120px; border-radius: 50%;
@@ -233,7 +228,7 @@
   }
 
   /* Body */
-  .card-body { padding: 2.5rem 2.5rem 0; }
+  .card-body { padding: 2.5rem 2.5rem 0; border-top: 3px solid var(--amber); }
 
   .section-titulo {
     text-align: center; margin-bottom: 1.5rem;
@@ -246,11 +241,10 @@
     display: flex; align-items: center; gap: 0.75rem;
     max-width: 180px; margin: 0.4rem auto 0;
   }
-  .ornament::before, .ornament::after {
-    content: ''; flex: 1; height: 1px;
-    background: linear-gradient(to right, transparent, var(--amber));
+  .ornament::before, .ornament::after { display: none; }
+  .ornament-line {
+    display: block; flex: 1; height: 1px; background: var(--amber);
   }
-  .ornament::after { background: linear-gradient(to left, transparent, var(--amber)); }
   .ornament span { color: var(--amber); font-size: 0.85rem; }
 
   /* ── SABORES: 3 colunas com header colorido ── */
@@ -481,7 +475,7 @@
       <!-- Sabores -->
       <div class="section-titulo">
         <h2>Nossos Sabores</h2>
-        <div class="ornament"><span>✦</span></div>
+        <div class="ornament"><span class="ornament-line"></span><span>✦</span><span class="ornament-line"></span></div>
       </div>
       <div class="sabores-grid" id="preview-sabores"></div>
 
@@ -489,7 +483,7 @@
       <div class="precos-section">
         <div class="section-titulo">
           <h2>Tabela de Preços</h2>
-          <div class="ornament"><span>✦</span></div>
+          <div class="ornament"><span class="ornament-line"></span><span>✦</span><span class="ornament-line"></span></div>
         </div>
         <div class="precos-table">
           <div class="precos-header">
@@ -506,7 +500,7 @@
       <div class="combos-section">
         <div class="section-titulo">
           <h2>Combos Mistos</h2>
-          <div class="ornament"><span>✦</span></div>
+          <div class="ornament"><span class="ornament-line"></span><span>✦</span><span class="ornament-line"></span></div>
         </div>
         <div class="combos-box">
           <div class="combos-banner">🎁 COMBOS MISTOS — ECONOMIA GARANTIDA</div>
