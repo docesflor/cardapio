@@ -338,8 +338,9 @@
     transform: scale(1.16);
     transform-origin: center;
   }
-  .card-logo-wrap img {
+  .card-logo-bg {
     width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block;
+    background: var(--brown-dark) url("icone.png") center / cover no-repeat;
   }
   .card-logo-fallback {
     width: 100%; height: 100%; border-radius: 50%; background: var(--amber);
@@ -695,10 +696,7 @@
       <!-- HEADER -->
       <div class="card-header">
         <div class="card-logo-wrap">
-          <img id="logoImg"
-               src="icone.png"
-               alt="Doces Flor"
-               onerror="this.style.display='none';document.getElementById('logoFb').style.display='flex';">
+          <div id="logoImg" class="card-logo-bg" role="img" aria-label="Doces Flor"></div>
           <div class="card-logo-fallback" id="logoFb" style="display:none;">DF</div>
         </div>
         <h1>Doces <span>Flor</span></h1>
@@ -1031,21 +1029,26 @@
   }
 
   async function prepararLogoParaExportar() {
-    const img = document.getElementById('logoImg');
+    const logo = document.getElementById('logoImg');
     const fallback = document.getElementById('logoFb');
-    if (!img || !img.getAttribute('src') || img.src.startsWith('data:')) return;
+    if (!logo) return;
 
     try {
-      const resposta = await fetch(img.getAttribute('src'), { cache: 'reload' });
+      if (logo.dataset.exportReady === 'true') return;
+
+      const resposta = await fetch('icone.png', { cache: 'reload' });
       if (!resposta.ok) throw new Error('Logo não encontrada');
 
-      img.src = await blobParaDataUrl(await resposta.blob());
-      img.style.display = 'block';
+      const dataUrl = await blobParaDataUrl(await resposta.blob());
+      logo.style.backgroundImage = `url("${dataUrl}")`;
+      logo.style.backgroundPosition = 'center';
+      logo.style.backgroundSize = 'cover';
+      logo.style.backgroundRepeat = 'no-repeat';
+      logo.style.display = 'block';
+      logo.dataset.exportReady = 'true';
       if (fallback) fallback.style.display = 'none';
-
-      if (img.decode) await img.decode();
     } catch (e) {
-      img.style.display = 'none';
+      logo.style.display = 'none';
       if (fallback) fallback.style.display = 'flex';
     }
   }
@@ -1104,6 +1107,7 @@
   renderLists();
   salvarHistorico();            // estado inicial no histórico
   atualizarPreview(false);      // preview sem badge "não salvo"
+  prepararLogoParaExportar();
   ajustarZoom();
 
   // Listeners de preço: formata + salva histórico + atualiza preview
