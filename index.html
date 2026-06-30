@@ -1139,13 +1139,29 @@
             <span style="font-size:0.95rem;font-weight:700;color:var(--brown-dark);display:flex;align-items:center;justify-content:center;">R$ 70,00</span>
             <span style="font-size:0.88rem;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;">- R$ 10,00</span>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;border-bottom:1px solid var(--cream-dark);">
             <div style="text-align:left;">
               <span style="font-size:0.88rem;font-weight:600;color:var(--brown-dark);">Cento Misto 100 un</span>
               <span style="display:block;font-size:0.72rem;color:var(--brown-warm);">50 Trad + 50 Gourmet</span>
             </div>
             <span style="font-size:0.95rem;font-weight:700;color:var(--brown-dark);display:flex;align-items:center;justify-content:center;">R$ 125,00</span>
             <span style="font-size:0.88rem;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;">- R$ 15,00</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;border-bottom:1px solid var(--cream-dark);">
+            <div style="text-align:left;">
+              <span style="font-size:0.88rem;font-weight:600;color:var(--brown-dark);">Cento Misto 100 un</span>
+              <span style="display:block;font-size:0.72rem;color:var(--brown-warm);">75 Trad + 25 Gourmet</span>
+            </div>
+            <span style="font-size:0.95rem;font-weight:700;color:var(--brown-dark);display:flex;align-items:center;justify-content:center;">R$ 120,00</span>
+            <span style="font-size:0.88rem;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;">- R$ 10,00</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding:0.75rem 1.25rem;text-align:center;">
+            <div style="text-align:left;">
+              <span style="font-size:0.88rem;font-weight:600;color:var(--brown-dark);">Cento Misto 100 un</span>
+              <span style="display:block;font-size:0.72rem;color:var(--brown-warm);">25 Trad + 75 Gourmet</span>
+            </div>
+            <span style="font-size:0.95rem;font-weight:700;color:var(--brown-dark);display:flex;align-items:center;justify-content:center;">R$ 130,00</span>
+            <span style="font-size:0.88rem;font-weight:700;color:var(--green);display:flex;align-items:center;justify-content:center;">- R$ 20,00</span>
           </div>
         </div>
         <div style="padding:0 1.25rem 0.75rem;font-size:0.75rem;color:var(--brown-warm);font-style:italic;text-align:center;">
@@ -1378,24 +1394,25 @@ function calcularTotalCarrinho() {
   if (categoriasAtivas.length === 2 && (totalGeral === 50 || totalGeral === 100)) {
     const [a, b] = categoriasAtivas;
     const tabela = COMBOS_MISTOS[totalGeral];
-    // normaliza para proporção em base 100 (ex: 50un com 25+25 = 50%-50%)
     const fator = 100 / totalGeral;
-    const maiorPct = Math.max(a.qtd, b.qtd) * fator;
-    const menorPct = Math.min(a.qtd, b.qtd) * fator;
-    const chave = `${maiorPct}-${menorPct}`;
+    const pctA = a.qtd * fator;
+    const pctB = b.qtd * fator;
+    const chave = `${pctA}-${pctB}`;
     if (tabela[chave] !== undefined) {
       precoCombo = tabela[chave];
     }
   }
 
-  const total = precoCombo !== null
-    ? precoCombo
-    : carrinho.reduce((s, i) => s + calcularPrecoItem(
-        i.tipo, i.qtd,
-        i.tipo === 'Tradicional' ? totalTrad : i.tipo === 'Frutas' ? totalFrutas : totalGourmet
-      ), 0);
+  // Soma normal (sem combo) — usada para calcular o desconto a exibir
+  const subtotalNormal = carrinho.reduce((s, i) => s + calcularPrecoItem(
+    i.tipo, i.qtd,
+    i.tipo === 'Tradicional' ? totalTrad : i.tipo === 'Frutas' ? totalFrutas : totalGourmet
+  ), 0);
 
-  return { total, totalTrad, totalFrutas, totalGourmet, totalGeral };
+  const total = precoCombo !== null ? precoCombo : subtotalNormal;
+  const descontoCombo = precoCombo !== null ? Math.max(0, subtotalNormal - precoCombo) : 0;
+
+  return { total, totalTrad, totalFrutas, totalGourmet, totalGeral, descontoCombo };
 }
 
 function fmtBRL(v) {
@@ -1731,7 +1748,7 @@ function atualizarCarrinho() {
   container.appendChild(btnLimpar);
 
   // resumo de preços
-const { total, totalTrad, totalFrutas, totalGourmet } = calcularTotalCarrinho();
+const { total, totalTrad, totalFrutas, totalGourmet, descontoCombo } = calcularTotalCarrinho();
   const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
 
   let resumoHTML = `<div class="carrinho-resumo">`;
@@ -1761,8 +1778,11 @@ const { total, totalTrad, totalFrutas, totalGourmet } = calcularTotalCarrinho();
     else if (totalTipoAtual >= 25)  precoReal = tab[25]  / 25;
     else                            precoReal = precoAvulso;
     return s + (precoAvulso - precoReal) * i.qtd;
-  }, 0);
+  }, 0) + descontoCombo;
 
+  if (descontoCombo > 0) {
+    resumoHTML += `<div class="carrinho-resumo-linha" style="color:var(--green);font-weight:700;"><span>🎁 Desconto Combo Misto</span><span>- ${fmtBRL(descontoCombo)}</span></div>`;
+  }
   resumoHTML += `<div class="carrinho-resumo-linha total"><span>Total estimado</span><span>${fmtBRL(total)}</span></div>`;
   if (economiaTotal > 0) {
     resumoHTML += `<div class="carrinho-resumo-linha economia">🎉 Você economizou ${fmtBRL(economiaTotal)} vs preço avulso!</div>`;
