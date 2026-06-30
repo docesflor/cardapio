@@ -474,6 +474,111 @@
   .status-bar { text-align: center; font-size: 0.82rem; color: #888; min-height: 1.5rem; }
   .status-bar.ok   { color: #4A7C59; }
   .status-bar.erro { color: #C0392B; }
+
+  @media (max-width: 640px) {
+    body {
+      overflow-x: hidden;
+    }
+
+    .header-inner {
+      padding: 1rem 1rem 0.75rem;
+    }
+
+    .logo-ring {
+      width: 120px;
+      height: 120px;
+    }
+
+    .header-title h1 {
+      font-size: 2.2rem;
+    }
+
+    .editor-page {
+      width: 100%;
+      padding: 1.25rem 0.75rem 2rem;
+    }
+
+    .editor-panel {
+      max-width: 100%;
+      padding: 0.9rem;
+      border-radius: 14px;
+      gap: 1rem;
+      overflow: hidden;
+    }
+
+    .editor-row {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .editor-col,
+    .sabor-list,
+    .sabor-item {
+      min-width: 0;
+    }
+
+    .sabor-item input[type="text"] {
+      min-width: 0;
+      font-size: 0.9rem;
+    }
+
+    .editor-precos,
+    .editor-combos {
+      padding: 0.8rem;
+    }
+
+    .preco-grid {
+      grid-template-columns: minmax(76px, 0.95fr) repeat(3, minmax(0, 1fr));
+      gap: 0.35rem;
+    }
+
+    .preco-header {
+      font-size: 0.62rem;
+      word-break: break-word;
+    }
+
+    .preco-label {
+      font-size: 0.72rem;
+      line-height: 1.2;
+    }
+
+    .preco-grid input,
+    .combo-row input {
+      min-width: 0;
+      padding: 0.35rem 0.25rem;
+      font-size: 0.74rem;
+    }
+
+    .combo-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+    }
+
+    .combo-row:first-of-type > div:first-child {
+      display: none;
+    }
+
+    .combo-row label {
+      grid-column: 1 / -1;
+      line-height: 1.25;
+    }
+
+    .action-bar {
+      gap: 0.6rem;
+    }
+
+    .btn-gerar,
+    .btn-exportar {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .preview-wrapper {
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+  }
 </style>
 </head>
 <body>
