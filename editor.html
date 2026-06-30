@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no">
 <title>Editor de Cardápio — Doces Flor</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="dom-to-image.min.js"></script>
@@ -370,6 +371,12 @@
     display: inline-flex; align-items: center; gap: 0.4rem;
     padding: 0.42rem 1.05rem; border-radius: 50px; font-size: 0.9rem;
     font-weight: 500; color: white;
+    text-decoration: none;
+    -webkit-text-decoration: none;
+  }
+  .contact-pill span {
+    text-decoration: none;
+    -webkit-text-decoration: none;
   }
   .contact-pill.wpp { background: #25D366; }
   .contact-pill.ig {
@@ -691,14 +698,13 @@
           <img id="logoImg"
                src="icone.png"
                alt="Doces Flor"
-               crossorigin="anonymous"
                onerror="this.style.display='none';document.getElementById('logoFb').style.display='flex';">
           <div class="card-logo-fallback" id="logoFb" style="display:none;">DF</div>
         </div>
         <h1>Doces <span>Flor</span></h1>
         <div class="subtitulo">Doces Artesanais</div>
         <div class="card-header-contacts">
-          <span class="contact-pill wpp">(47) 9 9274-5896</span>
+          <span class="contact-pill wpp"><span>(47)</span><span>9 9274-5896</span></span>
           <span class="contact-pill ig">@docesflorjgs</span>
         </div>
       </div>
@@ -1015,6 +1021,35 @@
   }
   window.addEventListener('resize', ajustarZoom);
 
+  function blobParaDataUrl(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  async function prepararLogoParaExportar() {
+    const img = document.getElementById('logoImg');
+    const fallback = document.getElementById('logoFb');
+    if (!img || !img.getAttribute('src') || img.src.startsWith('data:')) return;
+
+    try {
+      const resposta = await fetch(img.getAttribute('src'), { cache: 'reload' });
+      if (!resposta.ok) throw new Error('Logo não encontrada');
+
+      img.src = await blobParaDataUrl(await resposta.blob());
+      img.style.display = 'block';
+      if (fallback) fallback.style.display = 'none';
+
+      if (img.decode) await img.decode();
+    } catch (e) {
+      img.style.display = 'none';
+      if (fallback) fallback.style.display = 'flex';
+    }
+  }
+
   // ─────────────────────────────────────────────
   // EXPORTAR PNG
   // ─────────────────────────────────────────────
@@ -1033,6 +1068,9 @@
     const el = document.getElementById('cardapio');
 
     try {
+      await prepararLogoParaExportar();
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;
+
       const dataUrl = await domtoimage.toPng(el, {
         width:   el.offsetWidth,
         height:  el.scrollHeight,
