@@ -1181,7 +1181,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
+  <div class="footer-inner"></br>
     <h3>Faça seu pedido</h3>
     <p>Encomendas com antecedência · Entrega em Jaraguá do Sul e região</p>
     <div class="footer-links">
@@ -1917,12 +1917,47 @@ document.getElementById('qtdModal').addEventListener('click', function(e) {
     const grid = document.getElementById('depoimentos-grid');
     grid.innerHTML = lista.map(d => `
       <div class="depoimento-card">
-        <div class="depoimento-estrelas">★★★★★</div>
+        <div class="depoimento-estrelas" style="font-size:1.8rem;">😊</div>
         <p class="depoimento-texto">"${escaparHTMLDepoimento(d.comentario)}"</p>
         <span class="depoimento-autor">— ${escaparHTMLDepoimento(d.nome || 'Cliente')}</span>
       </div>
     `).join('');
   }).catch(err => console.error('Erro ao carregar depoimentos:', err));
+
+  // ── Resumo geral (rostinhos) ──
+  dbDepoimentos.ref('estatisticas-avaliacoes').once('value').then(snap => {
+    const dados = snap.val() || {};
+    const n1 = dados.nota1 || 0, n2 = dados.nota2 || 0, n3 = dados.nota3 || 0;
+    const total = n1 + n2 + n3;
+    if (total === 0) return;
+    const media = (n1*1 + n2*2 + n3*3) / total;
+    const emojiMedia = media >= 2.6 ? '😊' : media >= 1.6 ? '😐' : '😞';
+
+    const resumo = document.createElement('div');
+    resumo.style.cssText = 'background:#FEF3C7;border-radius:16px;padding:1.5rem;max-width:480px;margin:2rem auto 0;';
+    resumo.innerHTML = `
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div style="text-align:center;flex-shrink:0;">
+          <div style="font-size:2rem;line-height:1;">${emojiMedia}</div>
+          <div style="font-size:0.9rem;font-weight:700;color:#92400E;margin-top:4px;">${media.toFixed(1)}/3</div>
+          <div style="font-size:0.7rem;color:#92400E;margin-top:4px;">${total} avaliações</div>
+        </div>
+        <div style="flex:1;">
+          ${[[3,'😊',n3],[2,'😐',n2],[1,'😞',n1]].map(([nota,emoji,qtd]) => `
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="width:22px;font-size:0.95rem;">${emoji}</span>
+              <div style="flex:1;background:rgba(146,64,14,0.15);border-radius:6px;height:7px;">
+                <div style="background:#E8943A;height:7px;border-radius:6px;width:${total>0?Math.round((qtd/total)*100):0}%;"></div>
+              </div>
+              <span style="font-size:0.72rem;color:#92400E;width:20px;text-align:right;">${qtd}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+    document.getElementById('depoimentos').querySelector('main, .depoimentos-grid').after
+      ? document.getElementById('depoimentos-grid').after(resumo)
+      : document.getElementById('depoimentos').appendChild(resumo);
+  }).catch(err => console.error('Erro ao carregar resumo de avaliações:', err));
 })();
 
 </script>
