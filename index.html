@@ -1929,7 +1929,10 @@ document.getElementById('qtdModal').addEventListener('click', function(e) {
     const dados = snap.val() || {};
     const n1 = dados.nota1 || 0, n2 = dados.nota2 || 0, n3 = dados.nota3 || 0;
     const total = n1 + n2 + n3;
-    if (total === 0) return;
+    if (total === 0) {
+  console.log('Sem avaliações ainda');
+  return;
+}
     const media = (n1*1 + n2*2 + n3*3) / total;
     const emojiMedia = media >= 2.6 ? '😊' : media >= 1.6 ? '😐' : '😞';
 
@@ -1954,9 +1957,14 @@ document.getElementById('qtdModal').addEventListener('click', function(e) {
           `).join('')}
         </div>
       </div>`;
-    document.getElementById('depoimentos').querySelector('main, .depoimentos-grid').after
-      ? document.getElementById('depoimentos-grid').after(resumo)
-      : document.getElementById('depoimentos').appendChild(resumo);
+
+    const grid = document.getElementById('depoimentos-grid');
+
+if (grid) {
+  grid.after(resumo);
+} else {
+  document.getElementById('depoimentos').appendChild(resumo);
+}
   }).catch(err => console.error('Erro ao carregar resumo de avaliações:', err));
 })();
 
