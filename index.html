@@ -905,6 +905,74 @@
     color: var(--brown-warm);
   }
 
+  /* ── RESUMO DE AVALIAÇÕES (visual estilo iFood) ── */
+  .resumo-avaliacoes {
+    background: #FEF3C7;
+    border-radius: 20px;
+    padding: 1.75rem 1.5rem;
+    max-width: 480px;
+    margin: 2rem auto 0;
+    box-shadow: 0 10px 30px rgba(146,64,14,0.12);
+  }
+  .resumo-topo { text-align: center; margin-bottom: 18px; }
+  .media-emoji { font-size: 2.4rem; line-height: 1; margin-bottom: 4px; }
+  .media-numero {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #92400E;
+    line-height: 1;
+  }
+  .descricao {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--amber);
+    margin-top: 4px;
+  }
+  .total {
+    font-size: 0.75rem;
+    color: #92400E;
+    opacity: 0.75;
+    margin-top: 4px;
+  }
+  .barras { margin-top: 6px; }
+  .barra-linha {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .barra-linha .label { width: 24px; font-size: 0.95rem; text-align: center; }
+  .barra-bg {
+    flex: 1;
+    height: 8px;
+    background: rgba(146,64,14,0.15);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .barra-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--amber), var(--amber-light));
+    border-radius: 10px;
+    transition: width 1s ease;
+  }
+  .barra-linha .valor {
+    width: 20px;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #92400E;
+  }
+
+  .fade-in {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  
 /* ── BANNER SAZONAL ── */
   .banner-sazonal {
     display: none;
@@ -1936,27 +2004,37 @@ document.getElementById('qtdModal').addEventListener('click', function(e) {
     const media = (n1*1 + n2*2 + n3*3) / total;
     const emojiMedia = media >= 2.6 ? '😊' : media >= 1.6 ? '😐' : '😞';
 
-    const resumo = document.createElement('div');
-    resumo.style.cssText = 'background:#FEF3C7;border-radius:16px;padding:1.5rem;max-width:480px;margin:2rem auto 0;';
+    function textoMedia(m) {
+      if (m >= 2.6) return 'Excelente';
+      if (m >= 1.8) return 'Bom';
+      return 'Precisa melhorar';
+    }
+
+    function gerarBarraAvaliacao(emoji, valor, totalGeral) {
+      const pct = totalGeral > 0 ? Math.round((valor / totalGeral) * 100) : 0;
+      return `
+        <div class="barra-linha">
+          <span class="label">${emoji}</span>
+          <div class="barra-bg">
+            <div class="barra-fill" data-largura="${pct}" style="width:0%"></div>
+          </div>
+          <span class="valor">${valor}</span>
+        </div>`;
+    }
+
+const resumo = document.createElement('div');
+    resumo.className = 'resumo-avaliacoes fade-in';
     resumo.innerHTML = `
-      <div style="display:flex;align-items:center;gap:20px;">
-        <div style="text-align:center;flex-shrink:0;">
-          <div style="font-size:2rem;line-height:1;">${emojiMedia}</div>
-          <div style="font-size:0.9rem;font-weight:700;color:#92400E;margin-top:4px;">${media.toFixed(1)}/3</div>
-          <div style="font-size:0.7rem;color:#92400E;margin-top:4px;">${total} avaliações</div>
-        </div>
-        <div style="flex:1;">
-          ${[[3,'😊',n3],[2,'😐',n2],[1,'😞',n1]].map(([nota,emoji,qtd]) => `
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-              <span style="width:22px;font-size:0.95rem;">${emoji}</span>
-              <div style="flex:1;background:rgba(146,64,14,0.15);border-radius:6px;height:7px;">
-                <div style="background:#E8943A;height:7px;border-radius:6px;width:${total>0?Math.round((qtd/total)*100):0}%;"></div>
-              </div>
-              <span style="font-size:0.72rem;color:#92400E;width:20px;text-align:right;">${qtd}</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>`;
+      <div class="resumo-topo">
+        <div class="media-emoji">${emojiMedia}</div>
+        <div class="media-numero">${media.toFixed(1)}<span style="font-size:0.5em;opacity:0.6;">/3</span></div>
+        <div class="descricao">${textoMedia(media)}</div>
+        <div class="total">${total} avaliaç${total === 1 ? 'ão' : 'ões'}</div>
+      </div>
+      <div class="barras">
+        ${[[3,'😊',n3],[2,'😐',n2],[1,'😞',n1]].map(([nota,emoji,qtd]) => gerarBarraAvaliacao(emoji, qtd, total)).join('')}
+      </div>
+    `;
 
     const grid = document.getElementById('depoimentos-grid');
 
@@ -1965,6 +2043,13 @@ if (grid) {
 } else {
   document.getElementById('depoimentos').appendChild(resumo);
 }
+
+// Anima as barrinhas depois que o elemento já está no DOM
+setTimeout(() => {
+  resumo.querySelectorAll('.barra-fill').forEach(el => {
+    el.style.width = el.dataset.largura + '%';
+  });
+}, 150);
   }).catch(err => console.error('Erro ao carregar resumo de avaliações:', err));
 })();
 
