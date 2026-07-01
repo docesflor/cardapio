@@ -972,7 +972,7 @@
     from { transform: translateY(20px); opacity: 0; }
     to   { transform: translateY(0); opacity: 1; }
   }
-  
+
 /* ── BANNER SAZONAL ── */
   .banner-sazonal {
     display: none;
@@ -1997,9 +1997,21 @@ document.getElementById('qtdModal').addEventListener('click', function(e) {
     const dados = snap.val() || {};
     const n1 = dados.nota1 || 0, n2 = dados.nota2 || 0, n3 = dados.nota3 || 0;
     const total = n1 + n2 + n3;
-    if (total === 0) {
-  console.log('Sem avaliações ainda');
-  return;
+if (total === 0) {
+    resumo.innerHTML = `
+        <div class="resumo-avaliacoes fade-in" style="text-align:center;padding:2rem;">
+            <div style="font-size:2.4rem;margin-bottom:8px;">🌸</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#92400E;font-weight:600;">
+                Ainda não temos avaliações
+            </div>
+            <div style="font-size:0.8rem;color:#92400E;opacity:0.7;margin-top:4px;">
+                Seja o primeiro a avaliar!
+            </div>
+        </div>`;
+    const grid = document.getElementById('depoimentos-grid');
+    if (grid) grid.after(resumo);
+    else document.getElementById('depoimentos').appendChild(resumo);
+    return;
 }
     const media = (n1*1 + n2*2 + n3*3) / total;
     const emojiMedia = media >= 2.6 ? '😊' : media >= 1.6 ? '😐' : '😞';
