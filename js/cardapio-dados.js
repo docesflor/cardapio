@@ -1,4 +1,4 @@
-﻿/* DOCES FLOR - CARDAPIO: dados e catalogo */
+/* DOCES FLOR - CARDAPIO: dados e catalogo */
 /* ── DADOS (lidos do repo docesflor/admin) ── */
 const BASE = 'https://raw.githubusercontent.com/docesflor/cardapio/main/imagens_cardapio/';
 const DADOS_CARDAPIO = {
