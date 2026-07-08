@@ -1,4 +1,4 @@
-  /* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════
      CARDÁPIO — ESTILOS ESPECÍFICOS
      Reset, :root (cores) e base do body já vêm de shared/theme.css
      (carregado antes deste arquivo no <head>).
@@ -464,6 +464,28 @@
     overflow-y: auto;
   }
   .carrinho-drawer.aberto { transform: translateY(0); }
+
+  /* Popup centralizado — telas maiores (tablet/desktop) */
+  @media (min-width: 700px) {
+    .carrinho-drawer {
+      bottom: auto; left: 50%; right: auto; top: 50%;
+      width: 100%;
+      max-width: 440px;
+      max-height: 82vh;
+      border-radius: 22px;
+      transform: translate(-50%, -50%) scale(0.94);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+    }
+    .carrinho-drawer.aberto {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
   .carrinho-overlay {
     position: fixed;
     inset: 0;
@@ -494,34 +516,45 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--cream-dark);
+    padding: 0.85rem 0.9rem;
+    margin-bottom: 0.5rem;
+    background: var(--cream);
+    border: 1px solid var(--cream-dark);
+    border-radius: 14px;
     gap: 0.75rem;
   }
-  .carrinho-item-nome {
+  .carrinho-item-info {
     flex: 1;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--brown-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
   }
-  .carrinho-item-tipo {
-    font-size: 0.72rem;
-    color: var(--brown-warm);
-    display: block;
+  .carrinho-item-nome {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--brown-dark);
+    line-height: 1.15;
+  }
+  .carrinho-item-badge {
+    margin-bottom: 0;
+    width: fit-content;
   }
   .carrinho-item-qtd {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-shrink: 0;
   }
   .btn-qtd {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: 1.5px solid var(--amber);
-    background: none;
+    background: var(--white);
     color: var(--amber);
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     cursor: pointer;
     display: flex;
@@ -531,10 +564,10 @@
   }
   .btn-qtd:hover { background: var(--amber); color: var(--white); }
   .carrinho-item-qtd span {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--brown-dark);
-    min-width: 36px;
+    min-width: 38px;
     text-align: center;
   }
   .btn-remover-item {
@@ -545,26 +578,28 @@
     cursor: pointer;
     transition: color 0.2s;
     padding: 0 4px;
+    flex-shrink: 0;
   }
   .btn-remover-item:hover { color: var(--red); }
 
-  /* Resumo do carrinho */
+  /* Resumo do carrinho — mais discreto que os itens, mas total ainda legível */
   .carrinho-resumo {
-    margin-top: 1rem;
-    background: var(--cream);
-    border-radius: 14px;
-    padding: 1rem 1.1rem;
-    border: 1px solid var(--cream-dark);
+    margin-top: 0.9rem;
+    background: none;
+    border-radius: 0;
+    padding: 0.75rem 0 0;
+    border: none;
+    border-top: 1px dashed var(--cream-dark);
   }
   .carrinho-resumo-linha {
     display: flex;
     justify-content: space-between;
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     color: var(--brown-warm);
-    padding: 0.2rem 0;
+    padding: 0.15rem 0;
   }
   .carrinho-resumo-linha.total {
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: var(--brown-dark);
     border-top: 1px solid var(--cream-dark);
@@ -574,9 +609,10 @@
   .carrinho-resumo-linha.economia {
     color: var(--green);
     font-weight: 600;
+    font-size: 0.76rem;
   }
   .carrinho-resumo-nota {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--brown-warm);
     font-style: italic;
     margin-top: 0.5rem;
@@ -938,4 +974,3 @@
       padding: 0.6rem 0.5rem !important;
     }
   }
-  
