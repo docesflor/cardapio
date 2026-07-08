@@ -272,6 +272,13 @@ function removerItem(idx) {
 function abrirCarrinho() {
   gtag('event', 'open_cart', {});
   atualizarCarrinho();
+  const nomeInput = document.getElementById('nomeCarrinho');
+  if (nomeInput && !nomeInput.value) {
+    try {
+      const nomeSalvo = localStorage.getItem('docesflor_nome_cliente');
+      if (nomeSalvo) nomeInput.value = nomeSalvo;
+    } catch(e) {}
+  }
   document.getElementById('carrinhoDrawer').classList.add('aberto');
   document.getElementById('carrinhoOverlay').classList.add('visivel');
   document.body.style.overflow = 'hidden';
@@ -291,17 +298,30 @@ function irParaCategoria(section) {
 }
 function enviarPedidoWhatsApp() {
   if (carrinho.length === 0) return;
+
+  const nomeInput = document.getElementById('nomeCarrinho');
+  const nome = nomeInput.value.trim();
+  if (!nome) {
+    document.getElementById('msgErroNome').textContent = 'Por favor, informe seu nome.';
+    nomeInput.classList.add('input-erro');
+    nomeInput.focus();
+    return;
+  }
+  document.getElementById('msgErroNome').textContent = '';
+  nomeInput.classList.remove('input-erro');
+  try { localStorage.setItem('docesflor_nome_cliente', nome); } catch(e) {}
+
   gtag('event', 'send_order_whatsapp', { items: carrinho.length });
 
-const { total } = calcularTotalCarrinho();
+  const { total } = calcularTotalCarrinho();
   const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
   const obsCliente = (document.getElementById('obsCarrinho')?.value || '').trim();
-  let msg = 'Olá! Gostaria de fazer um pedido:\n\n';
+  let msg = `🌸 *Pedido Doces Flor*\n\n*Nome:* ${nome}\n\n`;
   carrinho.forEach(item => { msg += `• ${item.qtd}x ${item.nome} (${item.tipo})\n`; });
-  msg += `\nTotal: ${totalQtd} unidades`;
-  msg += `\nValor estimado: ${fmtBRL(total)}`;
-  if (obsCliente) msg += `\n\nObservações: ${obsCliente}`;
-  msg += '\n\nPoderia confirmar disponibilidade e valor final?';
+  msg += `\n*Total:* ${totalQtd} unidades`;
+  msg += `\n*Valor estimado:* ${fmtBRL(total)}`;
+  if (obsCliente) msg += `\n\n_Observações:_ ${obsCliente}`;
+  msg += '\n\nPoderia confirmar disponibilidade e valor final? 😊';
 
   window.open('https://wa.me/5547992745896?text=' + encodeURIComponent(msg), '_blank');
 }
