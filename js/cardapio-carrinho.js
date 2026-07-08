@@ -1,4 +1,21 @@
-﻿/* DOCES FLOR - CARDAPIO: carrinho e WhatsApp */
+/* ═══════════════════════════════════════════
+   CARDÁPIO — TOAST, CARRINHO DE COMPRAS E ENVIO WHATSAPP
+   Depende de: cardapio-dados.js
+   Carrega por ÚLTIMO (tem o listener de clique fora do modal de qtd).
+═══════════════════════════════════════════ */
+
+/* ── TOAST ── */
+let toastTimer;
+function showToast(msg, erro = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (erro ? ' erro' : '');
+  requestAnimationFrame(() => t.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ── CARRINHO ── */
 let carrinho = [];
 try {
   const salvo = localStorage.getItem('docesflor_carrinho');
