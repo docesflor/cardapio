@@ -10,13 +10,13 @@
 <!-- Open Graph / WhatsApp -->
 <meta property="og:title" content="Doces Flor – Brigadeiros Artesanais">
 <meta property="og:description" content="Brigadeiros tradicionais e gourmet feitos com carinho. Encomendas em Jaraguá do Sul e região!">
-<meta property="og:image" content="https://docesflor.github.io/shared/icone.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/docesflor/cardapio/main/icone.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="https://docesflor.github.io/shared/icone.png">
-<link rel="apple-touch-icon" href="https://docesflor.github.io/shared/icone.png">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/docesflor/cardapio/main/icone.png">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/docesflor/cardapio/main/icone.png">
 <link rel="manifest" href="manifest.json">
 
 <!-- Firebase (leitura de avaliações para depoimentos) -->
@@ -66,15 +66,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://docesflor.github.io/shared/theme.css">
 
-<link rel="stylesheet" href="https://docesflor.github.io/cardapio/style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- HEADER --> 
+<!-- HEADER -->
 <header>
   <div class="header-inner">
     <div class="logo-ring">
-      <img src="https://docesflor.github.io/shared/icone.png"
+      <img src="https://raw.githubusercontent.com/docesflor/cardapio/main/icone.png"
            alt="Logo Doces Flor — Brigadeiros Artesanais em Jaraguá do Sul"
            width="160" height="160"
            fetchpriority="high"
@@ -372,12 +372,14 @@
   </div>
 </div>
 
-<script src="https://docesflor.github.io/cardapio/js/cardapio-dados.js"></script>
-<script src="https://docesflor.github.io/cardapio/js/cardapio-precos.js"></script>
-<script src="https://docesflor.github.io/cardapio/js/cardapio-cards.js"></script>
-<script src="https://docesflor.github.io/cardapio/js/cardapio-ui.js"></script>
-<script src="https://docesflor.github.io/cardapio/js/cardapio-carrinho.js"></script>
-<script src="https://docesflor.github.io/cardapio/js/cardapio-init.js"></script>
-<script src="https://docesflor.github.io/cardapio/js/cardapio-depoimentos.js"></script>
+
+<!-- ═══════════════════════════════════════════
+     MÓDULOS DO CARDÁPIO — ordem importa:
+     dados → cards → carrinho
+═══════════════════════════════════════════ -->
+<script src="js/cardapio-dados.js"></script>
+<script src="js/cardapio-cards.js"></script>
+<script src="js/cardapio-carrinho.js"></script>
+
 </body>
 </html>
