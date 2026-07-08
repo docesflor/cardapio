@@ -5,7 +5,7 @@
 ═══════════════════════════════════════════ */
 
 /* ── DADOS (lidos do repo docesflor/admin) ── */
-const BASE = 'https://raw.githubusercontent.com/docesflor/cardapio/main/';
+const BASE = 'https://raw.githubusercontent.com/docesflor/cardapio/main/imagens_cardapio/';
 const DADOS_CARDAPIO = {
   "trads": [
     { "nome": "Amendoim",              "fotos": ["amendoim.png"] },
