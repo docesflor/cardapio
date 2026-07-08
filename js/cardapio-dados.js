@@ -9,7 +9,6 @@
    sabor em shared/sabores-precos.js. Se um sabor novo não tiver
    entrada aqui, cai automaticamente na foto placeholder abaixo. ── */
 const BASE = 'https://raw.githubusercontent.com/docesflor/cardapio/main/imagens_cardapio/';
-const FOTO_PLACEHOLDER = 'placeholder.png';
 
 const FOTOS_SABORES = {
   // Tradicionais
@@ -66,9 +65,9 @@ function montarCategoria(nomes) {
     .map(nome => {
       const arquivo = FOTOS_SABORES[nome];
       if (!arquivo) {
-        console.warn(`[cardapio-dados] Sem foto cadastrada para "${nome}" — usando placeholder. Adicione em FOTOS_SABORES.`);
+        console.warn(`[cardapio-dados] Sem foto cadastrada para "${nome}" — card vai usar o visual "foto em breve". Adicione em FOTOS_SABORES quando tiver a foto.`);
       }
-      return { nome, fotos: [BASE + (arquivo || FOTO_PLACEHOLDER)] };
+      return { nome, fotos: arquivo ? [BASE + arquivo] : [] };
     })
     .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
 }
