@@ -164,13 +164,19 @@ function atualizarCarrinho() {
   }
 
   container.innerHTML = '';
+  const tipoInfo = {
+    'Tradicional': { classe: 'trad',    emoji: '🍫' },
+    'Frutas':      { classe: 'frutas',  emoji: '🍓' },
+    'Gourmet':     { classe: 'gourmet', emoji: '✨' }
+  };
   carrinho.forEach((item, idx) => {
     const div = document.createElement('div');
     div.className = 'carrinho-item';
+    const info = tipoInfo[item.tipo] || { classe: 'trad', emoji: '' };
     div.innerHTML = `
-      <div class="carrinho-item-nome">
-        ${item.nome}
-        <span class="carrinho-item-tipo">${item.tipo}</span>
+      <div class="carrinho-item-info">
+        <span class="carrinho-item-nome">${item.nome}</span>
+        <span class="badge badge-${info.classe} carrinho-item-badge">${info.emoji} ${item.tipo}</span>
       </div>
       <div class="carrinho-item-qtd">
         <button class="btn-qtd" onclick="ajustarQtd(${idx}, -25)" aria-label="Diminuir quantidade">−</button>
