@@ -338,6 +338,11 @@
   <div id="carrinhoItens"></div>
   <div id="carrinhoResumo"></div>
   <div style="margin-top:1rem;">
+    <label for="nomeCarrinho" style="font-size:0.78rem;font-weight:600;color:var(--brown-warm);display:block;margin-bottom:0.4rem;letter-spacing:0.03em;text-transform:uppercase;">Seu nome</label>
+    <input type="text" id="nomeCarrinho" placeholder="Como podemos te chamar?" style="width:100%;padding:0.75rem 1rem;border:2px solid var(--cream-dark);border-radius:14px;font-size:0.85rem;font-family:'DM Sans',sans-serif;color:var(--brown-dark);background:var(--cream);outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--cream-dark)'">
+    <div class="msg-erro-qtd" id="msgErroNome" style="margin-top:0.3rem;"></div>
+  </div>
+  <div style="margin-top:1rem;">
     <label for="obsCarrinho" style="font-size:0.78rem;font-weight:600;color:var(--brown-warm);display:block;margin-bottom:0.4rem;letter-spacing:0.03em;text-transform:uppercase;">Observações (opcional)</label>
     <textarea id="obsCarrinho" placeholder="Ex: forminha rosa, data desejada 15/07, entregar no período da tarde..." style="width:100%;padding:0.75rem 1rem;border:2px solid var(--cream-dark);border-radius:14px;font-size:0.85rem;font-family:'DM Sans',sans-serif;color:var(--brown-dark);background:var(--cream);resize:vertical;min-height:72px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--amber)'" onblur="this.style.borderColor='var(--cream-dark)'"></textarea>
   </div>
