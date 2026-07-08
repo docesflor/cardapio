@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════
+  /* ═══════════════════════════════════════════
      CARDÁPIO — ESTILOS ESPECÍFICOS
      Reset, :root (cores) e base do body já vêm de shared/theme.css
      (carregado antes deste arquivo no <head>).
@@ -774,6 +774,7 @@
   }
   .qtd-personalizada input:focus { outline: none; border-color: var(--amber); }
   .qtd-personalizada input.input-erro { border-color: var(--red); }
+  input.input-erro { border-color: var(--red) !important; }
   .qtd-personalizada label {
     font-size: 0.78rem;
     color: var(--brown-warm);
@@ -974,3 +975,4 @@
       padding: 0.6rem 0.5rem !important;
     }
   }
+  
