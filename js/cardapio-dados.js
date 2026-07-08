@@ -16,6 +16,7 @@ const DADOS_CARDAPIO = {
     { "nome": "Dois Amores",           "fotos": ["dois-amores.png"] },
     { "nome": "Leite Ninho",           "fotos": ["leite-ninho.png"] },
     { "nome": "Moranguinho (Nesquik)", "fotos": ["moranguinho.png"] },
+    { "nome": "Morango Ninho",         "fotos": ["morango-ninho.png"] },
     { "nome": "Prestígio",             "fotos": ["prestigio.png"] },
     { "nome": "Quebra Queixo",         "fotos": ["quebra-queixo.png"] },
     { "nome": "Sensação",              "fotos": ["sensacao.png"] },
