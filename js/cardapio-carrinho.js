@@ -15,6 +15,27 @@ function showToast(msg, erro = false) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
 }
 
+/* ── MODAL DE CONFIRMAÇÃO (substitui confirm() nativo) ── */
+function showConfirmModal(mensagem, onConfirm) {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  const box = document.createElement('div');
+  box.style.cssText = 'background:var(--white,#fff);border-radius:16px;padding:24px;max-width:320px;width:100%;text-align:center;font-family:"DM Sans",sans-serif;box-shadow:0 10px 40px rgba(0,0,0,0.3);';
+  box.innerHTML = `
+    <p style="margin:0 0 20px;color:var(--brown-dark,#3E2412);font-size:0.95rem;line-height:1.4;">${escaparHTML(mensagem)}</p>
+    <div style="display:flex;gap:10px;">
+      <button type="button" id="btnConfirmModalCancelar" style="flex:1;padding:10px;border:1.5px solid var(--cream-dark,#E8DCC8);border-radius:50px;background:none;color:var(--brown-warm,#7A5230);font-weight:600;font-family:inherit;cursor:pointer;">Cancelar</button>
+      <button type="button" id="btnConfirmModalOk" style="flex:1;padding:10px;border:none;border-radius:50px;background:var(--amber,#D97706);color:#fff;font-weight:700;font-family:inherit;cursor:pointer;">Confirmar</button>
+    </div>`;
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+  function fechar() { overlay.remove(); document.body.style.overflow = ''; }
+  box.querySelector('#btnConfirmModalCancelar').addEventListener('click', fechar);
+  box.querySelector('#btnConfirmModalOk').addEventListener('click', () => { fechar(); onConfirm(); });
+  overlay.addEventListener('click', e => { if (e.target === overlay) fechar(); });
+}
+
 /* ── CARRINHO ── */
 let carrinho = [];
 try {
@@ -193,10 +214,10 @@ function atualizarCarrinho() {
   btnLimpar.className = 'btn-limpar-carrinho';
   btnLimpar.textContent = 'Limpar carrinho';
   btnLimpar.onclick = () => {
-    if (confirm('Remover todos os itens do pedido?')) {
+    showConfirmModal('Remover todos os itens do pedido?', () => {
       carrinho = [];
       atualizarCarrinho();
-    }
+    });
   };
   container.appendChild(btnLimpar);
 
