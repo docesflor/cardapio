@@ -20,8 +20,22 @@ function toggleFavorito(nome, btnEl) {
     favoritos.push(nome);
     btnEl.classList.add('favorito-ativo');
     btnEl.textContent = '❤';
+    dispararBurstCoracao(btnEl);
   }
   localStorage.setItem('df_favoritos', JSON.stringify(favoritos));
+}
+
+function dispararBurstCoracao(btnEl) {
+  const burst = document.createElement('div');
+  burst.className = 'burst';
+  const angulos = [-60,-20,20,60,90,-90];
+  burst.innerHTML = angulos.map(a => {
+    const rad = a * Math.PI / 180;
+    const tx = Math.cos(rad) * 26, ty = Math.sin(rad) * 26 - 10;
+    return `<span style="--tx:${tx}px;--ty:${ty}px;">❤</span>`;
+  }).join('');
+  btnEl.appendChild(burst);
+  setTimeout(() => burst.remove(), 650);
 }
 
 /* ── BUILD CARDS ── */
@@ -61,6 +75,7 @@ function buildCards(list, containerId, type) {
     btnAdd.textContent = '+ Adicionar ao pedido';
     btnAdd.addEventListener('click', () => {
       gtag('event', 'add_to_cart', { item_name: item.nome, category: type });
+      dispararFlyToCart(card.querySelector('.card-img-wrap img'));
       abrirQtdModal(item.nome, type);
     });
     card.querySelector('.card-body').appendChild(btnAdd);
@@ -82,6 +97,10 @@ function buildCards(list, containerId, type) {
 
 (async () => {
   await carregarDados();
+  ['trad','frutas','gourmet'].forEach(cat => {
+    const sk = document.getElementById(`skeleton-${cat}`);
+    if (sk) sk.style.display = 'none';
+  });
 
   const linhasTabela = [
     { label: 'Caixa 25 un.',   trad: fmtPreco('trad',25),   frutas: fmtPreco('frutas',25),   gourmet: fmtPreco('gourmet',25)  },
@@ -167,6 +186,20 @@ document.addEventListener('keydown', e => {
 });
 
 /* ── BANNER SAZONAL ── */
+function dispararParticulasBanner(emoji) {
+  const banner = document.getElementById('bannerSazonal');
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('span');
+    p.className = 'banner-particula';
+    p.textContent = emoji;
+    p.style.left = `${Math.random() * 90 + 5}%`;
+    p.style.animationDuration = `${3 + Math.random() * 2}s`;
+    p.style.animationDelay = `${Math.random() * 3}s`;
+    p.style.fontSize = `${0.8 + Math.random() * 0.6}rem`;
+    banner.appendChild(p);
+  }
+}
+
 (function() {
   const agora = new Date();
   const mes   = agora.getMonth(); // 0=Jan
@@ -191,6 +224,7 @@ document.addEventListener('keydown', e => {
     document.getElementById('bannerTexto').textContent  = ativo.texto;
     document.getElementById('bannerBadge').textContent  = ativo.badge;
     document.getElementById('bannerSazonal').style.display = 'block';
+    dispararParticulasBanner(ativo.emoji);
   }
 })();
 
@@ -269,4 +303,33 @@ function calcularQuantidadePessoas() {
       <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--brown-dark);margin:6px 0;">${sugerida} brigadeiros</p>
       ${textoCombo}
     </div>`;
+}
+
+function abrirSurpresa() {
+  const favoritos = getFavoritos();
+  const todos = [...trads, ...frutas, ...gourmets].filter(i => !favoritos.includes(i.nome));
+  if (todos.length === 0) return;
+
+  gtag('event', 'sabor_surpresa', {});
+  showToast('🎲 Sorteando...');
+  let contador = 0;
+  const intervalo = setInterval(() => {
+    const aleatorio = todos[Math.floor(Math.random() * todos.length)];
+    showToast(`🎲 ${aleatorio.nome}`);
+    contador++;
+    if (contador > 8) {
+      clearInterval(intervalo);
+      showToast(`✨ Que tal: ${aleatorio.nome}?`);
+      const card = [...document.querySelectorAll('.card h3')].find(h => h.textContent.trim() === aleatorio.nome);
+      if (card) {
+        const secao = card.closest('.section').id;
+        irParaCategoria(secao);
+        setTimeout(() => {
+          card.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.closest('.card').style.boxShadow = '0 0 0 3px var(--amber)';
+          setTimeout(() => { card.closest('.card').style.boxShadow = ''; }, 1600);
+        }, 350);
+      }
+    }
+  }, 120);
 }
