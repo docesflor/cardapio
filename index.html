@@ -67,18 +67,20 @@
   // Notificação Telegram - acesso ao cardápio
   (function() {
     const BOT_TOKEN = '8673405432:AAH9AGF4vKrW_5eXblcodFy3mbS5u6bL0JM';
-    const CHAT_ID = '6374174682';
+    const CHAT_IDS = ['6374174682', 'OUTRO_ID_AQUI']; // adicione quantos precisar
     const agora = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
     const mensagem = `🍬 Novo acesso ao cardápio!\n🕐 ${agora}\n📄 Página: ${window.location.pathname}`;
 
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: mensagem
-      })
-    }).catch(err => console.log('Erro notificação Telegram:', err));
+    CHAT_IDS.forEach(chatId => {
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: mensagem
+        })
+      }).catch(err => console.log('Erro notificação Telegram:', err));
+    });
   })();
 </script>
 
