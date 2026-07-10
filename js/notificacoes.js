@@ -55,15 +55,8 @@
     primeiraVisita = true;
   }
 
-  // ── Dedup de sessão (30 min de janela) ──
-  const JANELA_SESSAO_MS = 30 * 60 * 1000;
-  const ultimaAtividade = parseInt(sessionStorage.getItem('docesflor_sessao_inicio') || '0');
-  const novaSessao = !ultimaAtividade || (agora.getTime() - ultimaAtividade > JANELA_SESSAO_MS);
-  sessionStorage.setItem('docesflor_sessao_inicio', agora.getTime().toString());
+  // ── Dedup de sessão removida: todo acesso notifica ──
   sessionStorage.setItem('docesflor_hora_entrada', agora.getTime().toString());
-
-  // Se não é nova sessão, só registra pageview silenciosa (sem notificar)
-  if (!novaSessao) return;
 
   // ── Contador do dia via Firebase RTDB ──
   function contarEnviar(localizacao) {
