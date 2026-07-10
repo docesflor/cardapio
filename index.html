@@ -102,6 +102,7 @@
   </div>
 </header>
 
+<button id="btnSurpresa" onclick="abrirSurpresa()" style="position:fixed;bottom:6.5rem;right:1.75rem;z-index:999;background:var(--surface-brand);color:var(--on-surface-brand);border:2px solid var(--amber);border-radius:50px;padding:0.6rem 1rem;font-size:0.8rem;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,0.3);cursor:pointer;">🎲 Me surpreenda</button>
 <div class="nav-tabs">
   <button class="nav-tab active" data-section="tradicionais" id="tab-tradicionais">Tradicionais</button>
   <button class="nav-tab" data-section="gourmet" id="tab-gourmet">Gourmet</button>
@@ -132,6 +133,9 @@
       <p class="desc-sabores" id="contador-trad"></p>
     </div>
     <div class="grid" id="grid-trad"></div>
+<div class="skeleton-grid" id="skeleton-trad">
+  <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+</div>
   </section>
 
   <!-- FRUTAS -->
@@ -144,6 +148,9 @@
       <p class="desc-sabores" id="contador-frutas"></p>
     </div>
     <div class="grid" id="grid-frutas"></div>
+<div class="skeleton-grid" id="skeleton-frutas">
+  <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+</div>
   </section>
 
   <!-- GOURMET -->
@@ -156,6 +163,9 @@
       <p class="desc-sabores" id="contador-gourmet"></p>
     </div>
     <div class="grid" id="grid-gourmet"></div>
+<div class="skeleton-grid" id="skeleton-gourmet">
+  <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+</div>
   </section>
 
   <!-- DEPOIMENTOS -->
@@ -335,6 +345,11 @@
 <!-- TOAST -->
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
+<div class="mini-resumo-fixo" id="miniResumoFixo" onclick="abrirCarrinho()">
+  <span id="miniResumoTexto"></span>
+  <span class="mini-resumo-seta">→</span>
+</div>
+
 <!-- CARRINHO FAB -->
 <button class="carrinho-fab" id="carrinhoFab" onclick="abrirCarrinho()" style="display:none;" aria-label="Ver carrinho">
   🛒
@@ -404,6 +419,7 @@
      MÓDULOS DO CARDÁPIO — ordem importa:
      dados → cards → carrinho
 ═══════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.3/confetti.browser.min.js"></script>
 <script src="js/cardapio-dados.js"></script>
 <script src="js/cardapio-cards.js"></script>
 <script src="js/cardapio-carrinho.js"></script>
