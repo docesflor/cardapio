@@ -63,6 +63,25 @@
   gtag('config', 'G-Z4RVTWXSM8');
 </script>
 
+<script>
+  // Notificação Telegram - acesso ao cardápio
+  (function() {
+    const BOT_TOKEN = '8673405432:AAH9AGF4vKrW_5eXblcodFy3mbS5u6bL0JM';
+    const CHAT_ID = '6374174682';
+    const agora = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    const mensagem = `🍬 Novo acesso ao cardápio!\n🕐 ${agora}\n📄 Página: ${window.location.pathname}`;
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: mensagem
+      })
+    }).catch(err => console.log('Erro notificação Telegram:', err));
+  })();
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://docesflor.github.io/shared/theme.css">
 
