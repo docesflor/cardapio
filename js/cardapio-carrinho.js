@@ -319,6 +319,7 @@ function irParaCategoria(section) {
 }
 function enviarPedidoWhatsApp() {
   if (carrinho.length === 0) return;
+  sessionStorage.setItem('docesflor_pedido_enviado', '1');
 
   const nomeInput = document.getElementById('nomeCarrinho');
   const nome = nomeInput.value.trim();
@@ -344,9 +345,22 @@ function enviarPedidoWhatsApp() {
   if (obsCliente) msg += `\n\n_Observações:_ ${obsCliente}`;
   msg += '\n\nPoderia confirmar disponibilidade e valor final? 😊';
 
+  if (window.notificarTelegram) {
+    window.notificarTelegram(`✅ *Pedido enviado via WhatsApp!*\n👤 Cliente: ${nome}\n📦 ${totalQtd} unidades\n💰 ${fmtBRL(total)}`);
+  }
   window.open('https://wa.me/5547992745896?text=' + encodeURIComponent(msg), '_blank');
 }
 
 document.getElementById('qtdModal').addEventListener('click', function(e) {
   if (e.target === this) fecharQtdModal();
+});
+
+/* ── Carrinho abandonado ── */
+window.addEventListener('pagehide', function () {
+  const jaEnviou = sessionStorage.getItem('docesflor_pedido_enviado');
+  if (carrinho.length > 0 && !jaEnviou && window.notificarTelegram) {
+    const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
+    const itens = carrinho.map(i => `${i.qtd}x ${i.nome}`).join(', ');
+    window.notificarTelegram(`🛒 *Carrinho abandonado*\n📦 ${totalQtd} un — ${itens}`);
+  }
 });
