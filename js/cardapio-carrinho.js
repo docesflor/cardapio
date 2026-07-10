@@ -163,6 +163,16 @@ function atualizarCarrinho() {
     return;
   }
 
+  const miniResumo = document.getElementById('miniResumoFixo');
+  if (miniResumo) {
+    if (carrinho.length > 0) {
+      document.getElementById('miniResumoTexto').textContent = `${totalQtd} un · ${fmtBRL(total)} · Ver carrinho`;
+      miniResumo.classList.add('visivel');
+    } else {
+      miniResumo.classList.remove('visivel');
+    }
+  }
+
   // Botões "Adicionar mais"
   const atalhos = document.getElementById('carrinhoAtalhos');
   if (carrinho.length > 0) {
@@ -257,7 +267,7 @@ const { total, totalTrad, totalFrutas, totalGourmet, descontoCombo } = calcularT
   if (descontoCombo > 0) {
     resumoHTML += `<div class="carrinho-resumo-linha" style="color:var(--green);font-weight:700;"><span>🎁 Desconto Combo Misto</span><span>- ${fmtBRL(descontoCombo)}</span></div>`;
   }
-  resumoHTML += `<div class="carrinho-resumo-linha total"><span>Total estimado</span><span>${fmtBRL(total)}</span></div>`;
+  resumoHTML += `<div class="carrinho-resumo-linha total"><span>Total estimado</span><span id="totalCarrinhoAnimado">${fmtBRL(total)}</span></div>`;
   if (economiaTotal > 0) {
     resumoHTML += `<div class="carrinho-resumo-linha economia">🎉 Você economizou ${fmtBRL(economiaTotal)} vs preço avulso!</div>`;
   }
@@ -273,12 +283,21 @@ const { total, totalTrad, totalFrutas, totalGourmet, descontoCombo } = calcularT
       const faltam = proxima - qtdTipo;
       const tab = PRECOS[chave];
       const precoProx = tab[proxima] / proxima;
-      resumoHTML += `<div style="font-size:0.72rem;color:var(--brown-warm);margin-top:4px;">💡 Adicione mais ${faltam} un de ${tipo} e pague R$ ${precoProx.toFixed(2).replace('.',',')} /un</div>`;
+      const anterior = faixas[faixas.indexOf(proxima) - 1] || 0;
+      const pct = Math.min(100, ((qtdTipo - anterior) / (proxima - anterior)) * 100);
+      resumoHTML += `
+        <div style="margin-top:6px;">
+          <div style="font-size:0.72rem;color:var(--brown-warm);margin-bottom:3px;">💡 Faltam ${faltam} un de ${tipo} pra pagar R$ ${precoProx.toFixed(2).replace('.',',')} /un</div>
+          <div style="height:6px;border-radius:10px;background:var(--cream-dark);overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:var(--amber);border-radius:10px;transition:width 0.4s ease;"></div>
+          </div>
+        </div>`;
     }
   });
   resumoHTML += `<p class="carrinho-resumo-nota">* Valor estimado conforme tabela. Prazo mín. 48h. Preço final confirmado pelo WhatsApp.</p>`;
   resumoHTML += `</div>`;
   resumoEl.innerHTML = resumoHTML;
+  animarContador(document.getElementById('totalCarrinhoAnimado'), total);
 }
 
 function ajustarQtd(idx, delta) {
@@ -348,6 +367,9 @@ function enviarPedidoWhatsApp() {
   if (window.notificarTelegram) {
     window.notificarTelegram(`✅ *Pedido enviado via WhatsApp!*\n👤 Cliente: ${nome}\n📦 ${totalQtd} unidades\n💰 ${fmtBRL(total)}`);
   }
+  if (typeof confetti === 'function') {
+    confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 }, colors: ['#E8943A','#8B4513','#FDF8F0'] });
+  }
   window.open('https://wa.me/5547992745896?text=' + encodeURIComponent(msg), '_blank');
 }
 
@@ -364,3 +386,94 @@ window.addEventListener('pagehide', function () {
     window.notificarTelegram(`🛒 *Carrinho abandonado*\n📦 ${totalQtd} un — ${itens}`);
   }
 });
+
+/* ── FLY TO CART ── */
+function dispararFlyToCart(imgEl) {
+  const fab = document.getElementById('carrinhoFab');
+  if (!imgEl || !fab || fab.style.display === 'none') return;
+
+  const imgRect = imgEl.getBoundingClientRect();
+  const fabRect = fab.getBoundingClientRect();
+
+  const clone = imgEl.cloneNode(true);
+  clone.style.cssText = `
+    position:fixed; z-index:9998; border-radius:50%; object-fit:cover;
+    top:${imgRect.top}px; left:${imgRect.left}px;
+    width:${imgRect.width}px; height:${imgRect.height}px;
+    transition: all 0.65s cubic-bezier(0.55,0,1,0.45);
+    pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.3);
+  `;
+  document.body.appendChild(clone);
+
+  requestAnimationFrame(() => {
+    clone.style.top    = `${fabRect.top + fabRect.height/2 - 10}px`;
+    clone.style.left   = `${fabRect.left + fabRect.width/2 - 10}px`;
+    clone.style.width  = '20px';
+    clone.style.height = '20px';
+    clone.style.opacity = '0.3';
+  });
+
+  setTimeout(() => {
+    clone.remove();
+    fab.classList.remove('animando');
+    void fab.offsetWidth;
+    fab.classList.add('animando');
+    setTimeout(() => fab.classList.remove('animando'), 500);
+  }, 650);
+}
+
+let totalAnteriorAnimado = 0;
+function animarContador(el, valorFinal) {
+  if (!el) return;
+  const valorInicial = totalAnteriorAnimado;
+  totalAnteriorAnimado = valorFinal;
+  const duracao = 400;
+  const inicio = performance.now();
+  function passo(agora) {
+    const t = Math.min(1, (agora - inicio) / duracao);
+    const atual = valorInicial + (valorFinal - valorInicial) * (1 - Math.pow(1 - t, 3));
+    el.textContent = fmtBRL(Math.max(0, atual));
+    if (t < 1) requestAnimationFrame(passo);
+  }
+  requestAnimationFrame(passo);
+}
+
+let scrollTimer;
+window.addEventListener('scroll', () => {
+  const mini = document.getElementById('miniResumoFixo');
+  const fab = document.getElementById('carrinhoFab');
+  if (!mini || carrinho.length === 0) return;
+  fab.style.opacity = '0';
+  mini.classList.add('visivel');
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => { fab.style.opacity = '1'; }, 600);
+});
+
+/* ── SWIPE PRA FECHAR O DRAWER ── */
+(function initSwipeDrawer() {
+  const drawer = document.getElementById('carrinhoDrawer');
+  const header = drawer.querySelector('.carrinho-drawer-header');
+  let startY = 0, currentY = 0, arrastando = false;
+
+  header.addEventListener('touchstart', e => {
+    startY = e.touches[0].clientY;
+    arrastando = true;
+    drawer.style.transition = 'none';
+  }, { passive: true });
+
+  header.addEventListener('touchmove', e => {
+    if (!arrastando) return;
+    currentY = e.touches[0].clientY - startY;
+    if (currentY > 0) drawer.style.transform = `translateY(${currentY}px)`;
+  }, { passive: true });
+
+  header.addEventListener('touchend', () => {
+    arrastando = false;
+    drawer.style.transition = '';
+    if (currentY > 90) {
+      fecharCarrinho();
+    }
+    drawer.style.transform = '';
+    currentY = 0;
+  });
+})();
