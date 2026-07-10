@@ -2,9 +2,9 @@
    NOTIFICAÇÕES TELEGRAM — cardápio
    Depende de: firebase-config.js (já carregado antes no <head>)
 ═══════════════════════════════════════════ */
-(function () {
-  const BOT_TOKEN = 'SEU_TOKEN_NOVO_AQUI';
-  const CHAT_IDS = ['6374174682'];
+  (function() {
+    const BOT_TOKEN = '8673405432:AAH9AGF4vKrW_5eXblcodFy3mbS5u6bL0JM';
+    const CHAT_IDS = ['6374174682'];
 
   // ── Filtro de bots/crawlers ──
   const BOT_REGEX = /bot|crawl|spider|slurp|facebookexternalhit|whatsapp|telegrambot|googlebot|bingbot|semrush|ahrefs|mj12bot|petalbot|discordbot|linkedinbot|preview/i;
