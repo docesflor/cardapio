@@ -4,6 +4,26 @@
    Depende de: cardapio-dados.js
 ═══════════════════════════════════════════ */
 
+/* ── FAVORITOS (localStorage, só no navegador do cliente) ── */
+function getFavoritos() {
+  try { return JSON.parse(localStorage.getItem('df_favoritos') || '[]'); }
+  catch(e) { return []; }
+}
+function toggleFavorito(nome, btnEl) {
+  let favoritos = getFavoritos();
+  const idx = favoritos.indexOf(nome);
+  if (idx >= 0) {
+    favoritos.splice(idx, 1);
+    btnEl.classList.remove('favorito-ativo');
+    btnEl.textContent = '♡';
+  } else {
+    favoritos.push(nome);
+    btnEl.classList.add('favorito-ativo');
+    btnEl.textContent = '❤';
+  }
+  localStorage.setItem('df_favoritos', JSON.stringify(favoritos));
+}
+
 /* ── BUILD CARDS ── */
 function buildCards(list, containerId, type) {
   const container = document.getElementById(containerId);
@@ -12,8 +32,12 @@ function buildCards(list, containerId, type) {
     const card  = document.createElement('div');
     card.className = 'card';
 
+    const favoritos = getFavoritos();
+    const ehFavorito = favoritos.includes(item.nome);
+
     card.innerHTML = `
       <div class="card-img-wrap">
+        <button class="btn-favorito ${ehFavorito ? 'favorito-ativo' : ''}" onclick="event.stopPropagation(); toggleFavorito('${item.nome.replace(/'/g,"\\'")}', this)">${ehFavorito ? '❤' : '♡'}</button>
         ${fotos[0] ? `<img src="${fotos[0]}" alt="Brigadeiro sabor ${item.nome} — Doces Flor"
           width="300" height="300" loading="lazy"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
@@ -198,3 +222,51 @@ document.addEventListener('keydown', e => {
     `).join('');
   }).catch(err => console.error('Erro ao carregar depoimentos:', err));
 })();
+
+/* ── BADGE "SABOR MAIS PEDIDO" (calculado no admin) ── */
+(function() {
+  const appDestaque = firebase.initializeApp(window.FIREBASE_CONFIG, "destaqueApp");
+  const dbDestaque = appDestaque.database();
+  dbDestaque.ref('estatisticas-publicas/saborMaisVendido').once('value').then(snap => {
+    const nome = snap.val();
+    if (!nome) return;
+    document.querySelectorAll('.card h3').forEach(h3 => {
+      if (h3.textContent.trim() === nome) {
+        const badge = document.createElement('span');
+        badge.className = 'badge-mais-vendido';
+        badge.textContent = '🔥 Mais pedido';
+        h3.insertAdjacentElement('afterend', badge);
+      }
+    });
+  }).catch(err => console.error('Erro ao carregar destaque:', err));
+})();
+
+/* ── CALCULADORA "PRA QUANTAS PESSOAS" ── */
+function calcularQuantidadePessoas() {
+  const convidados = parseInt(document.getElementById('calcConvidados').value) || 0;
+  const resultado = document.getElementById('calcResultadoPessoas');
+  if (convidados <= 0) {
+    resultado.innerHTML = '<p style="color:var(--red);font-size:0.85em;margin-top:10px;">Informe o número de convidados.</p>';
+    return;
+  }
+
+  const mediaPorPessoa = 4;
+  let sugerida = Math.ceil((convidados * mediaPorPessoa) / 25) * 25;
+  if (sugerida < 25) sugerida = 25;
+
+  let textoCombo;
+  if (sugerida === 50 || sugerida === 100) {
+    const precoMisto = COMBOS_MISTOS[sugerida]['50-50'];
+    textoCombo = `<p style="margin-top:8px;font-size:0.85rem;">💡 Combo mais econômico: <strong>Caixa Mista ${sugerida} un</strong> (metade Tradicional, metade Gourmet) — <strong>${fmtBRL(precoMisto)}</strong></p>`;
+  } else {
+    const precoTrad = calcularPrecoItem('Tradicional', sugerida, sugerida);
+    textoCombo = `<p style="margin-top:8px;font-size:0.85rem;">💰 Estimativa (todos Tradicionais): <strong>${fmtBRL(precoTrad)}</strong></p>`;
+  }
+
+  resultado.innerHTML = `
+    <div style="background:var(--cream);border-radius:14px;padding:16px;margin-top:14px;text-align:center;">
+      <p style="font-size:0.85em;color:var(--brown-warm);">Para <strong>${convidados}</strong> convidados, sugerimos:</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--brown-dark);margin:6px 0;">${sugerida} brigadeiros</p>
+      ${textoCombo}
+    </div>`;
+}
