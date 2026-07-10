@@ -128,13 +128,3 @@
   // Expõe função pro carrinho.js usar (clique WhatsApp / abandono)
   window.notificarTelegram = enviarTelegram;
 })();
-
-    /* ── Carrinho abandonado ── */
-    window.addEventListener('pagehide', function () {
-    const jaEnviou = sessionStorage.getItem('docesflor_pedido_enviado');
-    if (carrinho.length > 0 && !jaEnviou && window.notificarTelegram) {
-        const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
-        const itens = carrinho.map(i => `${i.qtd}x ${i.nome}`).join(', ');
-        window.notificarTelegram(`🛒 *Carrinho abandonado*\n📦 ${totalQtd} un — ${itens}`);
-    }
-    });
