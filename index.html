@@ -63,71 +63,7 @@
   gtag('config', 'G-Z4RVTWXSM8');
 </script>
 
-<script>
-  // Notificação Telegram - acesso ao cardápio
-  (function() {
-    const BOT_TOKEN = '8673405432:AAH9AGF4vKrW_5eXblcodFy3mbS5u6bL0JM';
-    const CHAT_IDS = ['6374174682'];
-    const agora = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-
-    // Detecta dispositivo
-    const ua = navigator.userAgent;
-    let dispositivo = '💻 Desktop';
-    if (/iPhone/i.test(ua)) dispositivo = '📱 iPhone';
-    else if (/Android/i.test(ua)) dispositivo = '📱 Android';
-    else if (/iPad/i.test(ua)) dispositivo = '📱 iPad';
-
-    // Detecta navegador
-    let navegador = 'Outro';
-    if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) navegador = 'Chrome';
-    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) navegador = 'Safari';
-    else if (/Firefox/i.test(ua)) navegador = 'Firefox';
-    else if (/Edg/i.test(ua)) navegador = 'Edge';
-    else if (/Instagram/i.test(ua)) navegador = 'Instagram (in-app)';
-    else if (/WhatsApp/i.test(ua)) navegador = 'WhatsApp (in-app)';
-
-    // De onde veio (referrer)
-    let origem = 'Acesso direto / desconhecido';
-    if (document.referrer) {
-      try {
-        origem = new URL(document.referrer).hostname;
-      } catch(e) {}
-    }
-
-    function enviarNotificacao(localizacao) {
-      const mensagem = `🍬 Novo acesso ao cardápio!
-🕐 ${agora}
-📄 Página: ${window.location.pathname}
-${dispositivo} • ${navegador}
-🔗 Veio de: ${origem}
-📍 Local: ${localizacao}`;
-
-      CHAT_IDS.forEach(chatId => {
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: chatId, text: mensagem })
-        }).catch(err => console.log('Erro notificação Telegram:', err));
-      });
-    }
-
-    // Busca localização aproximada por IP (timeout de 2s pra não travar)
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 2000);
-
-    fetch('https://ipapi.co/json/', { signal: controller.signal })
-      .then(res => res.json())
-      .then(data => {
-        clearTimeout(timeout);
-        const local = `${data.city || '?'}, ${data.region || '?'} (${data.country_name || '?'})`;
-        enviarNotificacao(local);
-      })
-      .catch(() => {
-        clearTimeout(timeout);
-        enviarNotificacao('Não foi possível obter');
-      });
-  })();
-</script>
+<script src="js/notificacoes.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://docesflor.github.io/shared/theme.css">
