@@ -100,11 +100,24 @@
     .then(res => res.json())
     .then(data => {
       clearTimeout(timeout);
+      if (!data || data.error) throw new Error('ipapi falhou');
       contarEnviar(`${data.city || '?'}, ${data.region || '?'} (${data.country_name || '?'})`);
     })
     .catch(() => {
-      clearTimeout(timeout);
-      contarEnviar('Não foi possível obter');
+      // Fallback: tenta um segundo serviço
+      const controller2 = new AbortController();
+      const timeout2 = setTimeout(() => controller2.abort(), 2000);
+      fetch('https://ipwho.is/', { signal: controller2.signal })
+        .then(res => res.json())
+        .then(data => {
+          clearTimeout(timeout2);
+          contarEnviar(`${data.city || '?'}, ${data.region || '?'} (${data.country || '?'})`);
+        })
+        .catch(() => {
+          clearTimeout(timeout2);
+          clearTimeout(timeout);
+          contarEnviar('Não foi possível obter');
+        });
     });
 
   // ── Tempo de permanência (ao sair/fechar) ──
