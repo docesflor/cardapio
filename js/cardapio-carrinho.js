@@ -160,17 +160,9 @@ function atualizarCarrinho() {
   if (carrinho.length === 0) {
     container.innerHTML = '<div class="carrinho-vazio">Nenhum item adicionado ainda.</div>';
     resumoEl.innerHTML  = '';
+    const miniResumoVazio = document.getElementById('miniResumoFixo');
+    if (miniResumoVazio) miniResumoVazio.classList.remove('visivel');
     return;
-  }
-
-  const miniResumo = document.getElementById('miniResumoFixo');
-  if (miniResumo) {
-    if (carrinho.length > 0) {
-      document.getElementById('miniResumoTexto').textContent = `${totalQtd} un · ${fmtBRL(total)} · Ver carrinho`;
-      miniResumo.classList.add('visivel');
-    } else {
-      miniResumo.classList.remove('visivel');
-    }
   }
 
   // Botões "Adicionar mais"
@@ -234,6 +226,12 @@ function atualizarCarrinho() {
   // resumo de preços
 const { total, totalTrad, totalFrutas, totalGourmet, descontoCombo } = calcularTotalCarrinho();
   const totalQtd = carrinho.reduce((s, i) => s + i.qtd, 0);
+
+  const miniResumo = document.getElementById('miniResumoFixo');
+  if (miniResumo) {
+    document.getElementById('miniResumoTexto').textContent = `${totalQtd} un · ${fmtBRL(total)} · Ver carrinho`;
+    miniResumo.classList.add('visivel');
+  }
 
   let resumoHTML = `<div class="carrinho-resumo">`;
   resumoHTML += `<div class="carrinho-resumo-linha"><span>Total de unidades</span><span>${totalQtd} un</span></div>`;
