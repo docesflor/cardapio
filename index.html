@@ -108,15 +108,17 @@
 <div class="surpresa-modal" id="surpresaModal" role="dialog" aria-modal="true" aria-label="Sorteio de sabor">
   <div class="surpresa-box">
     <button class="surpresa-fechar" onclick="fecharSurpresa()" aria-label="Fechar">×</button>
-    <p class="surpresa-label">🎲 Sorteando seu sabor...</p>
-    <div class="surpresa-roleta" id="surpresaRoleta">
-      <div class="surpresa-roleta-item" id="surpresaNomeAtual">—</div>
+    <p class="surpresa-label">🎡 Gire e descubra seu sabor!</p>
+    <div class="surpresa-roleta-wrap" id="surpresaRoletaWrap">
+      <div class="surpresa-ponteiro"></div>
+      <div class="surpresa-roda" id="surpresaRoda"></div>
     </div>
+    <button class="btn-confirmar-qtd" id="btnGirarRoleta" onclick="girarRoleta()">🎡 Girar a roleta</button>
     <div class="surpresa-resultado" id="surpresaResultado" style="display:none;">
       <img id="surpresaFoto" class="surpresa-foto" src="" alt="">
       <h3 id="surpresaNomeFinal"></h3>
-      <button class="btn-confirmar-qtd" onclick="irParaSaborSorteado()">Ver esse sabor 🍫</button>
-      <button class="btn-cancelar-qtd" onclick="abrirSurpresa()">🎲 Sortear de novo</button>
+      <button class="btn-confirmar-qtd" onclick="girarNovamente()">🎡 Girar de novo</button>
+      <button class="btn-cancelar-qtd" onclick="irParaSaborSorteado()">Ver esse sabor 🍫</button>
     </div>
   </div>
 </div>
