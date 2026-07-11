@@ -75,8 +75,7 @@ function buildCards(list, containerId, type) {
     btnAdd.textContent = '+ Adicionar ao pedido';
     btnAdd.addEventListener('click', () => {
       gtag('event', 'add_to_cart', { item_name: item.nome, category: type });
-      dispararFlyToCart(card.querySelector('.card-img-wrap img'));
-      abrirQtdModal(item.nome, type);
+      abrirQtdModal(item.nome, type, card.querySelector('.card-img-wrap img'));
     });
     card.querySelector('.card-body').appendChild(btnAdd);
 
@@ -305,31 +304,88 @@ function calcularQuantidadePessoas() {
     </div>`;
 }
 
+let saborSorteadoAtual = null;
+
 function abrirSurpresa() {
   const favoritos = getFavoritos();
   const todos = [...trads, ...frutas, ...gourmets].filter(i => !favoritos.includes(i.nome));
-  if (todos.length === 0) return;
+  if (todos.length === 0) {
+    showToast('Você já favoritou todos os sabores! 😄');
+    return;
+  }
 
   gtag('event', 'sabor_surpresa', {});
-  showToast('🎲 Sorteando...');
-  let contador = 0;
-  const intervalo = setInterval(() => {
+
+  const modal      = document.getElementById('surpresaModal');
+  const nomeEl      = document.getElementById('surpresaNomeAtual');
+  const roletaBox   = document.getElementById('surpresaRoleta');
+  const resultado   = document.getElementById('surpresaResultado');
+
+  nomeEl.classList.remove('surpresa-parou');
+  resultado.style.display = 'none';
+  roletaBox.style.display = 'flex';
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  const duracaoTotal = 2200;
+  const inicio = performance.now();
+
+  function girar(agora) {
+    const tempoDecorrido = agora - inicio;
     const aleatorio = todos[Math.floor(Math.random() * todos.length)];
-    showToast(`🎲 ${aleatorio.nome}`);
-    contador++;
-    if (contador > 8) {
-      clearInterval(intervalo);
-      showToast(`✨ Que tal: ${aleatorio.nome}?`);
-      const card = [...document.querySelectorAll('.card h3')].find(h => h.textContent.trim() === aleatorio.nome);
-      if (card) {
-        const secao = card.closest('.section').id;
-        irParaCategoria(secao);
-        setTimeout(() => {
-          card.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          card.closest('.card').style.boxShadow = '0 0 0 3px var(--amber)';
-          setTimeout(() => { card.closest('.card').style.boxShadow = ''; }, 1600);
-        }, 350);
-      }
+    nomeEl.textContent = aleatorio.nome;
+
+    if (tempoDecorrido < duracaoTotal) {
+      const progresso = tempoDecorrido / duracaoTotal;
+      const proximoIntervalo = 60 + progresso * progresso * 260; // desacelera conforme se aproxima do fim
+      setTimeout(() => requestAnimationFrame(girar), proximoIntervalo);
+    } else {
+      const sorteado = todos[Math.floor(Math.random() * todos.length)];
+      finalizarSorteio(sorteado);
     }
-  }, 120);
+  }
+  requestAnimationFrame(girar);
+}
+
+function finalizarSorteio(sabor) {
+  saborSorteadoAtual = sabor;
+  const nomeEl = document.getElementById('surpresaNomeAtual');
+  nomeEl.textContent = sabor.nome;
+  nomeEl.classList.add('surpresa-parou');
+
+  setTimeout(() => {
+    document.getElementById('surpresaRoleta').style.display = 'none';
+    const resultado = document.getElementById('surpresaResultado');
+    const foto = document.getElementById('surpresaFoto');
+    const fotoUrl = Array.isArray(sabor.fotos) ? sabor.fotos[0] : sabor.foto;
+    if (fotoUrl) {
+      foto.src = fotoUrl;
+      foto.style.display = 'block';
+    } else {
+      foto.style.display = 'none';
+    }
+    document.getElementById('surpresaNomeFinal').textContent = sabor.nome;
+    resultado.style.display = 'block';
+  }, 500);
+}
+
+function irParaSaborSorteado() {
+  if (!saborSorteadoAtual) return;
+  const nomeAlvo = saborSorteadoAtual.nome;
+  fecharSurpresa();
+  const card = [...document.querySelectorAll('.card h3')].find(h => h.textContent.trim() === nomeAlvo);
+  if (card) {
+    const secao = card.closest('.section').id;
+    irParaCategoria(secao);
+    setTimeout(() => {
+      card.closest('.card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.closest('.card').style.boxShadow = '0 0 0 3px var(--amber)';
+      setTimeout(() => { card.closest('.card').style.boxShadow = ''; }, 1600);
+    }, 350);
+  }
+}
+
+function fecharSurpresa() {
+  document.getElementById('surpresaModal').classList.remove('active');
+  document.body.style.overflow = '';
 }
