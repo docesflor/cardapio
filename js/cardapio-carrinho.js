@@ -124,9 +124,9 @@ function confirmarQtd() {
 
   const nomeAdicionado = itemPendente.nome;
   const imgParaAnimar  = itemPendente.imgEl;
-  dispararFlyToCart(imgParaAnimar);
   fecharQtdModal();
   atualizarCarrinho();
+  dispararFlyToCart(imgParaAnimar);
   showToast(`✓ ${qtd}x ${nomeAdicionado} adicionado!`);
 }
 
@@ -276,8 +276,7 @@ const { total, totalTrad, totalFrutas, totalGourmet, descontoCombo } = calcularT
       const faltam = proxima - qtdTipo;
       const tab = PRECOS[chave];
       const precoProx = tab[proxima] / proxima;
-      const anterior = faixas[faixas.indexOf(proxima) - 1] || 0;
-      const pct = Math.min(100, ((qtdTipo - anterior) / (proxima - anterior)) * 100);
+      const pct = Math.min(100, (qtdTipo / proxima) * 100);
       resumoHTML += `
         <div style="margin-top:6px;">
           <div style="font-size:0.72rem;color:var(--brown-warm);margin-bottom:3px;">💡 Faltam ${faltam} un de ${tipo} pra pagar R$ ${precoProx.toFixed(2).replace('.',',')} /un</div>
