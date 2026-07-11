@@ -44,8 +44,8 @@ try {
 } catch(e) { carrinho = []; }
 let itemPendente = null, qtdSelecionada = 0;
 
-function abrirQtdModal(nome, tipo) {
-  itemPendente  = { nome, tipo: tipo === 'trad' ? 'Tradicional' : tipo === 'frutas' ? 'Frutas' : 'Gourmet' };
+function abrirQtdModal(nome, tipo, imgEl) {
+  itemPendente  = { nome, tipo: tipo === 'trad' ? 'Tradicional' : tipo === 'frutas' ? 'Frutas' : 'Gourmet', imgEl };
   qtdSelecionada = 0;
   document.getElementById('qtdModalNome').textContent = nome;
   document.getElementById('qtdCustom').value = '';
@@ -123,16 +123,11 @@ function confirmarQtd() {
   }
 
   const nomeAdicionado = itemPendente.nome;
+  const imgParaAnimar  = itemPendente.imgEl;
+  dispararFlyToCart(imgParaAnimar);
   fecharQtdModal();
   atualizarCarrinho();
   showToast(`✓ ${qtd}x ${nomeAdicionado} adicionado!`);
-  const fab = document.getElementById('carrinhoFab');
-  if (fab) {
-    fab.classList.remove('animando');
-    void fab.offsetWidth; // força reflow para reiniciar animação
-    fab.classList.add('animando');
-    setTimeout(() => fab.classList.remove('animando'), 500);
-  }
 }
 
 function atualizarCarrinho() {
