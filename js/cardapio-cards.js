@@ -305,6 +305,7 @@ function calcularQuantidadePessoas() {
 }
 
 let saborSorteadoAtual = null;
+let rotacaoAtualRoleta = 0;
 
 function abrirSurpresa() {
   const favoritos = getFavoritos();
@@ -316,57 +317,65 @@ function abrirSurpresa() {
 
   gtag('event', 'sabor_surpresa', {});
 
-  const modal      = document.getElementById('surpresaModal');
-  const nomeEl      = document.getElementById('surpresaNomeAtual');
-  const roletaBox   = document.getElementById('surpresaRoleta');
-  const resultado   = document.getElementById('surpresaResultado');
+  document.getElementById('surpresaResultado').style.display = 'none';
+  document.getElementById('surpresaRoletaWrap').style.display = 'block';
+  document.getElementById('btnGirarRoleta').style.display = 'block';
+  document.getElementById('btnGirarRoleta').disabled = false;
 
-  nomeEl.classList.remove('surpresa-parou');
-  resultado.style.display = 'none';
-  roletaBox.style.display = 'flex';
-  modal.classList.add('active');
+  const roda = document.getElementById('surpresaRoda');
+  roda.style.transition = 'none';
+  roda.style.transform = 'rotate(0deg)';
+  void roda.offsetWidth; // força reflow pra resetar sem animar o giro de volta
+  roda.style.transition = '';
+  rotacaoAtualRoleta = 0;
+
+  document.getElementById('surpresaModal').classList.add('active');
   document.body.style.overflow = 'hidden';
+}
 
-  const duracaoTotal = 2200;
-  const inicio = performance.now();
+function girarRoleta() {
+  const favoritos = getFavoritos();
+  const todos = [...trads, ...frutas, ...gourmets].filter(i => !favoritos.includes(i.nome));
+  if (todos.length === 0) return;
 
-  function girar(agora) {
-    const tempoDecorrido = agora - inicio;
-    const aleatorio = todos[Math.floor(Math.random() * todos.length)];
-    nomeEl.textContent = aleatorio.nome;
+  document.getElementById('btnGirarRoleta').disabled = true;
 
-    if (tempoDecorrido < duracaoTotal) {
-      const progresso = tempoDecorrido / duracaoTotal;
-      const proximoIntervalo = 60 + progresso * progresso * 260; // desacelera conforme se aproxima do fim
-      setTimeout(() => requestAnimationFrame(girar), proximoIntervalo);
-    } else {
-      const sorteado = todos[Math.floor(Math.random() * todos.length)];
-      finalizarSorteio(sorteado);
-    }
-  }
-  requestAnimationFrame(girar);
+  const sorteado = todos[Math.floor(Math.random() * todos.length)];
+  saborSorteadoAtual = sorteado;
+
+  const voltas      = 5 + Math.floor(Math.random() * 3); // 5 a 7 voltas completas
+  const anguloFinal = Math.floor(Math.random() * 360);
+  rotacaoAtualRoleta += voltas * 360 + anguloFinal;
+
+  const roda = document.getElementById('surpresaRoda');
+  roda.style.transform = `rotate(${rotacaoAtualRoleta}deg)`;
+
+  roda.addEventListener('transitionend', function aoTerminar() {
+    roda.removeEventListener('transitionend', aoTerminar);
+    finalizarSorteio(sorteado);
+  }, { once: true });
+}
+
+function girarNovamente() {
+  document.getElementById('surpresaResultado').style.display = 'none';
+  document.getElementById('btnGirarRoleta').style.display = 'block';
+  document.getElementById('btnGirarRoleta').disabled = false;
+  girarRoleta();
 }
 
 function finalizarSorteio(sabor) {
-  saborSorteadoAtual = sabor;
-  const nomeEl = document.getElementById('surpresaNomeAtual');
-  nomeEl.textContent = sabor.nome;
-  nomeEl.classList.add('surpresa-parou');
-
-  setTimeout(() => {
-    document.getElementById('surpresaRoleta').style.display = 'none';
-    const resultado = document.getElementById('surpresaResultado');
-    const foto = document.getElementById('surpresaFoto');
-    const fotoUrl = Array.isArray(sabor.fotos) ? sabor.fotos[0] : sabor.foto;
-    if (fotoUrl) {
-      foto.src = fotoUrl;
-      foto.style.display = 'block';
-    } else {
-      foto.style.display = 'none';
-    }
-    document.getElementById('surpresaNomeFinal').textContent = sabor.nome;
-    resultado.style.display = 'block';
-  }, 500);
+  document.getElementById('btnGirarRoleta').style.display = 'none';
+  const resultado = document.getElementById('surpresaResultado');
+  const foto = document.getElementById('surpresaFoto');
+  const fotoUrl = Array.isArray(sabor.fotos) ? sabor.fotos[0] : sabor.foto;
+  if (fotoUrl) {
+    foto.src = fotoUrl;
+    foto.style.display = 'block';
+  } else {
+    foto.style.display = 'none';
+  }
+  document.getElementById('surpresaNomeFinal').textContent = sabor.nome;
+  resultado.style.display = 'block';
 }
 
 function irParaSaborSorteado() {
