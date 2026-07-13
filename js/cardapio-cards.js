@@ -305,7 +305,7 @@ function calcularQuantidadePessoas() {
 }
 
 let saborSorteadoAtual = null;
-let rotacaoAtualRoleta = 0;
+let intervalDado = null;
 
 function abrirSurpresa() {
   const favoritos = getFavoritos();
@@ -322,12 +322,10 @@ function abrirSurpresa() {
   document.getElementById('btnGirarRoleta').style.display = 'block';
   document.getElementById('btnGirarRoleta').disabled = false;
 
-  const roda = document.getElementById('surpresaRoda');
-  roda.style.transition = 'none';
-  roda.style.transform = 'rotate(0deg)';
-  void roda.offsetWidth; // força reflow pra resetar sem animar o giro de volta
-  roda.style.transition = '';
-  rotacaoAtualRoleta = 0;
+  const nomeGirando = document.getElementById('surpresaNomeGirando');
+  nomeGirando.textContent = '?';
+  nomeGirando.style.color = '';
+  document.getElementById('surpresaDado').style.transform = 'rotate(0deg) scale(1)';
 
   document.getElementById('surpresaModal').classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -343,17 +341,39 @@ function girarRoleta() {
   const sorteado = todos[Math.floor(Math.random() * todos.length)];
   saborSorteadoAtual = sorteado;
 
-  const voltas      = 5 + Math.floor(Math.random() * 3); // 5 a 7 voltas completas
-  const anguloFinal = Math.floor(Math.random() * 360);
-  rotacaoAtualRoleta += voltas * 360 + anguloFinal;
+  const nomeGirando = document.getElementById('surpresaNomeGirando');
+  const dado        = document.getElementById('surpresaDado');
+  nomeGirando.style.color = '';
 
-  const roda = document.getElementById('surpresaRoda');
-  roda.style.transform = `rotate(${rotacaoAtualRoleta}deg)`;
+  const totalTicks = 22; // quantidade de "trocas" de nome até parar
+  let tick = 0;
 
-  roda.addEventListener('transitionend', function aoTerminar() {
-    roda.removeEventListener('transitionend', aoTerminar);
-    finalizarSorteio(sorteado);
-  }, { once: true });
+  if (intervalDado) clearInterval(intervalDado);
+
+  function passoDado() {
+    // sacode o dado a cada troca de nome
+    const anguloAleatorio = Math.random() * 30 - 15;
+    dado.style.transform = `rotate(${anguloAleatorio}deg) scale(0.94)`;
+    setTimeout(() => { dado.style.transform = 'rotate(0deg) scale(1)'; }, 70);
+
+    tick++;
+    if (tick >= totalTicks) {
+      // última troca: já mostra o sabor sorteado
+      nomeGirando.textContent = sorteado.nome;
+      finalizarSorteio(sorteado);
+      return;
+    }
+
+    // mostra um sabor aleatório (pode repetir, é só efeito visual)
+    const aleatorio = todos[Math.floor(Math.random() * todos.length)];
+    nomeGirando.textContent = aleatorio.nome;
+
+    // desacelera: intervalo cresce a cada tick (efeito "freando")
+    const delay = 60 + tick * 6;
+    intervalDado = setTimeout(passoDado, delay);
+  }
+
+  passoDado();
 }
 
 function girarNovamente() {
@@ -364,6 +384,8 @@ function girarNovamente() {
 }
 
 function finalizarSorteio(sabor) {
+  const nomeGirando = document.getElementById('surpresaNomeGirando');
+  if (nomeGirando) nomeGirando.style.color = 'var(--amber)';
   document.getElementById('btnGirarRoleta').style.display = 'none';
   const resultado = document.getElementById('surpresaResultado');
   const foto = document.getElementById('surpresaFoto');
