@@ -393,9 +393,16 @@ function finalizarSorteio(sabor) {
   const resultado = document.getElementById('surpresaResultado');
   document.getElementById('surpresaNomeFinal').textContent = sabor.nome;
   resultado.style.display = 'block';
-  resultado.classList.remove('surpresa-pop');
-  void resultado.offsetWidth;
-  resultado.classList.add('surpresa-pop');
+
+  // força o reinício das animações CSS em cascata (selo, label, card, botões)
+  const elementosAnimados = resultado.querySelectorAll(
+    '.surpresa-selo, .surpresa-resultado-label, .surpresa-nome-card, .btn-ver-sabor, .btn-girar-novo'
+  );
+  elementosAnimados.forEach(el => {
+    el.style.animation = 'none';
+    void el.offsetWidth; // reflow: reseta o estado antes de reaplicar
+    el.style.animation = '';
+  });
 
   if (typeof confetti === 'function') {
     confetti({
