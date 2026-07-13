@@ -115,10 +115,11 @@
     </div>
     <button class="btn-confirmar-qtd" id="btnGirarRoleta" onclick="girarRoleta()">🎲 Girar o dado</button>
     <div class="surpresa-resultado" id="surpresaResultado" style="display:none;">
-      <img id="surpresaFoto" class="surpresa-foto" src="" alt="">
+      <div class="surpresa-selo">🎉</div>
+      <p class="surpresa-resultado-label">Seu sabor é</p>
       <h3 id="surpresaNomeFinal"></h3>
-      <button class="btn-confirmar-qtd" onclick="girarNovamente()">🎡 Girar de novo</button>
-      <button class="btn-cancelar-qtd" onclick="irParaSaborSorteado()">Ver esse sabor 🍫</button>
+      <button class="btn-ver-sabor" onclick="irParaSaborSorteado()">Ver esse sabor 🍫</button>
+      <button class="btn-girar-novo" onclick="girarNovamente()">🎲 Girar de novo</button>
     </div>
   </div>
 </div>
