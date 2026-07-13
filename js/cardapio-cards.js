@@ -378,6 +378,7 @@ function girarRoleta() {
 
 function girarNovamente() {
   document.getElementById('surpresaResultado').style.display = 'none';
+  document.getElementById('surpresaRoletaWrap').style.display = 'flex';
   document.getElementById('btnGirarRoleta').style.display = 'block';
   document.getElementById('btnGirarRoleta').disabled = false;
   girarRoleta();
@@ -387,17 +388,23 @@ function finalizarSorteio(sabor) {
   const nomeGirando = document.getElementById('surpresaNomeGirando');
   if (nomeGirando) nomeGirando.style.color = 'var(--amber)';
   document.getElementById('btnGirarRoleta').style.display = 'none';
+  document.getElementById('surpresaRoletaWrap').style.display = 'none';
+
   const resultado = document.getElementById('surpresaResultado');
-  const foto = document.getElementById('surpresaFoto');
-  const fotoUrl = Array.isArray(sabor.fotos) ? sabor.fotos[0] : sabor.foto;
-  if (fotoUrl) {
-    foto.src = fotoUrl;
-    foto.style.display = 'block';
-  } else {
-    foto.style.display = 'none';
-  }
   document.getElementById('surpresaNomeFinal').textContent = sabor.nome;
   resultado.style.display = 'block';
+  resultado.classList.remove('surpresa-pop');
+  void resultado.offsetWidth;
+  resultado.classList.add('surpresa-pop');
+
+  if (typeof confetti === 'function') {
+    confetti({
+      particleCount: 70,
+      spread: 65,
+      origin: { y: 0.45 },
+      colors: ['#E8943A', '#8B4513', '#639922', '#FDF8F0']
+    });
+  }
 }
 
 function irParaSaborSorteado() {
