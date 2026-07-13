@@ -69,6 +69,49 @@
 <link rel="stylesheet" href="https://docesflor.github.io/shared/theme.css">
 
 <link rel="stylesheet" href="style.css">
+<style>
+/* ✨ MELHORIAS VISUAIS */
+.nav-tab { position: relative; transition: color 0.25s ease; }
+.nav-tab::after {
+  content: ''; position: absolute; left: 50%; bottom: 2px;
+  height: 3px; width: 0; background: var(--amber); border-radius: 2px;
+  transform: translateX(-50%); transition: width 0.35s cubic-bezier(.4,0,.2,1);
+}
+.nav-tab.active::after { width: 60%; }
+
+@keyframes pulsoSurpresa {
+  0%, 100% { box-shadow: 0 6px 20px rgba(0,0,0,0.3), 0 0 0 0 rgba(232,148,58,0.5); }
+  50%      { box-shadow: 0 6px 20px rgba(0,0,0,0.3), 0 0 0 10px rgba(232,148,58,0); }
+}
+#btnSurpresa { animation: pulsoSurpresa 2.5s ease-in-out infinite; }
+
+.section.visible { animation: secaoEntrar 0.45s ease both; }
+@keyframes secaoEntrar {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.depoimento-card { opacity: 0; animation: depoimentoEntrar 0.5s ease forwards; }
+.depoimento-card:nth-child(1) { animation-delay: 0.05s; }
+.depoimento-card:nth-child(2) { animation-delay: 0.15s; }
+.depoimento-card:nth-child(3) { animation-delay: 0.25s; }
+.depoimento-card:nth-child(4) { animation-delay: 0.35s; }
+@keyframes depoimentoEntrar {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.price-tag { position: relative; overflow: hidden; }
+.price-tag::before {
+  content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  animation: brilhoPreco 4s ease-in-out infinite;
+}
+@keyframes brilhoPreco { 0% { left: -60%; } 40% { left: 130%; } 100% { left: 130%; } }
+
+.carrinho-count.pulsar { animation: contadorPulo 0.4s cubic-bezier(.34,1.56,.64,1); }
+@keyframes contadorPulo { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
+</style>
 </head>
 <body>
 
@@ -445,6 +488,19 @@
 <script src="js/cardapio-dados.js"></script>
 <script src="js/cardapio-cards.js"></script>
 <script src="js/cardapio-carrinho.js"></script>
+
+<script>
+(function() {
+  const contador = document.getElementById('carrinhoCount');
+  if (!contador) return;
+  const observer = new MutationObserver(() => {
+    contador.classList.remove('pulsar');
+    void contador.offsetWidth;
+    contador.classList.add('pulsar');
+  });
+  observer.observe(contador, { childList: true, characterData: true, subtree: true });
+})();
+</script>
 
 </body>
 </html>
