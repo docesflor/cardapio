@@ -214,7 +214,7 @@
     position: relative;
   }
   .card:hover {
-    transform: translateY(-8px);
+    transform: perspective(800px) rotateX(var(--tiltX, 0deg)) rotateY(var(--tiltY, 0deg)) translateY(-8px);
     box-shadow: 0 16px 40px rgba(43,18,6,0.2);
   }
   .card-img-wrap {
