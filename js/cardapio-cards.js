@@ -38,6 +38,37 @@ function dispararBurstCoracao(btnEl) {
   setTimeout(() => burst.remove(), 650);
 }
 
+function dispararVooCarrinho(elementoOrigem) {
+  const fab = document.getElementById('carrinhoFab');
+  if (!fab || !elementoOrigem) return;
+
+  const origemRect  = elementoOrigem.getBoundingClientRect();
+  const destinoRect = fab.getBoundingClientRect();
+
+  const voo = document.createElement('div');
+  voo.textContent = '🍫';
+  voo.style.cssText = `
+    position:fixed; z-index:6000; font-size:1.8rem; pointer-events:none;
+    left:${origemRect.left + origemRect.width / 2 - 14}px;
+    top:${origemRect.top + origemRect.height / 2 - 14}px;
+    transition: transform 0.65s cubic-bezier(.35,0,.55,1), opacity 0.65s ease;
+  `;
+  document.body.appendChild(voo);
+
+  requestAnimationFrame(() => {
+    const dx = (destinoRect.left + destinoRect.width / 2) - (origemRect.left + origemRect.width / 2);
+    const dy = (destinoRect.top + destinoRect.height / 2) - (origemRect.top + origemRect.height / 2);
+    voo.style.transform = `translate(${dx}px, ${dy}px) scale(0.25)`;
+    voo.style.opacity = '0.2';
+  });
+
+  setTimeout(() => {
+    voo.remove();
+    fab.classList.add('animando');
+    setTimeout(() => fab.classList.remove('animando'), 500);
+  }, 650);
+}
+
 /* ── BUILD CARDS ── */
 function buildCards(list, containerId, type) {
   const container = document.getElementById(containerId);
@@ -75,6 +106,7 @@ function buildCards(list, containerId, type) {
     btnAdd.textContent = '+ Adicionar ao pedido';
     btnAdd.addEventListener('click', () => {
       gtag('event', 'add_to_cart', { item_name: item.nome, category: type });
+      dispararVooCarrinho(card.querySelector('.card-img-wrap'));
       abrirQtdModal(item.nome, type, card.querySelector('.card-img-wrap img'));
     });
     card.querySelector('.card-body').appendChild(btnAdd);
@@ -88,9 +120,32 @@ function buildCards(list, containerId, type) {
       card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
       card.style.opacity = '1';
       card.style.transform = 'translateY(0)';
+      // limpa o transform inline depois da entrada, senão ele "trava"
+      // o transform do :hover (estilo inline sempre vence o CSS)
+      setTimeout(() => {
+        card.style.transition = '';
+        card.style.transform = '';
+      }, 420);
     }, i * 60);
 
+    ativarTiltCard(card);
     container.appendChild(card);
+  });
+}
+
+function ativarTiltCard(card) {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const tiltY = ((x - rect.width / 2) / (rect.width / 2)) * 8;
+    const tiltX = ((rect.height / 2 - y) / (rect.height / 2)) * 8;
+    card.style.setProperty('--tiltX', tiltX + 'deg');
+    card.style.setProperty('--tiltY', tiltY + 'deg');
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.setProperty('--tiltX', '0deg');
+    card.style.setProperty('--tiltY', '0deg');
   });
 }
 
@@ -146,8 +201,13 @@ document.querySelectorAll('.nav-tab').forEach(btn => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(20px)';
       setTimeout(() => {
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
+        setTimeout(() => {
+          card.style.transition = '';
+          card.style.transform = '';
+        }, 420);
       }, i * 50);
     });
   });
