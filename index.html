@@ -108,12 +108,12 @@
 <div class="surpresa-modal" id="surpresaModal" role="dialog" aria-modal="true" aria-label="Sorteio de sabor">
   <div class="surpresa-box">
     <button class="surpresa-fechar" onclick="fecharSurpresa()" aria-label="Fechar">×</button>
-    <p class="surpresa-label">🎡 Gire e descubra seu sabor!</p>
-    <div class="surpresa-roleta-wrap" id="surpresaRoletaWrap">
-      <div class="surpresa-ponteiro"></div>
-      <div class="surpresa-roda" id="surpresaRoda"></div>
+    <p class="surpresa-label">🎲 Gire e descubra seu sabor!</p>
+    <div class="surpresa-dado-wrap" id="surpresaRoletaWrap">
+      <div class="surpresa-dado" id="surpresaDado">🎲</div>
+      <div class="surpresa-nome-girando" id="surpresaNomeGirando">?</div>
     </div>
-    <button class="btn-confirmar-qtd" id="btnGirarRoleta" onclick="girarRoleta()">🎡 Girar a roleta</button>
+    <button class="btn-confirmar-qtd" id="btnGirarRoleta" onclick="girarRoleta()">🎲 Girar o dado</button>
     <div class="surpresa-resultado" id="surpresaResultado" style="display:none;">
       <img id="surpresaFoto" class="surpresa-foto" src="" alt="">
       <h3 id="surpresaNomeFinal"></h3>
