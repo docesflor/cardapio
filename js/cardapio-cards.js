@@ -280,7 +280,7 @@ function iniciarCarrosselDepoimentos() {
   function passo() {
     const agora = performance.now();
     if (!state.pausado && agora > state.pausaManualAte) {
-      state.pos -= 0.5;
+      state.pos -= 0.7;
       if (Math.abs(state.pos) >= grid.scrollWidth / 2) state.pos = 0;
       grid.style.transform = `translateX(${state.pos}px)`;
     }
