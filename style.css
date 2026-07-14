@@ -869,11 +869,37 @@
 
   /* ── DEPOIMENTOS ── */
   .depoimentos-carousel-wrapper {
+    position: relative;
     overflow: hidden;
     max-width: 900px;
     margin: 0 auto;
     -webkit-mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
     mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
+  }
+  .btn-depoimento-seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--white);
+    color: var(--brown-dark);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-depoimento-seta:hover { background: var(--amber); color: var(--white); transform: translateY(-50%) scale(1.08); }
+  .btn-depoimento-seta.seta-prev { left: 4px; }
+  .btn-depoimento-seta.seta-next { right: 4px; }
+  @media (max-width: 500px) {
+    .btn-depoimento-seta { width: 30px; height: 30px; font-size: 0.95rem; }
   }
   .depoimentos-grid {
     display: flex;
