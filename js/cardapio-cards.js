@@ -38,37 +38,6 @@ function dispararBurstCoracao(btnEl) {
   setTimeout(() => burst.remove(), 650);
 }
 
-function dispararVooCarrinho(elementoOrigem) {
-  const fab = document.getElementById('carrinhoFab');
-  if (!fab || !elementoOrigem) return;
-
-  const origemRect  = elementoOrigem.getBoundingClientRect();
-  const destinoRect = fab.getBoundingClientRect();
-
-  const voo = document.createElement('div');
-  voo.textContent = '🍫';
-  voo.style.cssText = `
-    position:fixed; z-index:6000; font-size:1.8rem; pointer-events:none;
-    left:${origemRect.left + origemRect.width / 2 - 14}px;
-    top:${origemRect.top + origemRect.height / 2 - 14}px;
-    transition: transform 0.65s cubic-bezier(.35,0,.55,1), opacity 0.65s ease;
-  `;
-  document.body.appendChild(voo);
-
-  requestAnimationFrame(() => {
-    const dx = (destinoRect.left + destinoRect.width / 2) - (origemRect.left + origemRect.width / 2);
-    const dy = (destinoRect.top + destinoRect.height / 2) - (origemRect.top + origemRect.height / 2);
-    voo.style.transform = `translate(${dx}px, ${dy}px) scale(0.25)`;
-    voo.style.opacity = '0.2';
-  });
-
-  setTimeout(() => {
-    voo.remove();
-    fab.classList.add('animando');
-    setTimeout(() => fab.classList.remove('animando'), 500);
-  }, 650);
-}
-
 /* ── BUILD CARDS ── */
 function buildCards(list, containerId, type) {
   const container = document.getElementById(containerId);
@@ -106,7 +75,6 @@ function buildCards(list, containerId, type) {
     btnAdd.textContent = '+ Adicionar ao pedido';
     btnAdd.addEventListener('click', () => {
       gtag('event', 'add_to_cart', { item_name: item.nome, category: type });
-      dispararVooCarrinho(card.querySelector('.card-img-wrap'));
       abrirQtdModal(item.nome, type, card.querySelector('.card-img-wrap img'));
     });
     card.querySelector('.card-body').appendChild(btnAdd);
@@ -287,10 +255,49 @@ function dispararParticulasBanner(emoji) {
   }
 })();
 
+/* ── CARROSSEL AUTOMÁTICO DE DEPOIMENTOS ── */
+function iniciarCarrosselDepoimentos() {
+  const grid = document.getElementById('depoimentos-grid');
+  if (!grid || grid.dataset.carrosselAtivo) return;
+
+  const reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduzMovimento) return;
+
+  const cardsOriginais = Array.from(grid.children);
+  if (cardsOriginais.length < 2) return;
+
+  cardsOriginais.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    grid.appendChild(clone);
+  });
+  grid.dataset.carrosselAtivo = '1';
+
+  let pos = 0;
+  let pausado = false;
+  function passo() {
+    if (!pausado) {
+      pos -= 0.4;
+      if (Math.abs(pos) >= grid.scrollWidth / 2) pos = 0;
+      grid.style.transform = `translateX(${pos}px)`;
+    }
+    requestAnimationFrame(passo);
+  }
+  requestAnimationFrame(passo);
+
+  const wrapper = grid.closest('.depoimentos-carousel-wrapper');
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => { pausado = true; });
+    wrapper.addEventListener('mouseleave', () => { pausado = false; });
+  }
+}
+
 /* ── DEPOIMENTOS DINÂMICOS (vindos das avaliações dos clientes) ── */
 (function() {
   const appDepoimentos = firebase.initializeApp(window.FIREBASE_CONFIG, "depoimentosApp");
   const dbDepoimentos = appDepoimentos.database();
+
+  iniciarCarrosselDepoimentos();
 
   dbDepoimentos.ref('depoimentos-publicos').once('value').then(snapshot => {
     if (!snapshot.exists()) return; // mantém os depoimentos fixos de fallback
@@ -313,6 +320,8 @@ function dispararParticulasBanner(emoji) {
         <span class="depoimento-autor">— ${escaparHTML(d.nome || 'Cliente')}</span>
       </div>
     `).join('');
+    delete grid.dataset.carrosselAtivo;
+    iniciarCarrosselDepoimentos();
   }).catch(err => console.error('Erro ao carregar depoimentos:', err));
 })();
 
