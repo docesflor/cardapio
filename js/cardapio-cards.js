@@ -277,7 +277,7 @@ function iniciarCarrosselDepoimentos() {
   let pausado = false;
   function passo() {
     if (!pausado) {
-      pos -= 0.4;
+      pos -= 0.5;
       if (Math.abs(pos) >= grid.scrollWidth / 2) pos = 0;
       grid.style.transform = `translateX(${pos}px)`;
     }
