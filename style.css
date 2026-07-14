@@ -868,12 +868,21 @@
   }
 
   /* ── DEPOIMENTOS ── */
-  .depoimentos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
+  .depoimentos-carousel-wrapper {
+    overflow: hidden;
     max-width: 900px;
     margin: 0 auto;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
+    mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
+  }
+  .depoimentos-grid {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    will-change: transform;
+  }
+  .depoimentos-grid .depoimento-card {
+    flex: 0 0 280px;
   }
   .depoimento-card {
     background: var(--white);
