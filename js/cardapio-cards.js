@@ -255,13 +255,14 @@ function dispararParticulasBanner(emoji) {
   }
 })();
 
-/* ── CARROSSEL AUTOMÁTICO DE DEPOIMENTOS ── */
+/* ── CARROSSEL AUTOMÁTICO DE DEPOIMENTOS (com controle manual) ── */
+let carrosselDepoimentosState = null;
+
 function iniciarCarrosselDepoimentos() {
   const grid = document.getElementById('depoimentos-grid');
   if (!grid || grid.dataset.carrosselAtivo) return;
 
   const reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduzMovimento) return;
 
   const cardsOriginais = Array.from(grid.children);
   if (cardsOriginais.length < 2) return;
@@ -273,13 +274,15 @@ function iniciarCarrosselDepoimentos() {
   });
   grid.dataset.carrosselAtivo = '1';
 
-  let pos = 0;
-  let pausado = false;
+  const state = { pos: 0, pausado: reduzMovimento, pausaManualAte: 0, grid };
+  carrosselDepoimentosState = state;
+
   function passo() {
-    if (!pausado) {
-      pos -= 0.5;
-      if (Math.abs(pos) >= grid.scrollWidth / 2) pos = 0;
-      grid.style.transform = `translateX(${pos}px)`;
+    const agora = performance.now();
+    if (!state.pausado && agora > state.pausaManualAte) {
+      state.pos -= 0.5;
+      if (Math.abs(state.pos) >= grid.scrollWidth / 2) state.pos = 0;
+      grid.style.transform = `translateX(${state.pos}px)`;
     }
     requestAnimationFrame(passo);
   }
@@ -287,9 +290,27 @@ function iniciarCarrosselDepoimentos() {
 
   const wrapper = grid.closest('.depoimentos-carousel-wrapper');
   if (wrapper) {
-    wrapper.addEventListener('mouseenter', () => { pausado = true; });
-    wrapper.addEventListener('mouseleave', () => { pausado = false; });
+    wrapper.addEventListener('mouseenter', () => { state.pausado = true; });
+    wrapper.addEventListener('mouseleave', () => { state.pausado = false; });
   }
+}
+
+function moverCarrosselDepoimentos(direcao) {
+  const state = carrosselDepoimentosState;
+  if (!state) return;
+
+  const larguraCard = 280 + 20; // largura do card (flex: 0 0 280px) + gap de 1.25rem
+  state.pos -= direcao * larguraCard;
+
+  const metade = state.grid.scrollWidth / 2;
+  if (state.pos <= -metade) state.pos += metade;
+  if (state.pos > 0) state.pos -= metade;
+
+  state.grid.style.transition = 'transform 0.4s ease';
+  state.grid.style.transform = `translateX(${state.pos}px)`;
+  setTimeout(() => { state.grid.style.transition = ''; }, 400);
+
+  state.pausaManualAte = performance.now() + 4000; // pausa o auto-scroll por 4s após clique manual
 }
 
 /* ── DEPOIMENTOS DINÂMICOS (vindos das avaliações dos clientes) ── */
