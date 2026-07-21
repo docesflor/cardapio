@@ -873,9 +873,12 @@
     overflow: hidden;
     max-width: 900px;
     margin: 0 auto;
+    touch-action: pan-y;
+    cursor: grab;
     -webkit-mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
     mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
   }
+  .depoimentos-carousel-wrapper.arrastando { cursor: grabbing; }
   .btn-depoimento-seta {
     position: absolute;
     top: 50%;
@@ -899,7 +902,7 @@
   .btn-depoimento-seta.seta-prev { left: 4px; }
   .btn-depoimento-seta.seta-next { right: 4px; }
   @media (max-width: 500px) {
-    .btn-depoimento-seta { width: 30px; height: 30px; font-size: 0.95rem; }
+    .btn-depoimento-seta { display: none; }
   }
   .depoimentos-grid {
     display: flex;
