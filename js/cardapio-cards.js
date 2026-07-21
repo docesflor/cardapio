@@ -300,6 +300,13 @@ function moverCarrosselDepoimentos(direcao) {
   if (!state) return;
 
   const larguraCard = 280 + 20; // largura do card (flex: 0 0 280px) + gap de 1.25rem
+
+  // Alinha a posição atual ao card mais próximo antes de mover.
+  // Necessário porque o auto-scroll desloca state.pos em passos de 0.7px,
+  // então no momento do clique a posição quase nunca é um múltiplo exato
+  // de larguraCard — sem este ajuste, o carrossel para com o card cortado.
+  state.pos = Math.round(state.pos / larguraCard) * larguraCard;
+
   state.pos -= direcao * larguraCard;
 
   const metade = state.grid.scrollWidth / 2;
