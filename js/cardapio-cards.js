@@ -256,6 +256,7 @@ function dispararParticulasBanner(emoji) {
 })();
 
 /* ── CARROSSEL AUTOMÁTICO DE DEPOIMENTOS (com controle manual) ── */
+const LARGURA_CARD_DEPOIMENTO = 280 + 20; // largura do card (flex: 0 0 280px) + gap de 1.25rem
 let carrosselDepoimentosState = null;
 
 function iniciarCarrosselDepoimentos() {
@@ -292,6 +293,47 @@ function iniciarCarrosselDepoimentos() {
   if (wrapper) {
     wrapper.addEventListener('mouseenter', () => { state.pausado = true; });
     wrapper.addEventListener('mouseleave', () => { state.pausado = false; });
+
+    // Arrastar com o dedo (ou mouse) para navegar entre depoimentos
+    let arrastando = false;
+    let arrastoInicioX = 0;
+    let arrastoPosInicial = 0;
+
+    wrapper.addEventListener('pointerdown', (e) => {
+      arrastando = true;
+      arrastoInicioX = e.clientX;
+      arrastoPosInicial = state.pos;
+      state.pausado = true;
+      grid.style.transition = '';
+      wrapper.classList.add('arrastando');
+      wrapper.setPointerCapture(e.pointerId);
+    });
+
+    wrapper.addEventListener('pointermove', (e) => {
+      if (!arrastando) return;
+      const delta = e.clientX - arrastoInicioX;
+      let novaPos = arrastoPosInicial + delta;
+      const metade = grid.scrollWidth / 2;
+      if (novaPos <= -metade) novaPos += metade;
+      if (novaPos > 0) novaPos -= metade;
+      state.pos = novaPos;
+      grid.style.transform = `translateX(${state.pos}px)`;
+    });
+
+    function finalizarArrastoDepoimentos() {
+      if (!arrastando) return;
+      arrastando = false;
+      wrapper.classList.remove('arrastando');
+      state.pos = Math.round(state.pos / LARGURA_CARD_DEPOIMENTO) * LARGURA_CARD_DEPOIMENTO;
+      grid.style.transition = 'transform 0.3s ease';
+      grid.style.transform = `translateX(${state.pos}px)`;
+      setTimeout(() => { grid.style.transition = ''; }, 300);
+      state.pausaManualAte = performance.now() + 4000;
+      state.pausado = false;
+    }
+
+    wrapper.addEventListener('pointerup', finalizarArrastoDepoimentos);
+    wrapper.addEventListener('pointercancel', finalizarArrastoDepoimentos);
   }
 }
 
@@ -299,14 +341,7 @@ function moverCarrosselDepoimentos(direcao) {
   const state = carrosselDepoimentosState;
   if (!state) return;
 
-  const larguraCard = 280 + 20; // largura do card (flex: 0 0 280px) + gap de 1.25rem
-
-  // Alinha a posição atual ao card mais próximo antes de mover.
-  // Necessário porque o auto-scroll desloca state.pos em passos de 0.7px,
-  // então no momento do clique a posição quase nunca é um múltiplo exato
-  // de larguraCard — sem este ajuste, o carrossel para com o card cortado.
-  state.pos = Math.round(state.pos / larguraCard) * larguraCard;
-
+  const larguraCard = LARGURA_CARD_DEPOIMENTO;
   state.pos -= direcao * larguraCard;
 
   const metade = state.grid.scrollWidth / 2;
