@@ -360,8 +360,6 @@ function moverCarrosselDepoimentos(direcao) {
   const appDepoimentos = firebase.initializeApp(window.FIREBASE_CONFIG, "depoimentosApp");
   const dbDepoimentos = appDepoimentos.database();
 
-  iniciarCarrosselDepoimentos();
-
   dbDepoimentos.ref('depoimentos-publicos').once('value').then(snapshot => {
     if (!snapshot.exists()) return; // mantém os depoimentos fixos de fallback
 
@@ -383,8 +381,6 @@ function moverCarrosselDepoimentos(direcao) {
         <span class="depoimento-autor">— ${escaparHTML(d.nome || 'Cliente')}</span>
       </div>
     `).join('');
-    delete grid.dataset.carrosselAtivo;
-    iniciarCarrosselDepoimentos();
   }).catch(err => console.error('Erro ao carregar depoimentos:', err));
 })();
 
