@@ -867,48 +867,18 @@
     vertical-align: middle;
   }
 
-  /* ── DEPOIMENTOS ── */
+  /* ── DEPOIMENTOS (estático, sem carrossel) ── */
   .depoimentos-carousel-wrapper {
     position: relative;
-    overflow: hidden;
     max-width: 900px;
     margin: 0 auto;
-    touch-action: pan-y;
-    cursor: grab;
-    -webkit-mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
-    mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
   }
-  .depoimentos-carousel-wrapper.arrastando { cursor: grabbing; }
-  .btn-depoimento-seta {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 5;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: none;
-    background: var(--white);
-    color: var(--brown-dark);
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-    transition: background 0.2s, transform 0.15s;
-  }
-  .btn-depoimento-seta:hover { background: var(--amber); color: var(--white); transform: translateY(-50%) scale(1.08); }
-  .btn-depoimento-seta.seta-prev { left: 4px; }
-  .btn-depoimento-seta.seta-next { right: 4px; }
-  @media (max-width: 500px) {
-    .btn-depoimento-seta { display: none; }
-  }
+  .btn-depoimento-seta { display: none; }
   .depoimentos-grid {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1.25rem;
-    width: max-content;
-    will-change: transform;
   }
   .depoimentos-grid .depoimento-card {
     flex: 0 0 280px;
